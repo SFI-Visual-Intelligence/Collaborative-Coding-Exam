@@ -5,33 +5,44 @@ from metrics import EntropyPrediction
 
 
 class MetricWrapper(nn.Module):
-    def __init__(self,
-                 EntropyPred:bool = True, 
-                 F1Score:bool = True,
-                 Recall:bool = True,
-                 Precision:bool = True,
-                 Accuracy:bool = True):
+    def __init__(self, *metrics):
         super().__init__()
         self.metrics = {}
-        
-        if EntropyPred:
-            self.metrics['Entropy of Predictions'] = EntropyPrediction()
 
-        if F1Score:
-            self.metrics['F1 Score'] = None 
+        for metric in metrics:
+            self.metrics[metric] = self._get_metric(metric)
         
-        if Recall:
-            self.metrics['Recall'] = None 
-        
-        if Precision:
-            self.metrics['Precision'] = None
-        
-        if Accuracy:
-            self.metrics['Accuracy'] = None
-            
         self.tmp_scores = copy.deepcopy(self.metrics)
         for key in self.tmp_scores:
             self.tmp_scores[key] = []
+
+
+    def _get_metric(self, key):
+        """
+        Get the metric function based on the key
+
+        Args
+        ----
+            key (str): metric name
+
+        Returns
+        -------
+            metric (callable): metric function
+        """
+
+        match key.lower():
+            case 'entropy':
+                return EntropyPrediction()
+            case 'f1':
+                raise NotImplementedError("F1 score not implemented yet")
+            case 'recall':
+                raise NotImplementedError("Recall score not implemented yet")
+            case 'precision':
+                raise NotImplementedError("Precision score not implemented yet")
+            case 'accuracy':
+                raise NotImplementedError("Accuracy score not implemented yet")
+            case _:
+                raise ValueError(f"Metric {key} not supported")
 
     def __call__(self, y_true, y_pred):
         for key in self.metrics:

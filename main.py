@@ -39,12 +39,8 @@ def main():
     parser.add_argument('--dataset', type=str, default='svhn',
                         choices=['svhn'], help='Which dataset to train the model on.')
     
-    parser.add_argument('--EntropyPrediction', type=bool, default=True, help='Include the Entropy Prediction metric in evaluation')
-    parser.add_argument('--F1Score', type=bool, default=True, help='Include the F1Score metric in evaluation')
-    parser.add_argument('--Recall', type=bool, default=True, help='Include the Recall metric in evaluation')
-    parser.add_argument('--Precision', type=bool, default=True, help='Include the Precision metric in evaluation')
-    parser.add_argument('--Accuracy', type=bool, default=True, help='Include the Accuracy metric in evaluation')
-    
+    parser.add_argument("--metric", type=str, default="entropy", choices=['entropy', 'f1', 'recall', 'precision', 'accuracy'], nargs="+", help='Which metric to use for evaluation')
+
     #Training specific values
     parser.add_argument('--epoch', type=int, default=20, help='Amount of training epochs the model will do.')
     parser.add_argument('--learning_rate', type=float, default=0.001, help='Learning rate parameter for model training.')
@@ -61,13 +57,7 @@ def main():
     model = load_model()
     model.to(device)
     
-    metrics = MetricWrapper(
-        EntropyPred = args.EntropyPrediction,
-        F1Score = args.F1Score,
-        Recall = args.Recall,
-        Precision = args.Precision,
-        Accuracy = args.Accuracy
-    )
+    metrics = MetricWrapper(*args.metric)
     
     #Dataset
     traindata = load_data(args.dataset)
