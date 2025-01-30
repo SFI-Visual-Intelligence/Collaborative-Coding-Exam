@@ -1,27 +1,49 @@
+import copy 
+import numpy as np 
 import torch.nn as nn 
 from metrics import EntropyPrediction
 
-def load_metric(metricname:str) -> nn.Module:
-    '''
-    This function returns an instance of a class inhereting from nn.Module. 
-    This class returns the given metric given a set of label - prediction pairs. 
-    
-    Parameters
-    ----------
-    metricname: string
-        string naming the metric to return. 
-    
-    Returns
-    -------
-    Class
-        Returns an instance of a class inhereting from nn.Module.
-    
-    Raises
-    ------
-    ValueError
-        When the metricname parameter does not match any implemented metric, raise this error along with a descriptive message. 
-    '''
-    if metricname == 'EntropyPrediction':
-        return EntropyPrediction()
-    else:
-        raise ValueError(f'Metric: {metricname} has not been implemented. \nCheck the documentation for implemented metrics, or check your spelling')
+
+class MetricWrapper(nn.Module):
+    def __init__(self,
+                 EntropyPred:bool = True, 
+                 F1Score:bool = True,
+                 Recall:bool = True,
+                 Precision:bool = True,
+                 Accuracy:bool = True):
+        super().__init__()
+        self.metrics = {}
+        
+        if EntropyPred:
+            self.metrics['Entropy of Predictions'] = EntropyPrediction()
+
+        if F1Score:
+            self.metrics['F1 Score'] = None 
+        
+        if Recall:
+            self.metrics['Recall'] = None 
+        
+        if Precision:
+            self.metrics['Precision'] = None
+        
+        if Accuracy:
+            self.metrics['Accuracy'] = None
+            
+        self.tmp_scores = copy.deepcopy(self.metrics)
+        for key in self.tmp_scores:
+            self.tmp_scores[key] = []
+
+    def __call__(self, y_true, y_pred):
+        for key in self.metrics:
+            self.tmp_scores[key].append(self.metrics[key](y_true, y_pred))
+        
+    def __getmetrics__(self):
+        return_metrics = {}
+        for key in self.metrics:
+            return_metrics[key] = np.mean(self.tmp_scores[key])
+        
+        return return_metrics
+
+    def __resetvalues__(self):
+        for key in self.tmp_scores:
+            self.tmp_scores[key] = []
