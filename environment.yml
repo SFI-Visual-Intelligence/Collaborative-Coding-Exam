@@ -19,3 +19,4 @@ dependencies:
   - ruff
   - scalene
 prefix: /opt/miniconda3/envs/cc-exam
+
