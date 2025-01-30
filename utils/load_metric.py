@@ -1,6 +1,7 @@
-import copy 
-import numpy as np 
-import torch.nn as nn 
+import copy
+
+import numpy as np
+import torch.nn as nn
 from metrics import EntropyPrediction
 
 
@@ -11,11 +12,10 @@ class MetricWrapper(nn.Module):
 
         for metric in metrics:
             self.metrics[metric] = self._get_metric(metric)
-        
+
         self.tmp_scores = copy.deepcopy(self.metrics)
         for key in self.tmp_scores:
             self.tmp_scores[key] = []
-
 
     def _get_metric(self, key):
         """
@@ -31,15 +31,15 @@ class MetricWrapper(nn.Module):
         """
 
         match key.lower():
-            case 'entropy':
+            case "entropy":
                 return EntropyPrediction()
-            case 'f1':
+            case "f1":
                 raise NotImplementedError("F1 score not implemented yet")
-            case 'recall':
+            case "recall":
                 raise NotImplementedError("Recall score not implemented yet")
-            case 'precision':
+            case "precision":
                 raise NotImplementedError("Precision score not implemented yet")
-            case 'accuracy':
+            case "accuracy":
                 raise NotImplementedError("Accuracy score not implemented yet")
             case _:
                 raise ValueError(f"Metric {key} not supported")
@@ -47,12 +47,12 @@ class MetricWrapper(nn.Module):
     def __call__(self, y_true, y_pred):
         for key in self.metrics:
             self.tmp_scores[key].append(self.metrics[key](y_true, y_pred))
-        
+
     def __getmetrics__(self):
         return_metrics = {}
         for key in self.metrics:
             return_metrics[key] = np.mean(self.tmp_scores[key])
-        
+
         return return_metrics
 
     def __resetvalues__(self):
