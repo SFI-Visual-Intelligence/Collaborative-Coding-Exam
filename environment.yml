@@ -1,0 +1,12 @@
+name: cc-exam
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - myst-parser
+  - sphinx
+  - sphinx-autoapi
+  - sphinx-autobuild
+  - sphinx-rtd-theme
+  - pip
+prefix: /opt/miniconda3/envs/cc-exam
