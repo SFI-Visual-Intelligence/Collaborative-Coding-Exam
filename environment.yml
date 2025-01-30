@@ -9,4 +9,6 @@ dependencies:
   - sphinx-autobuild
   - sphinx-rtd-theme
   - pip
+  - pytest
 prefix: /opt/miniconda3/envs/cc-exam
+

@@ -1,4 +1,4 @@
-Data/
-Results/
-Experiments/
-_build/
+Data/*
+Results/*
+Experiments/*
+env/*
