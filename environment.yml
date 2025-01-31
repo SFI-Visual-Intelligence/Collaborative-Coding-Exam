@@ -1,6 +1,7 @@
 name: cc-exam
 channels:
   - defaults
+  - pytorch
   - conda-forge
 dependencies:
   - python=3.12
@@ -19,5 +20,7 @@ dependencies:
   - pytest
   - ruff
   - scalene
+  - pytorch
+  - torchvision
 prefix: /opt/miniconda3/envs/cc-exam
 
