@@ -73,7 +73,7 @@ def main():
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn"],
+        choices=["svhn", "usps_0-6"],
         help="Which dataset to train the model on.",
     )
 
@@ -119,8 +119,17 @@ def main():
     metrics = MetricWrapper(*args.metric)
 
     # Dataset
-    traindata = load_data(args.dataset)
-    validata = load_data(args.dataset)
+    traindata = load_data(
+        args.dataset,
+        train=True,
+        data_path=args.datafolder,
+        download=args.download_data,
+    )
+    validata = load_data(
+        args.dataset,
+        train=False,
+        data_path=args.datafolder,
+    )
 
     trainloader = DataLoader(traindata,
                              batch_size=args.batchsize,
@@ -144,7 +153,7 @@ def main():
         # Training loop start
         trainingloss = []
         model.train()
-        for x, y in traindata:
+        for x, y in trainloader:
             x, y = x.to(device), y.to(device)
             pred = model.forward(x)
 

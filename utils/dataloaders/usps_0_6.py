@@ -17,19 +17,21 @@ class USPSDataset0_6(Dataset):
 
     Args
     ----
-    path : pathlib.Path
+    data_path : pathlib.Path
         Path to the USPS dataset file.
-    mode : str
-        Mode of the dataset. Must be either 'train' or 'test'.
+    train : bool, optional
+        Mode of the dataset.
     transform : callable, optional
         A function/transform that takes in a sample and returns a transformed version.
+    download : bool, optional
+        Whether to download the Dataset.
 
     Attributes
     ----------
     path : pathlib.Path
         Path to the USPS dataset file.
     mode : str
-        Mode of the dataset.
+        Mode of the dataset, either train or test.
     transform : callable
         A function/transform that takes in a sample and returns a transformed version.
     idx : numpy.ndarray
@@ -59,15 +61,21 @@ class USPSDataset0_6(Dataset):
     6
     """
 
-    def __init__(self, path: Path, mode: str = "train", transform=None):
+    def __init__(
+        self,
+        data_path: Path,
+        train: bool = False,
+        transform=None,
+        download: bool = False,
+    ):
         super().__init__()
-        self.path = path
-        self.mode = mode
+        self.path = list(data_path.glob("*.h5"))[0]
         self.transform = transform
 
-        if self.mode not in ["train", "test"]:
-            raise ValueError("Invalid mode. Must be either 'train' or 'test'")
+        if download:
+            raise NotImplementedError("Download functionality not implemented.")
 
+        self.mode = "train" if train else "test"
         self.idx = self._index()
 
     def _index(self):
