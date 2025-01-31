@@ -11,22 +11,22 @@ from utils import MetricWrapper, createfolders, load_data, load_model
 
 
 def main():
-    '''
-    
+    """
+
     Parameters
     ----------
-    
+
     Returns
     -------
-    
+
     Raises
     ------
-    
-    '''
+
+    """
     parser = argparse.ArgumentParser(
-        prog='',
-        description='',
-        epilog='',
+        prog="",
+        description="",
+        epilog="",
     )
     # Structuture related values
     parser.add_argument(
@@ -105,15 +105,27 @@ def main():
         default=64,
         help="Amount of training images loaded in one go",
     )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="cuda",
+        choices=["cuda", "cpu", "mps"],
+        help="Which device to run the training on.",
+    )
+    parser.add_argument(
+        "--dry_run",
+        action="store_true",
+        help="If true, the code will not run the training loop.",
+    )
 
     args = parser.parse_args()
 
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 
-    device = 'cuda' if th.cuda.is_available() else 'cpu'
+    device = args.device
 
     # load model
-    model = load_model()
+    model = load_model(args.modelname)
     model.to(device)
 
     metrics = MetricWrapper(*args.metric)
@@ -143,6 +155,11 @@ def main():
 
     criterion = nn.CrossEntropyLoss()
     optimizer = th.optim.Adam(model.parameters(), lr=args.learning_rate)
+
+    # This allows us to load all the components without running the training loop
+    if args.dry_run:
+        print("Dry run completed")
+        exit(0)
 
     wandb.init(project='',
                tags=[])
