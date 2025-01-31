@@ -36,6 +36,8 @@ class USPSDataset0_6(Dataset):
         A function/transform that takes in a sample and returns a transformed version.
     idx : numpy.ndarray
         Indices of samples with labels 0-6.
+    num_classes : int
+        Number of classes in the dataset
 
     Methods
     -------
@@ -71,6 +73,7 @@ class USPSDataset0_6(Dataset):
         super().__init__()
         self.path = list(data_path.glob("*.h5"))[0]
         self.transform = transform
+        self.num_classes = 7
 
         if download:
             raise NotImplementedError("Download functionality not implemented.")

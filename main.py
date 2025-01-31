@@ -108,7 +108,7 @@ def main():
     parser.add_argument(
         "--device",
         type=str,
-        default="cuda",
+        default="cpu",
         choices=["cuda", "cpu", "mps"],
         help="Which device to run the training on.",
     )
@@ -124,10 +124,6 @@ def main():
 
     device = args.device
 
-    # load model
-    model = load_model(args.modelname)
-    model.to(device)
-
     metrics = MetricWrapper(*args.metric)
 
     # Dataset
@@ -142,6 +138,20 @@ def main():
         train=False,
         data_path=args.datafolder,
     )
+
+    # Find number of channels in the dataset
+    if len(traindata[0][0].shape) == 2:
+        channels = 1
+    else:
+        channels = traindata[0][0].shape[0]
+
+    # load model
+    model = load_model(
+        args.modelname,
+        in_channels=channels,
+        num_classes=traindata.num_classes,
+    )
+    model.to(device)
 
     trainloader = DataLoader(traindata,
                              batch_size=args.batchsize,
