@@ -44,11 +44,16 @@ def test_createfolders():
             help="Path to where model weights will be saved at the end of training.",
         )
 
-        args = parser.parse_args([
-            "--datafolder", temp_dir / "Data",
-            "--resultfolder", temp_dir / "Results",
-            "--modelfolder", temp_dir / "Experiments"
-        ])
+        args = parser.parse_args(
+            [
+                "--datafolder",
+                temp_dir / "Data",
+                "--resultfolder",
+                temp_dir / "Results",
+                "--modelfolder",
+                temp_dir / "Experiments",
+            ]
+        )
 
         createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 

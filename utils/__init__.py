@@ -1,4 +1,4 @@
-__all__ = ['createfolders', 'load_data', 'load_model', 'MetricWrapper']
+__all__ = ["createfolders", "load_data", "load_model", "MetricWrapper"]
 
 from .createfolders import createfolders
 from .load_data import load_data
