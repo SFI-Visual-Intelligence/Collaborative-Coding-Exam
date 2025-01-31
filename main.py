@@ -196,7 +196,7 @@ def main():
         model.eval()
         with th.no_grad():
             for x, y in valiloader:
-                x = x.to(device)
+                x, y = x.to(device), y.to(device)
                 pred = model.forward(x)
                 loss = criterion(y, pred)
                 evalloss.append(loss.item())
