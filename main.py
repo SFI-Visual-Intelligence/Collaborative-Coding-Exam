@@ -1,4 +1,5 @@
 import argparse
+from pathlib import Path
 
 import numpy as np
 import torch as th
@@ -30,20 +31,20 @@ def main():
     # Structuture related values
     parser.add_argument(
         "--datafolder",
-        type=str,
-        default="Data/",
+        type=Path,
+        default="Data",
         help="Path to where data will be saved during training.",
     )
     parser.add_argument(
         "--resultfolder",
-        type=str,
-        default="Results/",
+        type=Path,
+        default="Results",
         help="Path to where results will be saved during evaluation.",
     )
     parser.add_argument(
         "--modelfolder",
-        type=str,
-        default="Experiments/",
+        type=Path,
+        default="Experiments",
         help="Path to where model weights will be saved at the end of training.",
     )
     parser.add_argument(
@@ -107,7 +108,7 @@ def main():
 
     args = parser.parse_args()
 
-    createfolders(args)
+    createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 
     device = 'cuda' if th.cuda.is_available() else 'cpu'
 
