@@ -2,7 +2,8 @@ import copy
 
 import numpy as np
 import torch.nn as nn
-from metrics import EntropyPrediction
+
+from .metrics import EntropyPrediction
 
 
 class MetricWrapper(nn.Module):
