@@ -80,7 +80,7 @@ def main():
     parser.add_argument(
         "--metric",
         type=str,
-        default="entropy",
+        default=["entropy"],
         choices=["entropy", "f1", "recall", "precision", "accuracy"],
         nargs="+",
         help="Which metric to use for evaluation",
