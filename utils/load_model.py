@@ -1,5 +1,6 @@
 import torch.nn as nn
-from models import MagnusModel
+
+from .models import MagnusModel
 
 
 def load_model(modelname: str) -> nn.Module:
