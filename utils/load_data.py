@@ -1,7 +1,10 @@
+from dataloaders import USPS_0_6
 from torch.utils.data import Dataset
 
 
 def load_data(dataset: str) -> Dataset:
-    raise ValueError(
-        f"Dataset: {dataset} not implemented. \nCheck the documentation for implemented metrics, or check your spelling"
-    )
+    match dataset.lower():
+        case "usps_0-6":
+            return USPS_0_6
+        case _:
+            raise ValueError(f"Dataset: {dataset} not implemented.")
