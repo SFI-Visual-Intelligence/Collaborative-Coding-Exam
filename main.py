@@ -66,7 +66,7 @@ def main():
         "--modelname",
         type=str,
         default="MagnusModel",
-        choices=["MagnusModel"],
+        choices=["MagnusModel", "ChristianModel"],
         help="Model which to be trained on",
     )
     parser.add_argument(
