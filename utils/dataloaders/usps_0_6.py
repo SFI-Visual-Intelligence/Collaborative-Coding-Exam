@@ -106,6 +106,12 @@ class USPSDataset0_6(Dataset):
 
         data = data.reshape(16, 16)
 
+        # one hot encode the target
+        target = np.eye(self.num_classes, dtype=np.float32)[target]
+
+        # Add channel dimension
+        data = np.expand_dims(data, axis=0)
+
         if self.transform:
             data = self.transform(data)
 
