@@ -1,6 +1,4 @@
-import argparse
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
 
 def createfolders(*dirs: Path) -> None:
