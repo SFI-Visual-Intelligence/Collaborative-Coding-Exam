@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - uses: mamba-org/setup-micromamba@v1
+      with:
+        micromamba-version: '2.0.5-0' # any version from https://github.com/mamba-org/micromamba-releases
+        environment-file: environment.yml
+        init-shell: bash
+        cache-environment: true
+        post-cleanup: 'all'
+        generate-run-shell: false
+
+    - name: Run tests
+      run: |
+        PYTHONPATH=. pytest tests
+      shell: bash -el {0}
