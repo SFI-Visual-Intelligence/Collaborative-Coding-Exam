@@ -71,7 +71,7 @@ class USPSDataset0_6(Dataset):
         download: bool = False,
     ):
         super().__init__()
-        self.path = list(data_path.glob("*.h5"))[0]
+        self.path = data_path
         self.transform = transform
         self.num_classes = 7
 
