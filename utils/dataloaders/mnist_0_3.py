@@ -62,7 +62,10 @@ class MNISTDataset0_3(Dataset):
         self.train = train
         self.transform = transform
         self.download = download
+        self.num_classes = 4
         
+        if not self.download and not self._chech_is_downloaded():
+            raise ValueError("Data not found. Set --download-data=True to download the data.")
         if self.download and not self._chech_is_downloaded():
             self._download_data()
             
@@ -121,8 +124,8 @@ class MNISTDataset0_3(Dataset):
             label = int.from_bytes(f.read(1), byteorder="big")  # Read 1 byte for label
 
         with open(self.images_path, "rb") as f:
-            f.seek(16 + index * 28)  # Jump to image position
-            image = np.frombuffer(f.read(28), dtype=np.uint8).reshape(28, 28)  # Read image data
+            f.seek(16 + index * 28*28)  # Jump to image position
+            image = np.frombuffer(f.read(28*28), dtype=np.uint8).reshape(28, 28)  # Read image data
             
         if self.transform:
             image = self.transform(image)
