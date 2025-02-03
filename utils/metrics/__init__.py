@@ -1,3 +1,4 @@
-__all__ = ["EntropyPrediction"]
+__all__ = ["EntropyPrediction", "Recall"]
 
 from .EntropyPred import EntropyPrediction
+from .recall import Recall
