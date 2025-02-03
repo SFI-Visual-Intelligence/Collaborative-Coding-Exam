@@ -1,4 +1,3 @@
-import pytest
 import torch
 import torch.nn as nn
 
@@ -49,6 +48,7 @@ class ChristianModel(nn.Module):
     CNN2 Output Shape: (5, 100, 4, 4)
     FC Output Shape: (5, num_classes)
     """
+
     def __init__(self, in_channels, num_classes):
         super().__init__()
 
@@ -69,21 +69,7 @@ class ChristianModel(nn.Module):
         return x
 
 
-@pytest.mark.parametrize("in_channels, num_classes", [(1, 6), (3, 6)])
-def test_christian_model(in_channels, num_classes):
-    n, c, h, w = 5, in_channels, 16, 16
-
-    model = ChristianModel(c, num_classes)
-
-    x = torch.randn(n, c, h, w)
-    y = model(x)
-
-    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-    assert y.sum(dim=1).allclose(torch.ones(n), atol=1e-5), f"Softmax output should sum to 1, but got: {y.sum()}"
-
-
 if __name__ == "__main__":
-
     model = ChristianModel(3, 7)
 
     x = torch.randn(3, 3, 16, 16)

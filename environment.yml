@@ -18,5 +18,8 @@ dependencies:
   - pytest
   - ruff
   - scalene
+  - pip:
+    - torch
+    - torchvision
 prefix: /opt/miniconda3/envs/cc-exam
 
