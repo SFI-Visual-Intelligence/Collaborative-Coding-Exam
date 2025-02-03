@@ -80,11 +80,23 @@ def main():
     parser.add_argument(
         "--metric",
         type=str,
-        default=["entropy"],
+        default="entropy",
         choices=["entropy", "f1", "recall", "precision", "accuracy"],
         nargs="+",
         help="Which metric to use for evaluation",
     )
+    parser.add_argument('--imagesize',
+                        type=int,
+                        default=28,
+                        help='Size of images')
+    parser.add_argument('--imagechannels',
+                        type=int,
+                        default=1,
+                        choices=[1,3],
+                        help='Number of color channels in the image.')
+    
+    
+    
 
     # Training specific values
     parser.add_argument(
