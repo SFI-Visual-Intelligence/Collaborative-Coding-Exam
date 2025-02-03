@@ -6,6 +6,9 @@ Experiments/
 _build/
 bin/
 
+#Magnus specific
+docker/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
