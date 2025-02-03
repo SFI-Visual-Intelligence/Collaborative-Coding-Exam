@@ -18,6 +18,7 @@ dependencies:
   - pytest
   - ruff
   - scalene
+  - pickle
   - pip:
     - torch
     - torchvision
