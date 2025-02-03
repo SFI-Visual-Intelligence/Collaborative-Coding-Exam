@@ -1,0 +1,35 @@
+name: Format
+
+on:
+  push:
+    paths:
+      - 'utils/**'
+  pull_request:
+    paths:
+      - 'utils/**'
+
+jobs:
+  format:
+    name: Run Ruff and isort
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install ruff isort
+
+      - name: Run Ruff check
+        run: |
+          ruff check utils/
+
+      - name: Run isort check
+        run: |
+          isort --check-only utils/

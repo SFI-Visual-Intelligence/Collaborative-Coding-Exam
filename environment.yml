@@ -9,6 +9,14 @@ dependencies:
   - sphinx-autobuild
   - sphinx-rtd-theme
   - pip
+  - h5py
+  - black
+  - isort
+  - jupyterlab
+  - numpy
+  - pandas
   - pytest
+  - ruff
+  - scalene
 prefix: /opt/miniconda3/envs/cc-exam
 
