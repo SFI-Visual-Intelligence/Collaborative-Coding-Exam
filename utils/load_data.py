@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset
 
-from .dataloaders import USPSDataset0_6, MNISTDataset0_3
+from .dataloaders import MNISTDataset0_3, USPSDataset0_6
 
 
 def load_data(dataset: str, *args, **kwargs) -> Dataset:
