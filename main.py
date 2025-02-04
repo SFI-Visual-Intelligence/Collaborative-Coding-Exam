@@ -73,7 +73,7 @@ def main():
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn", "usps_0-6", "uspsh5_7_9"],
+        choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
         help="Which dataset to train the model on.",
     )
 
@@ -149,16 +149,15 @@ def main():
         transform=augmentations,
     )
 
-    # Find number of channels in the dataset
-    if len(traindata[0][0].shape) == 2:
-        channels = 1
-    else:
-        channels = traindata[0][0].shape[0]
+    # Find the shape of the data, if is 2D, add a channel dimension
+    data_shape = traindata[0][0].shape
+    if len(data_shape) == 2:
+        data_shape = (1, *data_shape)
 
     # load model
     model = load_model(
         args.modelname,
-        in_channels=channels,
+        image_shape=data_shape,
         num_classes=traindata.num_classes,
     )
     model.to(device)
