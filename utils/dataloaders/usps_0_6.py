@@ -7,7 +7,7 @@ This module contains the Dataset class for the USPS dataset with labels 0-6.
 import bz2
 import hashlib
 from pathlib import Path
-from tempfile import TemporaryDirectory, TemporaryFile
+from tempfile import TemporaryDirectory
 from urllib.request import urlretrieve
 
 import h5py as h5
