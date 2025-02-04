@@ -88,7 +88,7 @@ class MNISTDataset0_3(Dataset):
         if self.mnist_path.exists():
             required_files = ["train-images-idx3-ubyte", "train-labels-idx1-ubyte", "t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte"]
             if all([(self.mnist_path / file).exists() for file in required_files]):
-                print("Data already downloaded.")
+                print("MNIST Dataset already downloaded.")
                 return True
             else:
                 return False
@@ -126,7 +126,9 @@ class MNISTDataset0_3(Dataset):
         with open(self.images_path, "rb") as f:
             f.seek(16 + index * 28*28)  # Jump to image position
             image = np.frombuffer(f.read(28*28), dtype=np.uint8).reshape(28, 28)  # Read image data
-            
+        
+        image = np.expand_dims(image, axis=0) # Add channel dimension
+        
         if self.transform:
             image = self.transform(image)
             

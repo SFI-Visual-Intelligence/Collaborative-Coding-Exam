@@ -139,16 +139,15 @@ def main():
         data_path=args.datafolder,
     )
 
-    # Find number of channels in the dataset
-    if len(traindata[0][0].shape) == 2:
-        channels = 1
-    else:
-        channels = traindata[0][0].shape[0]
+    # Find the shape of the data, if is 2D, add a channel dimension
+    data_shape = traindata[0][0].shape
+    if len(data_shape) == 2:
+        data_shape = (1, *data_shape)
 
     # load model
     model = load_model(
         args.modelname,
-        in_channels=channels,
+        image_shape=data_shape,
         num_classes=traindata.num_classes,
     )
     model.to(device)

@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from .models import ChristianModel, MagnusModel
+from .models import ChristianModel, MagnusModel, JanModel
 
 
 def load_model(modelname: str, *args, **kwargs) -> nn.Module:
@@ -9,6 +9,8 @@ def load_model(modelname: str, *args, **kwargs) -> nn.Module:
             return MagnusModel(*args, **kwargs)
         case "christianmodel":
             return ChristianModel(*args, **kwargs)
+        case "janmodel":
+            return JanModel(*args, **kwargs)
         case _:
             raise ValueError(
                 f"Model: {modelname} has not been implemented. \nCheck the documentation for implemented metrics, or check your spelling"
