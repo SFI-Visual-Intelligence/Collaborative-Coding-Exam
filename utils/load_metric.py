@@ -6,7 +6,6 @@ import torch.nn as nn
 from .metrics import EntropyPrediction, F1Score, precision
 
 
-
 class MetricWrapper(nn.Module):
     def __init__(self, *metrics):
         super().__init__()
