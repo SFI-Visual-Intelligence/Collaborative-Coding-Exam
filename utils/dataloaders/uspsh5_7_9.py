@@ -1,9 +1,9 @@
-from torch.utils.data import Dataset
-import numpy as np
 import h5py
-from torchvision import transforms
-from PIL import Image
+import numpy as np
 import torch
+from PIL import Image
+from torch.utils.data import Dataset
+from torchvision import transforms
 
 
 class USPSH5_Digit_7_9_Dataset(Dataset):
@@ -95,14 +95,20 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
 
 def main():
     # Example Usage:
-    transform = transforms.Compose([
-        transforms.Resize((16, 16)),  # Ensure images are 16x16
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))  # Normalize to [-1, 1]
-    ])
+    transform = transforms.Compose(
+        [
+            transforms.Resize((16, 16)),  # Ensure images are 16x16
+            transforms.ToTensor(),
+            transforms.Normalize((0.5,), (0.5,)),  # Normalize to [-1, 1]
+        ]
+    )
 
     # Load the dataset
-    dataset = USPSH5_Digit_7_9_Dataset(h5_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git/usps.h5", mode="train", transform=transform)
+    dataset = USPSH5_Digit_7_9_Dataset(
+        h5_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git/usps.h5",
+        mode="train",
+        transform=transform,
+    )
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=2, shuffle=True)
     batch = next(iter(data_loader))  # grab a batch from the dataloader
     img, label = batch
@@ -112,5 +118,6 @@ def main():
     # Check dataset size
     print(f"Dataset size: {len(dataset)}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

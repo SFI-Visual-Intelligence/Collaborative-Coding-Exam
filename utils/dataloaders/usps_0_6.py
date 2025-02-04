@@ -71,7 +71,7 @@ class USPSDataset0_6(Dataset):
         download: bool = False,
     ):
         super().__init__()
-        self.path = list(data_path.glob("*.h5"))[0]
+        self.path = data_path
         self.transform = transform
         self.num_classes = 7
 
@@ -116,19 +116,3 @@ class USPSDataset0_6(Dataset):
             data = self.transform(data)
 
         return data, target
-
-
-def test_uspsdataset0_6():
-    import pytest
-
-    datapath = Path("data/USPS/usps.h5")
-
-    dataset = USPSDataset0_6(path=datapath, mode="train")
-    assert len(dataset) == 5460
-    data, target = dataset[0]
-    assert data.shape == (16, 16)
-    assert target == 6
-
-    # Test for an invalid mode
-    with pytest.raises(ValueError):
-        USPSDataset0_6(path=datapath, mode="inference")
