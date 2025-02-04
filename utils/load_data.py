@@ -4,6 +4,35 @@ from .dataloaders import MNISTDataset0_3, USPSDataset0_6, USPSH5_Digit_7_9_Datas
 
 
 def load_data(dataset: str, *args, **kwargs) -> Dataset:
+    """
+    Load the dataset based on the dataset name.
+
+    Args
+    ----
+    dataset : str
+        Name of the dataset to load.
+    *args : list
+        Additional arguments for the dataset class.
+    **kwargs : dict
+        Additional keyword arguments for the dataset class.
+
+    Returns
+    -------
+    dataset : torch.utils.data.Dataset
+        Dataset object.
+
+    Raises
+    ------
+    NotImplementedError
+        If the dataset is not implemented.
+
+    Examples
+    --------
+    >>> from utils import load_data
+    >>> dataset = load_data("usps_0-6", data_path="data", train=True, download=True)
+    >>> len(dataset)
+    5460
+    """
     match dataset.lower():
         case "usps_0-6":
             return USPSDataset0_6(*args, **kwargs)
@@ -12,4 +41,4 @@ def load_data(dataset: str, *args, **kwargs) -> Dataset:
         case "usps_7-9":
             return USPSH5_Digit_7_9_Dataset(*args, **kwargs)
         case _:
-            raise ValueError(f"Dataset: {dataset} not implemented.")
+            raise NotImplementedError(f"Dataset: {dataset} not implemented.")
