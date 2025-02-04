@@ -3,8 +3,8 @@ import copy
 import numpy as np
 import torch.nn as nn
 
-from .metrics import EntropyPrediction
-from .metrics import precision
+from .metrics import EntropyPrediction, precision
+
 
 class MetricWrapper(nn.Module):
     def __init__(self, *metrics):
