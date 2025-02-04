@@ -29,10 +29,17 @@ class JohanModel(nn.Module):
 
     """
 
-    def __init__(self, in_features, num_classes):
+    def __init__(self, image_shape, num_classes):
         super().__init__()
 
-        self.fc1 = nn.Linear(in_features, 77)
+        # Extract features from image shape
+        self.in_channels = image_shape[0]
+        self.height = image_shape[1]
+        self.width = image_shape[2]
+        self.num_classes = num_classes
+        self.in_features = self.in_channels * self.height * self.width
+
+        self.fc1 = nn.Linear(self.in_features, 77)
         self.fc2 = nn.Linear(77, 77)
         self.fc3 = nn.Linear(77, 77)
         self.fc4 = nn.Linear(77, num_classes)
