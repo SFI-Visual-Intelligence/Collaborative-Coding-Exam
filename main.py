@@ -66,14 +66,14 @@ def main():
         "--modelname",
         type=str,
         default="MagnusModel",
-        choices=["MagnusModel", "ChristianModel"],
+        choices=["MagnusModel", "ChristianModel", "SolveigModel"],
         help="Model which to be trained on",
     )
     parser.add_argument(
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn", "usps_0-6", "mnist_0-3"],
+        choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
         help="Which dataset to train the model on.",
     )
 
