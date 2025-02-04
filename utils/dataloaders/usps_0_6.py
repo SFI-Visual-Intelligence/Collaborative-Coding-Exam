@@ -12,7 +12,9 @@ from urllib.request import urlretrieve
 
 import h5py as h5
 import numpy as np
+from PIL import Image
 from torch.utils.data import Dataset
+from torchvision import transforms
 
 from .datasources import USPS_SOURCE
 
@@ -88,7 +90,7 @@ class USPSDataset0_6(Dataset):
 
         # Download the dataset if it does not exist in a temporary directory
         # to automatically clean up the downloaded file
-        if download:
+        if download and not self._dataset_ok():
             url, _, checksum = USPS_SOURCE[self.mode]
 
             print(f"Downloading USPS dataset ({self.mode})...")
@@ -96,10 +98,28 @@ class USPSDataset0_6(Dataset):
 
         self.idx = self._index()
 
+    def _dataset_ok(self):
+        """Check if the dataset file exists and contains the required datasets."""
+
+        if not self.filepath.exists():
+            print(f"Dataset file {self.filepath} does not exist.")
+            return False
+
+        with h5.File(self.filepath, "r") as f:
+            for mode in ["train", "test"]:
+                if mode not in f:
+                    print(
+                        f"Dataset file {self.filepath} is missing the {mode} dataset."
+                    )
+                    return False
+
+        return True
+
     def download(self, url, filepath, checksum, mode):
         """Download the USPS dataset."""
 
         def reporthook(blocknum, blocksize, totalsize):
+            """Report download progress."""
             denom = 1024 * 1024
             readsofar = blocknum * blocksize
             if totalsize > 0:
@@ -109,6 +129,7 @@ class USPSDataset0_6(Dataset):
                 if readsofar >= totalsize:
                     print()
 
+        # Download the dataset to a temporary file
         with TemporaryDirectory() as tmpdir:
             tmpdir = Path(tmpdir)
             tmpfile = tmpdir / "usps.bz2"
@@ -137,7 +158,7 @@ class USPSDataset0_6(Dataset):
 
                 targets = [int(d[0]) - 1 for d in raw]
 
-        with h5.File(self.filepath, "w") as f:
+        with h5.File(self.filepath, "a") as f:
             f.create_dataset(f"{mode}/data", data=imgs, dtype=np.float32)
             f.create_dataset(f"{mode}/target", data=targets, dtype=np.int32)
 
@@ -161,7 +182,7 @@ class USPSDataset0_6(Dataset):
 
     def _load_data(self, idx):
         with h5.File(self.filepath, "r") as f:
-            data = f[self.mode]["data"][idx]
+            data = f[self.mode]["data"][idx].astype(np.uint8)
             label = f[self.mode]["target"][idx]
 
         return data, label
@@ -171,14 +192,10 @@ class USPSDataset0_6(Dataset):
 
     def __getitem__(self, idx):
         data, target = self._load_data(self.idx[idx])
-
-        data = data.reshape(16, 16)
+        data = Image.fromarray(data, mode="L")
 
         # one hot encode the target
         target = np.eye(self.num_classes, dtype=np.float32)[target]
-
-        # Add channel dimension
-        data = np.expand_dims(data, axis=0)
 
         if self.transform:
             data = self.transform(data)
@@ -187,7 +204,20 @@ class USPSDataset0_6(Dataset):
 
 
 if __name__ == "__main__":
-    dataset = USPSDataset0_6(data_path="data", train=True, download=True)
+    # Example usage:
+    transform = transforms.Compose(
+        [
+            transforms.Resize((16, 16)),
+            transforms.ToTensor(),
+        ]
+    )
+
+    dataset = USPSDataset0_6(
+        data_path="data",
+        train=True,
+        download=False,
+        transform=transform,
+    )
     print(len(dataset))
     data, target = dataset[0]
     print(data.shape)
