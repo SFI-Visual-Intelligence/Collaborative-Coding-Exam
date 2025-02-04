@@ -73,7 +73,7 @@ def main():
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn", "usps_0-6", "uspsh5_7_9"],
+        choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
         help="Which dataset to train the model on.",
     )
 
@@ -139,29 +139,29 @@ def main():
         data_path=args.datafolder,
     )
 
-    # Find number of channels in the dataset
-    if len(traindata[0][0].shape) == 2:
-        channels = 1
-    else:
-        channels = traindata[0][0].shape[0]
+    # Find the shape of the data, if is 2D, add a channel dimension
+    data_shape = traindata[0][0].shape
+    if len(data_shape) == 2:
+        data_shape = (1, *data_shape)
 
     # load model
     model = load_model(
         args.modelname,
-        in_channels=channels,
+        image_shape=data_shape,
         num_classes=traindata.num_classes,
     )
     model.to(device)
 
-    trainloader = DataLoader(traindata,
-                             batch_size=args.batchsize,
-                             shuffle=True,
-                             pin_memory=True,
-                             drop_last=True)
-    valiloader = DataLoader(validata,
-                            batch_size=args.batchsize,
-                            shuffle=False,
-                            pin_memory=True)
+    trainloader = DataLoader(
+        traindata,
+        batch_size=args.batchsize,
+        shuffle=True,
+        pin_memory=True,
+        drop_last=True,
+    )
+    valiloader = DataLoader(
+        validata, batch_size=args.batchsize, shuffle=False, pin_memory=True
+    )
 
     criterion = nn.CrossEntropyLoss()
     optimizer = th.optim.Adam(model.parameters(), lr=args.learning_rate)
@@ -171,12 +171,10 @@ def main():
         print("Dry run completed")
         exit(0)
 
-    wandb.init(project='',
-               tags=[])
+    wandb.init(project="", tags=[])
     wandb.watch(model)
 
     for epoch in range(args.epoch):
-
         # Training loop start
         trainingloss = []
         model.train()
@@ -201,12 +199,14 @@ def main():
                 loss = criterion(y, pred)
                 evalloss.append(loss.item())
 
-        wandb.log({
-            'Epoch': epoch,
-            'Train loss': np.mean(trainingloss),
-            'Evaluation Loss': np.mean(evalloss)
-        })
+        wandb.log(
+            {
+                "Epoch": epoch,
+                "Train loss": np.mean(trainingloss),
+                "Evaluation Loss": np.mean(evalloss),
+            }
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
