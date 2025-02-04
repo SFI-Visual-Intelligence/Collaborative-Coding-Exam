@@ -152,15 +152,16 @@ def main():
     )
     model.to(device)
 
-    trainloader = DataLoader(traindata,
-                             batch_size=args.batchsize,
-                             shuffle=True,
-                             pin_memory=True,
-                             drop_last=True)
-    valiloader = DataLoader(validata,
-                            batch_size=args.batchsize,
-                            shuffle=False,
-                            pin_memory=True)
+    trainloader = DataLoader(
+        traindata,
+        batch_size=args.batchsize,
+        shuffle=True,
+        pin_memory=True,
+        drop_last=True,
+    )
+    valiloader = DataLoader(
+        validata, batch_size=args.batchsize, shuffle=False, pin_memory=True
+    )
 
     criterion = nn.CrossEntropyLoss()
     optimizer = th.optim.Adam(model.parameters(), lr=args.learning_rate)
@@ -170,12 +171,10 @@ def main():
         print("Dry run completed")
         exit(0)
 
-    wandb.init(project='',
-               tags=[])
+    wandb.init(project="", tags=[])
     wandb.watch(model)
 
     for epoch in range(args.epoch):
-
         # Training loop start
         trainingloss = []
         model.train()
@@ -200,12 +199,14 @@ def main():
                 loss = criterion(y, pred)
                 evalloss.append(loss.item())
 
-        wandb.log({
-            'Epoch': epoch,
-            'Train loss': np.mean(trainingloss),
-            'Evaluation Loss': np.mean(evalloss)
-        })
+        wandb.log(
+            {
+                "Epoch": epoch,
+                "Train loss": np.mean(trainingloss),
+                "Evaluation Loss": np.mean(evalloss),
+            }
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

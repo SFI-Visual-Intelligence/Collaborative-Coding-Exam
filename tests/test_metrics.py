@@ -1,4 +1,4 @@
-from utils.metrics import Recall, F1Score
+from utils.metrics import F1Score, Recall
 
 
 def test_recall():

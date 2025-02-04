@@ -84,4 +84,3 @@ class F1Score(nn.Module):
         )
 
         return f1_score
-
