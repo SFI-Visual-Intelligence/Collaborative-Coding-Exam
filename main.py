@@ -6,6 +6,8 @@ import torch as th
 import torch.nn as nn
 import wandb
 from torch.utils.data import DataLoader
+from torchvision import transforms
+from tqdm import tqdm
 
 from utils import MetricWrapper, createfolders, load_data, load_model
 
@@ -49,15 +51,13 @@ def main():
     )
     parser.add_argument(
         "--savemodel",
-        type=bool,
-        default=False,
+        action="store_true",
         help="Whether model should be saved or not.",
     )
 
     parser.add_argument(
         "--download-data",
-        type=bool,
-        default=False,
+        action="store_true",
         help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
     )
 
@@ -126,17 +126,27 @@ def main():
 
     metrics = MetricWrapper(*args.metric)
 
+    augmentations = transforms.Compose(
+        [
+            transforms.Resize((16, 16)),  # At least for USPS
+            transforms.ToTensor(),
+        ]
+    )
+
     # Dataset
     traindata = load_data(
         args.dataset,
         train=True,
         data_path=args.datafolder,
         download=args.download_data,
+        transform=augmentations,
     )
     validata = load_data(
         args.dataset,
         train=False,
         data_path=args.datafolder,
+        download=args.download_data,
+        transform=augmentations,
     )
 
     # Find number of channels in the dataset
@@ -153,34 +163,53 @@ def main():
     )
     model.to(device)
 
-    trainloader = DataLoader(traindata,
-                             batch_size=args.batchsize,
-                             shuffle=True,
-                             pin_memory=True,
-                             drop_last=True)
-    valiloader = DataLoader(validata,
-                            batch_size=args.batchsize,
-                            shuffle=False,
-                            pin_memory=True)
+    trainloader = DataLoader(
+        traindata,
+        batch_size=args.batchsize,
+        shuffle=True,
+        pin_memory=True,
+        drop_last=True,
+    )
+    valiloader = DataLoader(
+        validata, batch_size=args.batchsize, shuffle=False, pin_memory=True
+    )
 
     criterion = nn.CrossEntropyLoss()
     optimizer = th.optim.Adam(model.parameters(), lr=args.learning_rate)
 
     # This allows us to load all the components without running the training loop
     if args.dry_run:
-        print("Dry run completed")
+        dry_run_loader = DataLoader(
+            traindata,
+            batch_size=1,
+            shuffle=True,
+            pin_memory=True,
+            drop_last=True,
+        )
+
+        for x, y in tqdm(dry_run_loader, desc="Dry run", total=1):
+            x, y = x.to(device), y.to(device)
+            pred = model.forward(x)
+
+            loss = criterion(y, pred)
+            loss.backward()
+
+            optimizer.step()
+            optimizer.zero_grad(set_to_none=True)
+
+            break
+
+        print("Dry run completed successfully.")
         exit(0)
 
-    wandb.init(project='',
-               tags=[])
+    wandb.init(project="", tags=[])
     wandb.watch(model)
 
     for epoch in range(args.epoch):
-
         # Training loop start
         trainingloss = []
         model.train()
-        for x, y in trainloader:
+        for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
             pred = model.forward(x)
 
@@ -195,18 +224,20 @@ def main():
         # Eval loop start
         model.eval()
         with th.no_grad():
-            for x, y in valiloader:
+            for x, y in tqdm(valiloader, desc="Validation"):
                 x, y = x.to(device), y.to(device)
                 pred = model.forward(x)
                 loss = criterion(y, pred)
                 evalloss.append(loss.item())
 
-        wandb.log({
-            'Epoch': epoch,
-            'Train loss': np.mean(trainingloss),
-            'Evaluation Loss': np.mean(evalloss)
-        })
+        wandb.log(
+            {
+                "Epoch": epoch,
+                "Train loss": np.mean(trainingloss),
+                "Evaluation Loss": np.mean(evalloss),
+            }
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
