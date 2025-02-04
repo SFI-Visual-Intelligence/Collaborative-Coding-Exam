@@ -1,34 +1,4 @@
 import torch
-
-"""
-A simple neural network model for classification tasks.
-Parameters
-----------
-in_channels : int
-    Number of input channels.
-num_classes : int
-    Number of output classes.
-Attributes
-----------
-in_channels : int
-    Number of input channels.
-num_classes : int
-    Number of output classes.
-fc1 : nn.Linear
-    First fully connected layer.
-fc2 : nn.Linear
-    Second fully connected layer.
-out : nn.Linear
-    Output fully connected layer.
-leaky_relu : nn.LeakyReLU
-    Leaky ReLU activation function.
-flatten : nn.Flatten
-    Flatten layer to reshape input tensor.
-Methods
--------
-forward(x)
-    Defines the forward pass of the model.
-"""
 import torch.nn as nn
 
 
