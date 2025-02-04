@@ -4,11 +4,17 @@ Dataset class for USPS dataset with labels 0-6.
 This module contains the Dataset class for the USPS dataset with labels 0-6.
 """
 
+import bz2
+import hashlib
 from pathlib import Path
+from tempfile import TemporaryDirectory, TemporaryFile
+from urllib.request import urlretrieve
 
 import h5py as h5
 import numpy as np
 from torch.utils.data import Dataset
+
+from .datasources import USPS_SOURCE
 
 
 class USPSDataset0_6(Dataset):
@@ -28,7 +34,7 @@ class USPSDataset0_6(Dataset):
 
     Attributes
     ----------
-    path : pathlib.Path
+    filepath : pathlib.Path
         Path to the USPS dataset file.
     mode : str
         Mode of the dataset, either train or test.
@@ -63,6 +69,8 @@ class USPSDataset0_6(Dataset):
     6
     """
 
+    filename = "usps.h5"
+
     def __init__(
         self,
         data_path: Path,
@@ -71,18 +79,78 @@ class USPSDataset0_6(Dataset):
         download: bool = False,
     ):
         super().__init__()
-        self.path = data_path
+
+        path = data_path if isinstance(data_path, Path) else Path(data_path)
+        self.filepath = path / self.filename
         self.transform = transform
-        self.num_classes = 7
-
-        if download:
-            raise NotImplementedError("Download functionality not implemented.")
-
+        self.num_classes = 7  # 0-6
         self.mode = "train" if train else "test"
+
+        # Download the dataset if it does not exist in a temporary directory
+        # to automatically clean up the downloaded file
+        if download:
+            url, _, checksum = USPS_SOURCE[self.mode]
+
+            print(f"Downloading USPS dataset ({self.mode})...")
+            self.download(url, self.filepath, checksum, self.mode)
+
         self.idx = self._index()
 
+    def download(self, url, filepath, checksum, mode):
+        """Download the USPS dataset."""
+
+        def reporthook(blocknum, blocksize, totalsize):
+            denom = 1024 * 1024
+            readsofar = blocknum * blocksize
+            if totalsize > 0:
+                percent = readsofar * 1e2 / totalsize
+                s = f"\r{int(percent):^3}% {readsofar / denom:.2f} of {totalsize / denom:.2f} MB"
+                print(s, end="", flush=True)
+                if readsofar >= totalsize:
+                    print()
+
+        with TemporaryDirectory() as tmpdir:
+            tmpdir = Path(tmpdir)
+            tmpfile = tmpdir / "usps.bz2"
+            urlretrieve(
+                url,
+                tmpfile,
+                reporthook=reporthook,
+            )
+
+            # For fun we can check the integrity of the downloaded file
+            if not self.check_integrity(tmpfile, checksum):
+                errmsg = (
+                    "The checksum of the downloaded file does "
+                    "not match the expected checksum."
+                )
+                raise ValueError(errmsg)
+
+            # Load the dataset and save it as an HDF5 file
+            with bz2.open(tmpfile) as fp:
+                raw = [line.decode().split() for line in fp.readlines()]
+
+                tmp = [[x.split(":")[-1] for x in data[1:]] for data in raw]
+
+                imgs = np.asarray(tmp, dtype=np.float32)
+                imgs = ((imgs + 1) / 2 * 255).astype(dtype=np.uint8)
+
+                targets = [int(d[0]) - 1 for d in raw]
+
+        with h5.File(self.filepath, "w") as f:
+            f.create_dataset(f"{mode}/data", data=imgs, dtype=np.float32)
+            f.create_dataset(f"{mode}/target", data=targets, dtype=np.int32)
+
+    @staticmethod
+    def check_integrity(filepath, checksum):
+        """Check the integrity of the USPS dataset file."""
+
+        file_hash = hashlib.md5(filepath.read_bytes()).hexdigest()
+
+        return checksum == file_hash
+
     def _index(self):
-        with h5.File(self.path, "r") as f:
+        with h5.File(self.filepath, "r") as f:
             labels = f[self.mode]["target"][:]
 
         # Get indices of samples with labels 0-6
@@ -92,7 +160,7 @@ class USPSDataset0_6(Dataset):
         return idx
 
     def _load_data(self, idx):
-        with h5.File(self.path, "r") as f:
+        with h5.File(self.filepath, "r") as f:
             data = f[self.mode]["data"][idx]
             label = f[self.mode]["target"][idx]
 
@@ -116,3 +184,11 @@ class USPSDataset0_6(Dataset):
             data = self.transform(data)
 
         return data, target
+
+
+if __name__ == "__main__":
+    dataset = USPSDataset0_6(data_path="data", train=True, download=True)
+    print(len(dataset))
+    data, target = dataset[0]
+    print(data.shape)
+    print(target)
