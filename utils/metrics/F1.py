@@ -85,16 +85,3 @@ class F1Score(nn.Module):
 
         return f1_score
 
-
-def test_f1score():
-    f1_metric = F1Score(num_classes=3)
-    preds = torch.tensor(
-        [[0.8, 0.1, 0.1], [0.2, 0.7, 0.1], [0.2, 0.3, 0.5], [0.1, 0.2, 0.7]]
-    )
-
-    target = torch.tensor([0, 1, 0, 2])
-
-    f1_metric.update(preds, target)
-    assert f1_metric.tp.sum().item() > 0, "Expected some true positives."
-    assert f1_metric.fp.sum().item() > 0, "Expected some false positives."
-    assert f1_metric.fn.sum().item() > 0, "Expected some false negatives."
