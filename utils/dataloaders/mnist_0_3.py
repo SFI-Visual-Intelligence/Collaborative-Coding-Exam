@@ -134,11 +134,11 @@ class MNISTDataset0_3(Dataset):
 
     def __getitem__(self, index):
         with open(self.labels_path, "rb") as f:
-            f.seek(8 + index)  # Jump to the label position
+            f.seek(8 + self.idx[index])  # Jump to the label position
             label = int.from_bytes(f.read(1), byteorder="big")  # Read 1 byte for label
 
         with open(self.images_path, "rb") as f:
-            f.seek(16 + index * 28 * 28)  # Jump to image position
+            f.seek(16 + self.idx[index] * 28 * 28)  # Jump to image position
             image = np.frombuffer(f.read(28 * 28), dtype=np.uint8).reshape(
                 28, 28
             )  # Read image data
@@ -149,3 +149,5 @@ class MNISTDataset0_3(Dataset):
             image = self.transform(image)
 
         return image, label
+    
+

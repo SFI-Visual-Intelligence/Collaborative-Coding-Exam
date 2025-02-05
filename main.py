@@ -31,7 +31,6 @@ def main():
 
     device = args.device
 
-    metrics = MetricWrapper(*args.metric)
 
     if args.dataset.lower() == "usps_0-6" or args.dataset.lower() == "uspsh5_7_9":
         augmentations = transforms.Compose(
@@ -59,6 +58,8 @@ def main():
         transform=augmentations,
     )
 
+    metrics = MetricWrapper(*args.metric, num_classes = traindata.num_classes)
+    
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
     if len(data_shape) == 2:
@@ -90,7 +91,7 @@ def main():
     if args.dry_run:
         dry_run_loader = DataLoader(
             traindata,
-            batch_size=1,
+            batch_size=20,
             shuffle=True,
             pin_memory=True,
             drop_last=True,
@@ -98,16 +99,20 @@ def main():
 
         for x, y in tqdm(dry_run_loader, desc="Dry run", total=1):
             x, y = x.to(device), y.to(device)
-            pred = model.forward(x)
+            logits = model.forward(x)
 
-            loss = criterion(y, pred)
+            loss = criterion(logits, y)
             loss.backward()
 
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
+            
+            preds = th.argmax(logits, dim=1)
+            metrics(y, preds)
+
 
             break
-
+        print(metrics.__getmetrics__())
         print("Dry run completed successfully.")
         exit(0)
 
@@ -120,14 +125,20 @@ def main():
         model.train()
         for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
-            pred = model.forward(x)
+            logits = model.forward(x)
 
-            loss = criterion(y, pred)
+            loss = criterion(logits, y)
             loss.backward()
 
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
             trainingloss.append(loss.item())
+            
+            preds = th.argmax(logits, dim=1)
+            metrics(y, preds)
+            
+        wandb.log(metrics.__getmetrics__(str_prefix="Train "))
+        metrics.__resetvalues__()
 
         evalloss = []
         # Eval loop start
@@ -135,9 +146,15 @@ def main():
         with th.no_grad():
             for x, y in tqdm(valiloader, desc="Validation"):
                 x, y = x.to(device), y.to(device)
-                pred = model.forward(x)
-                loss = criterion(y, pred)
+                logits = model.forward(x)
+                loss = criterion(y, logits)
                 evalloss.append(loss.item())
+                
+                preds = th.argmax(logits, dim=1)
+                metrics(y, preds)
+        
+        wandb.log(metrics.__getmetrics__(str_prefix="Evaluation "))
+        metrics.__resetvalues__()
 
         wandb.log(
             {
