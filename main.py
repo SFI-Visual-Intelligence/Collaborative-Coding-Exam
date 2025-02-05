@@ -31,7 +31,6 @@ def main():
 
     device = args.device
 
-
     if args.dataset.lower() == "usps_0-6" or args.dataset.lower() == "uspsh5_7_9":
         augmentations = transforms.Compose(
             [
@@ -58,8 +57,8 @@ def main():
         transform=augmentations,
     )
 
-    metrics = MetricWrapper(*args.metric, num_classes = traindata.num_classes)
-    
+    metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
+
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
     if len(data_shape) == 2:
@@ -106,10 +105,9 @@ def main():
 
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
-            
+
             preds = th.argmax(logits, dim=1)
             metrics(y, preds)
-
 
             break
         print(metrics.__getmetrics__())
@@ -117,7 +115,7 @@ def main():
         exit(0)
 
     wandb.login(key=WANDB_API)
-    wandb.init(entity="ColabCode",project="Jan", tags=[args.modelname, args.dataset])
+    wandb.init(entity="ColabCode", project="Jan", tags=[args.modelname, args.dataset])
     wandb.watch(model)
 
     for epoch in range(args.epoch):
@@ -134,10 +132,10 @@ def main():
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
             trainingloss.append(loss.item())
-            
+
             preds = th.argmax(logits, dim=1)
             metrics(y, preds)
-            
+
         wandb.log(metrics.__getmetrics__(str_prefix="Train "))
         metrics.__resetvalues__()
 
@@ -150,10 +148,10 @@ def main():
                 logits = model.forward(x)
                 loss = criterion(logits, y)
                 evalloss.append(loss.item())
-                
+
                 preds = th.argmax(logits, dim=1)
                 metrics(y, preds)
-        
+
         wandb.log(metrics.__getmetrics__(str_prefix="Evaluation "))
         metrics.__resetvalues__()
 
