@@ -3,7 +3,7 @@ import copy
 import numpy as np
 import torch.nn as nn
 
-from .metrics import EntropyPrediction, F1Score, precision
+from .metrics import EntropyPrediction, F1Score, Precision, Accuracy
 
 
 class MetricWrapper(nn.Module):
@@ -39,9 +39,9 @@ class MetricWrapper(nn.Module):
             case "recall":
                 raise NotImplementedError("Recall score not implemented yet")
             case "precision":
-                return precision()
+                return Precision()
             case "accuracy":
-                raise NotImplementedError("Accuracy score not implemented yet")
+                return Accuracy()
             case _:
                 raise ValueError(f"Metric {key} not supported")
 
