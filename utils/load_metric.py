@@ -3,7 +3,7 @@ import copy
 import numpy as np
 import torch.nn as nn
 
-from .metrics import EntropyPrediction, F1Score, Precision, Accuracy
+from .metrics import Accuracy, EntropyPrediction, F1Score, Precision
 
 
 class MetricWrapper(nn.Module):

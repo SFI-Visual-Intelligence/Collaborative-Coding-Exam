@@ -1,6 +1,4 @@
-
-from utils.metrics import F1Score, Precision, Recall, Accuracy
-
+from utils.metrics import Accuracy, F1Score, Precision, Recall
 
 
 def test_recall():
@@ -84,7 +82,8 @@ def test_for_zero_denominator():
         assert precision4.allclose(torch.tensor(0.0), atol=1e-5), (
             f"Precision Score: {precision4.item()}"
         )
-        
+
+
 def test_accuracy():
     import torch
 

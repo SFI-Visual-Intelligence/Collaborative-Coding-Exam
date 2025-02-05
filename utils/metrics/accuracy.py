@@ -23,7 +23,8 @@ class Accuracy(nn.Module):
             Accuracy score.
         """
         return (y_true == y_pred).float().mean().item()
-    
+
+
 if __name__ == "__main__":
     y_true = torch.tensor([0, 3, 2, 3, 4])
     y_pred = torch.tensor([0, 1, 2, 3, 4])
