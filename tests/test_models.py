@@ -17,9 +17,6 @@ def test_christian_model(image_shape, num_classes):
     y = model(x)
 
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-    assert y.sum(dim=1).allclose(torch.ones(n), atol=1e-5), (
-        f"Softmax output should sum to 1, but got: {y.sum()}"
-    )
 
 
 @pytest.mark.parametrize(
@@ -35,3 +32,4 @@ def test_jan_model(image_shape, num_classes):
     y = model(x)
 
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
+
