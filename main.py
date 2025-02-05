@@ -116,7 +116,8 @@ def main():
         print("Dry run completed successfully.")
         exit(0)
 
-    wandb.init(project="", tags=[])
+    wandb.login(key=WANDB_API)
+    wandb.init(entity="ColabCode",project="Jan", tags=[args.modelname, args.dataset])
     wandb.watch(model)
 
     for epoch in range(args.epoch):
@@ -147,7 +148,7 @@ def main():
             for x, y in tqdm(valiloader, desc="Validation"):
                 x, y = x.to(device), y.to(device)
                 logits = model.forward(x)
-                loss = criterion(y, logits)
+                loss = criterion(logits, y)
                 evalloss.append(loss.item())
                 
                 preds = th.argmax(logits, dim=1)

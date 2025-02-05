@@ -5,6 +5,8 @@ Results/
 Experiments/
 _build/
 bin/
+wandb/
+wandb_api.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
