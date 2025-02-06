@@ -109,7 +109,7 @@ def main():
             metrics(y, preds)
 
             break
-        print(metrics.__getmetrics__())
+        print(metrics.accumulate())
         print("Dry run completed successfully.")
         exit(0)
 
@@ -135,8 +135,8 @@ def main():
             preds = th.argmax(logits, dim=1)
             metrics(y, preds)
 
-        wandb.log(metrics.__getmetrics__(str_prefix="Train "))
-        metrics.__resetvalues__()
+        wandb.log(metrics.accumulate(str_prefix="Train "))
+        metrics.reset()
 
         evalloss = []
         # Eval loop start
@@ -151,8 +151,8 @@ def main():
                 preds = th.argmax(logits, dim=1)
                 metrics(y, preds)
 
-        wandb.log(metrics.__getmetrics__(str_prefix="Evaluation "))
-        metrics.__resetvalues__()
+        wandb.log(metrics.accumulate(str_prefix="Evaluation "))
+        metrics.reset()
 
         wandb.log(
             {
