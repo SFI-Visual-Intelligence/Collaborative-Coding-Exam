@@ -7,6 +7,7 @@ _build/
 bin/
 wandb/
 wandb_api.py
+doc/autoapi
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
