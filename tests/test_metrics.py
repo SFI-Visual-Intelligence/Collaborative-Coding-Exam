@@ -87,13 +87,13 @@ def test_for_zero_denominator():
 def test_accuracy():
     import torch
 
-    accuracy = Accuracy()
+    accuracy = Accuracy(num_classes=5)
 
     y_true = torch.tensor([0, 3, 2, 3, 4])
     y_pred = torch.tensor([0, 1, 2, 3, 4])
 
     accuracy_score = accuracy(y_true, y_pred)
 
-    assert (torch.abs(torch.tensor(accuracy_score - 0.8)) < 1e-5), (
+    assert torch.abs(torch.tensor(accuracy_score - 0.8)) < 1e-5, (
         f"Accuracy Score: {accuracy_score.item()}"
     )
