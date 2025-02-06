@@ -1,4 +1,3 @@
-import argparse
 from pathlib import Path
 
 import numpy as np
@@ -9,7 +8,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-from utils import MetricWrapper, createfolders, load_data, load_model, get_args
+from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
 def main():
@@ -31,7 +30,7 @@ def main():
 
     device = args.device
 
-    if args.dataset.lower() == "usps_0-6" or args.dataset.lower() == "uspsh5_7_9":
+    if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
         augmentations = transforms.Compose(
             [
                 transforms.Resize((16, 16)),

@@ -149,5 +149,3 @@ class MNISTDataset0_3(Dataset):
             image = self.transform(image)
 
         return image, label
-    
-

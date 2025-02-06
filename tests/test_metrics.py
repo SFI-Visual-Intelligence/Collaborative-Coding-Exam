@@ -94,6 +94,6 @@ def test_accuracy():
 
     accuracy_score = accuracy(y_true, y_pred)
 
-    assert (torch.abs(torch.tensor(accuracy_score - 0.8)) < 1e-5), (
+    assert torch.abs(torch.tensor(accuracy_score - 0.8)) < 1e-5, (
         f"Accuracy Score: {accuracy_score.item()}"
     )
