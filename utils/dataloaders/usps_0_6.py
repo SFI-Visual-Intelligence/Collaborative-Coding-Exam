@@ -26,7 +26,7 @@ class USPSDataset0_6(Dataset):
     Args
     ----
     data_path : pathlib.Path
-        Path to the USPS dataset file.
+        Path to the data directory.
     train : bool, optional
         Mode of the dataset.
     transform : callable, optional
@@ -60,18 +60,29 @@ class USPSDataset0_6(Dataset):
 
     Examples
     --------
+    >>> from torchvision import transforms
     >>> from src.datahandlers import USPSDataset0_6
-    >>> dataset = USPSDataset0_6(path="data/usps.h5", mode="train")
+    >>> transform = transforms.Compose([
+    ...     transforms.Resize((16, 16)),
+    ...     transforms.ToTensor()
+    ... ])
+    >>> dataset = USPSDataset0_6(
+    ...     data_path="data",
+    ...     transform=transform
+    ...     download=True,
+    ...     train=True,
+    ... )
     >>> len(dataset)
     5460
     >>> data, target = dataset[0]
     >>> data.shape
-    (16, 16)
+    (1, 16, 16)
     >>> target
-    6
+    tensor([1., 0., 0., 0., 0., 0., 0.])
     """
 
     filename = "usps.h5"
+    num_classes = 7
 
     def __init__(
         self,
@@ -85,7 +96,6 @@ class USPSDataset0_6(Dataset):
         path = data_path if isinstance(data_path, Path) else Path(data_path)
         self.filepath = path / self.filename
         self.transform = transform
-        self.num_classes = 7  # 0-6
         self.mode = "train" if train else "test"
 
         # Download the dataset if it does not exist in a temporary directory
@@ -116,7 +126,24 @@ class USPSDataset0_6(Dataset):
         return True
 
     def download(self, url, filepath, checksum, mode):
-        """Download the USPS dataset."""
+        """Download the USPS dataset, and save it as an HDF5 file.
+
+        Args
+        ----
+        url : str
+            URL to download the dataset from.
+        filepath : pathlib.Path
+            Path to save the downloaded dataset.
+        checksum : str
+            MD5 checksum of the downloaded file.
+        mode : str
+            Mode of the dataset, either train or test.
+
+        Raises
+        ------
+        ValueError
+            If the checksum of the downloaded file does not match the expected checksum.
+        """
 
         def reporthook(blocknum, blocksize, totalsize):
             """Report download progress."""
@@ -164,7 +191,20 @@ class USPSDataset0_6(Dataset):
 
     @staticmethod
     def check_integrity(filepath, checksum):
-        """Check the integrity of the USPS dataset file."""
+        """Check the integrity of the USPS dataset file.
+
+        Args
+        ----
+        filepath : pathlib.Path
+            Path to the USPS dataset file.
+        checksum : str
+            MD5 checksum of the dataset file.
+
+        Returns
+        -------
+        bool
+            True if the checksum of the file matches the expected checksum, False otherwise
+        """
 
         file_hash = hashlib.md5(filepath.read_bytes()).hexdigest()
 

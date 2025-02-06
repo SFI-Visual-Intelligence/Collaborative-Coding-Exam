@@ -1,3 +1,10 @@
+"""This module contains the data sources for the datasets used in the experiments.
+
+The data sources are defined as dictionaries with the following keys
+- train: A list containing the URL, filename, and MD5 hash of the training data.
+- test: A list containing the URL, filename, and MD5 hash of the test data.
+"""
+
 USPS_SOURCE = {
     "train": [
         "https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.bz2",
