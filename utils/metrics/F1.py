@@ -46,7 +46,7 @@ class F1Score(nn.Module):
         self.fp = torch.zeros(num_classes)
         self.fn = torch.zeros(num_classes)
 
-    def update(self, preds, target):
+    def forward(self, preds, target):
         """
         Update the variables with predictions and true labels.
 
@@ -66,17 +66,6 @@ class F1Score(nn.Module):
             self.fp[i] += torch.sum((preds == i) & (target != i)).float()
             self.fn[i] += torch.sum((preds != i) & (target == i)).float()
 
-    def compute(self):
-        """
-        Compute the F1 score.
-
-        Returns
-        -------
-        torch.Tensor
-           The computed F1 score.
-        """
-
-        # Compute F1 score based on the specified averaging method
         f1_score = (
             2
             * torch.sum(self.tp)
