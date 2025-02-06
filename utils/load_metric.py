@@ -3,10 +3,11 @@ import copy
 import numpy as np
 import torch.nn as nn
 
-from .metrics import EntropyPrediction, F1Score, precision
+from .metrics import Accuracy, EntropyPrediction, F1Score, Precision, Recall
 
 
 class MetricWrapper(nn.Module):
+
     """
     Wrapper class for metrics, that runs multiple metrics on the same data.
 
@@ -45,9 +46,12 @@ class MetricWrapper(nn.Module):
     {'entropy': [], 'f1': [], 'precision': []}
     """
 
-    def __init__(self, *metrics):
+
+    def __init__(self, *metrics, num_classes):
+
         super().__init__()
         self.metrics = {}
+        self.num_classes = num_classes
 
         for metric in metrics:
             self.metrics[metric] = self._get_metric(metric)
@@ -71,15 +75,15 @@ class MetricWrapper(nn.Module):
 
         match key.lower():
             case "entropy":
-                return EntropyPrediction()
+                return EntropyPrediction(num_classes=self.num_classes)
             case "f1":
-                raise F1Score()
+                return F1Score(num_classes=self.num_classes)
             case "recall":
-                raise NotImplementedError("Recall score not implemented yet")
+                return Recall(num_classes=self.num_classes)
             case "precision":
-                return precision()
+                return Precision(num_classes=self.num_classes)
             case "accuracy":
-                raise NotImplementedError("Accuracy score not implemented yet")
+                return Accuracy(num_classes=self.num_classes)
             case _:
                 raise ValueError(f"Metric {key} not supported")
 
@@ -87,10 +91,13 @@ class MetricWrapper(nn.Module):
         for key in self.metrics:
             self.tmp_scores[key].append(self.metrics[key](y_true, y_pred))
 
-    def accumulate(self):
+    def accumulate(self, str_prefix: str = None):
         return_metrics = {}
         for key in self.metrics:
-            return_metrics[key] = np.mean(self.tmp_scores[key])
+            if str_prefix is not None:
+                return_metrics[str_prefix + key] = np.mean(self.tmp_scores[key])
+            else:
+                return_metrics[key] = np.mean(self.tmp_scores[key])
 
         return return_metrics
 
