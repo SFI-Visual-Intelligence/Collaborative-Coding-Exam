@@ -30,7 +30,9 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         A transform function to apply to the images.
     """
 
-    def __init__(self, h5_path, mode, transform=None):
+    filename = "usps.h5"
+
+    def __init__(self, data_path, train=False, transform=None, download=False):
         super().__init__()
         """
         Initializes the USPS dataset by loading images and labels from the given `.h5` file.
@@ -45,8 +47,8 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         """
 
         self.transform = transform
-        self.mode = mode
-        self.h5_path = h5_path
+        self.mode = "train" if train else "test"
+        self.h5_path = data_path / self.filename
         # Load the dataset from the HDF5 file
         with h5py.File(self.h5_path, "r") as hf:
             images = hf[self.mode]["data"][:]
