@@ -19,6 +19,7 @@ dependencies:
   - ruff
   - scalene
   - tqdm
+  - scipy
   - pip:
     - torch
     - torchvision

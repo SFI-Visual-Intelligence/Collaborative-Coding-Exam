@@ -40,5 +40,9 @@ def load_data(dataset: str, *args, **kwargs) -> Dataset:
             return MNISTDataset0_3(*args, **kwargs)
         case "usps_7-9":
             return USPSH5_Digit_7_9_Dataset(*args, **kwargs)
+        case "svhn":
+            raise NotImplementedError("SVHN dataset not yet implemented.")
+        case "mnist_4-9":
+            raise NotImplementedError("MNIST 4-9 dataset not yet implemented.")
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")

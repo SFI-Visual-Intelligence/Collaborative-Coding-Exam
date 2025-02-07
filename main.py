@@ -3,11 +3,11 @@ from pathlib import Path
 import numpy as np
 import torch as th
 import torch.nn as nn
-import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
+import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
@@ -26,7 +26,6 @@ def main():
     """
 
     args = get_args()
-
 
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 
