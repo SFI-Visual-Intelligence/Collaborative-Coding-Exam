@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import numpy as np
 import torch as th
 import torch.nn as nn
@@ -111,7 +109,7 @@ def main():
             break
         print(metrics.accumulate())
         print("Dry run completed successfully.")
-        exit(0)
+        exit()
 
     # wandb.login(key=WANDB_API)
     wandb.init(

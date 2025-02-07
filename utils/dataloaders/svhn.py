@@ -7,8 +7,11 @@ from torchvision.datasets import SVHN
 
 class SVHNDataset(Dataset):
     def __init__(
-        self, datapath: str, transforms=None, download_data=True, split="train"
-    ):
+        self, datapath: str, 
+        transforms=None, 
+        download_data=True, 
+        split="train"
+        ):
         """
         Initializes the SVHNDataset object.
         Args:
