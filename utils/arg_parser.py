@@ -69,6 +69,21 @@ def get_args():
         nargs="+",
         help="Which metric to use for evaluation",
     )
+    
+    parser.add_argument(
+        '--imagesize',
+        type=int,
+        default=28,
+        help='Imagesize'
+    )
+    
+    parser.add_argument(
+        '--nr_channels',
+        type=int,
+        default=1,
+        choices=[1,3],
+        help='Number of image channels'
+    )
 
     # Training specific values
     parser.add_argument(
