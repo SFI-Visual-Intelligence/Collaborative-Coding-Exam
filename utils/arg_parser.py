@@ -44,14 +44,14 @@ def get_args():
         "--modelname",
         type=str,
         default="MagnusModel",
-        choices=["MagnusModel", "ChristianModel", "SolveigModel", "JanModel"],
+        choices=["MagnusModel", "ChristianModel", "SolveigModel", "JanModel", "JohanModel"],
         help="Model which to be trained on",
     )
     parser.add_argument(
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
+        choices=["svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"],
         help="Which dataset to train the model on.",
     )
 
@@ -95,4 +95,17 @@ def get_args():
         action="store_true",
         help="If true, the code will not run the training loop.",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    
+    
+    assert args.device in ["cuda", "cpu", "mps"], "Device should be either 'cuda' or 'cpu' or 'mps'."
+    assert args.epoch > 0, "Epoch should be a positive integer."
+    assert args.learning_rate > 0, "Learning rate should be a positive float."
+    assert args.batchsize > 0, "Batch size should be a positive integer."
+    assert args.dataset in ["svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"], "Dataset should be either 'svhn', 'usps_0-6', 'usps_7-9', 'mnist_0-3' or 'mnist_4-9'."
+    assert args.modelname in ["MagnusModel", "ChristianModel", "SolveigModel", "JanModel", "JohanModel"], "Model name should be either 'MagnusModel', 'ChristianModel', 'SolveigModel', 'JanModel', or 'JohanModel."
+    assert all([metric in ["entropy", "f1", "recall", "precision", "accuracy"] for metric in args.metric]), "Metric should be either 'entropy', 'f1', 'recall', 'precision', or 'accuracy'."
+   
+    
+    
+    return args
