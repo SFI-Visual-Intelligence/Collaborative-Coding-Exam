@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from .models import ChristianModel, JanModel, MagnusModel, SolveigModel, JohanModel
+from .models import ChristianModel, JanModel, JohanModel, MagnusModel, SolveigModel
 
 
 def load_model(modelname: str, *args, **kwargs) -> nn.Module:
