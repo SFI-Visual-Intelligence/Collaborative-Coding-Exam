@@ -76,8 +76,10 @@ class MNISTDataset0_3(Dataset):
         self.download = download
         self.num_classes = 4
 
-        if self.split == "train" or self.split == "validation":
-            train = True  # used to decide whether to load training or test dataset
+        if self.split == "test":
+            train = False  # used to decide whether to load training or test dataset
+        else:
+            train = True
 
         if not self.download and not self._chech_is_downloaded():
             raise ValueError(
