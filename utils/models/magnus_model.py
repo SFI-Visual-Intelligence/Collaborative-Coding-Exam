@@ -23,7 +23,6 @@ class MagnusModel(nn.Module):
             MagnusModel (nn.Module): Neural network as described above in this docstring.
         """
         
-        
         super().__init__()
         self.imagesize = imagesize 
         self.imagechannels = imagechannels
