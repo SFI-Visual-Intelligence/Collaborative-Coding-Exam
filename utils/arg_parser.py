@@ -35,7 +35,8 @@ def get_args():
 
     parser.add_argument(
         "--download-data",
-        action="store_true",
+        type=bool,
+        default=False,
         help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
     )
 
