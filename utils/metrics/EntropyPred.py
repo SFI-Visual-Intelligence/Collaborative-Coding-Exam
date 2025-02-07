@@ -1,4 +1,3 @@
-import numpy as np
 import torch.nn as nn
 from scipy.stats import entropy
 
