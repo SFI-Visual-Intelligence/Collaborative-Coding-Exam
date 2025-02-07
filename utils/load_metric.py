@@ -7,7 +7,6 @@ from .metrics import Accuracy, EntropyPrediction, F1Score, Precision, Recall
 
 
 class MetricWrapper(nn.Module):
-
     """
     Wrapper class for metrics, that runs multiple metrics on the same data.
 
@@ -46,9 +45,7 @@ class MetricWrapper(nn.Module):
     {'entropy': [], 'f1': [], 'precision': []}
     """
 
-
     def __init__(self, *metrics, num_classes):
-
         super().__init__()
         self.metrics = {}
         self.num_classes = num_classes
