@@ -2,9 +2,10 @@ import gzip
 import os
 import urllib.request
 from pathlib import Path
+import torch
 
 import numpy as np
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, random_split
 
 
 class MNISTDataset0_3(Dataset):
@@ -59,20 +60,25 @@ class MNISTDataset0_3(Dataset):
 
     def __init__(
         self,
+        split: str,
+        split_percentage: float,
         data_path: Path,
-        train: bool = False,
-        transform=None,
         download: bool = False,
+        transform=None,
     ):
         super().__init__()
 
         self.data_path = data_path
         self.mnist_path = self.data_path / "MNIST"
-        self.train = train
+        self.split = split
+        self.split_percentage = split_percentage
         self.transform = transform
         self.download = download
         self.num_classes = 4
 
+        if self.split == "train" or self.split == "validation":
+            train = True        # used to decide whether to load training or test dataset
+        
         if not self.download and not self._chech_is_downloaded():
             raise ValueError(
                 "Data not found. Set --download-data=True to download the data."
@@ -87,13 +93,18 @@ class MNISTDataset0_3(Dataset):
             "train-labels-idx1-ubyte" if train else "t10k-labels-idx1-ubyte"
         )
 
-        labels = self._parse_labels(train=self.train)
-
+        labels = self._parse_labels()
+        
         self.idx = np.where(labels < 4)[0]
-
+        
+        if self.split != "test":
+            generator1 = torch.Generator().manual_seed(42)
+            tr, val = random_split(self.idx, [1-self.split_percentage, self.split_percentage], generator=generator1)
+            self.idx = tr if self.split == "train" else val
+                
         self.length = len(self.idx)
 
-    def _parse_labels(self, train):
+    def _parse_labels(self):
         with open(self.labels_path, "rb") as f:
             data = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
         return data

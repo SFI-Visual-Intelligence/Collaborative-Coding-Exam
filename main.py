@@ -43,16 +43,27 @@ def main():
         augmentations = transforms.Compose([transforms.ToTensor()])
 
     # Dataset
+    assert args.validation_split_percentage < 1.0 and args.validation_split_percentage > 0, "Validation split should be in interval (0,1)"
     traindata = load_data(
         args.dataset,
-        train=True,
+        split="train",
+        split_percentage=args.validation_split_percentage,
         data_path=args.datafolder,
         download=args.download_data,
         transform=augmentations,
     )
     validata = load_data(
         args.dataset,
-        train=False,
+        split="validation",
+        split_percentage=args.validation_split_percentage,
+        data_path=args.datafolder,
+        download=args.download_data,
+        transform=augmentations,
+    )
+    testdata = load_data(
+        args.dataset,
+        split="test",
+        split_percentage=args.validation_split_percentage,
         data_path=args.datafolder,
         download=args.download_data,
         transform=augmentations,
@@ -82,6 +93,9 @@ def main():
     )
     valiloader = DataLoader(
         validata, batch_size=args.batchsize, shuffle=False, pin_memory=True
+    )
+    testloader = DataLoader(
+        testdata, batch_size=args.batchsize, shuffle=False, pin_memory=True
     )
 
     criterion = nn.CrossEntropyLoss()
@@ -140,30 +154,45 @@ def main():
         wandb.log(metrics.accumulate(str_prefix="Train "))
         metrics.reset()
 
-        evalloss = []
-        # Eval loop start
+        valloss = []
+        # Validation loop start
         model.eval()
         with th.no_grad():
             for x, y in tqdm(valiloader, desc="Validation"):
                 x, y = x.to(device), y.to(device)
                 logits = model.forward(x)
                 loss = criterion(logits, y)
-                evalloss.append(loss.item())
+                valloss.append(loss.item())
 
                 preds = th.argmax(logits, dim=1)
                 metrics(y, preds)
 
-        wandb.log(metrics.accumulate(str_prefix="Evaluation "))
+        wandb.log(metrics.accumulate(str_prefix="Validation "))
         metrics.reset()
 
         wandb.log(
             {
                 "Epoch": epoch,
                 "Train loss": np.mean(trainingloss),
-                "Evaluation Loss": np.mean(evalloss),
+                "Validation loss": np.mean(valloss),
             }
         )
+    
+    testloss = []
+    model.eval()
+    with th.no_grad():
+        for x, y in tqdm(testloader, desc="Testing"):
+            x, y = x.to(device), y.to(device)
+            logits = model.forward(x)
+            loss = criterion(logits, y)
+            testloss.append(loss.item())
+            
+            preds = th.argmax(logits, dim=1)
+            metrics(y, preds)
 
+    wandb.log(metrics.accumulate(str_prefix="Test "))
+    metrics.reset()
+    wandb.log({"Test loss": np.mean(testloss)})
 
 if __name__ == "__main__":
     main()

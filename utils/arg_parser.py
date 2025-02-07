@@ -54,7 +54,12 @@ def get_args():
         choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
         help="Which dataset to train the model on.",
     )
-
+    parser.add_argument(
+        "--validation_split_percentage",
+        type=float,
+        default=0.2,
+        help="Percentage of training dataset to be used as validation dataset - must be within (0,1).",
+    )
     parser.add_argument(
         "--metric",
         type=str,
