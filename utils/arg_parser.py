@@ -63,6 +63,12 @@ def get_args():
         nargs="+",
         help="Which metric to use for evaluation",
     )
+    parser.add_argument(
+        "--macro_averaging",
+        action="store_true",
+        help="If the flag is included, the metrics will be calculated using macro averaging.",
+    )
+        
 
     # Training specific values
     parser.add_argument(
@@ -93,6 +99,6 @@ def get_args():
     parser.add_argument(
         "--dry_run",
         action="store_true",
-        help="If true, the code will not run the training loop.",
+        help="If the flag is included, the code will not run the training loop.",
     )
     return parser.parse_args()
