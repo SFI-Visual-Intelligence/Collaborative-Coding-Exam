@@ -2,9 +2,9 @@ import gzip
 import os
 import urllib.request
 from pathlib import Path
-import torch
 
 import numpy as np
+import torch
 from torch.utils.data import Dataset, random_split
 
 
@@ -77,8 +77,8 @@ class MNISTDataset0_3(Dataset):
         self.num_classes = 4
 
         if self.split == "train" or self.split == "validation":
-            train = True        # used to decide whether to load training or test dataset
-        
+            train = True  # used to decide whether to load training or test dataset
+
         if not self.download and not self._chech_is_downloaded():
             raise ValueError(
                 "Data not found. Set --download-data=True to download the data."
@@ -94,14 +94,18 @@ class MNISTDataset0_3(Dataset):
         )
 
         labels = self._parse_labels()
-        
+
         self.idx = np.where(labels < 4)[0]
-        
+
         if self.split != "test":
             generator1 = torch.Generator().manual_seed(42)
-            tr, val = random_split(self.idx, [1-self.split_percentage, self.split_percentage], generator=generator1)
+            tr, val = random_split(
+                self.idx,
+                [1 - self.split_percentage, self.split_percentage],
+                generator=generator1,
+            )
             self.idx = tr if self.split == "train" else val
-                
+
         self.length = len(self.idx)
 
     def _parse_labels(self):

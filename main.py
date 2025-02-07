@@ -3,11 +3,11 @@ from pathlib import Path
 import numpy as np
 import torch as th
 import torch.nn as nn
-import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
+import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
@@ -27,7 +27,6 @@ def main():
 
     args = get_args()
 
-
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 
     device = args.device
@@ -43,7 +42,9 @@ def main():
         augmentations = transforms.Compose([transforms.ToTensor()])
 
     # Dataset
-    assert args.validation_split_percentage < 1.0 and args.validation_split_percentage > 0, "Validation split should be in interval (0,1)"
+    assert (
+        args.validation_split_percentage < 1.0 and args.validation_split_percentage > 0
+    ), "Validation split should be in interval (0,1)"
     traindata = load_data(
         args.dataset,
         split="train",
@@ -177,7 +178,7 @@ def main():
                 "Validation loss": np.mean(valloss),
             }
         )
-    
+
     testloss = []
     model.eval()
     with th.no_grad():
@@ -186,13 +187,14 @@ def main():
             logits = model.forward(x)
             loss = criterion(logits, y)
             testloss.append(loss.item())
-            
+
             preds = th.argmax(logits, dim=1)
             metrics(y, preds)
 
     wandb.log(metrics.accumulate(str_prefix="Test "))
     metrics.reset()
     wandb.log({"Test loss": np.mean(testloss)})
+
 
 if __name__ == "__main__":
     main()
