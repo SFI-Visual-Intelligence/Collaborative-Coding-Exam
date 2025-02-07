@@ -24,7 +24,9 @@ def main():
     ------
 
     """
+
     args = get_args()
+
 
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 

@@ -8,6 +8,9 @@ bin/
 wandb/
 wandb_api.py
 
+#Magnus specific
+docker/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
