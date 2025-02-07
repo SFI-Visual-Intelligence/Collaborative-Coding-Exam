@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import numpy as np
 import torch as th
 import torch.nn as nn
@@ -106,18 +104,22 @@ def main():
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
 
-            preds = th.argmax(logits, dim=1)
-            metrics(y, preds)
+            metrics(y, logits)
 
             break
         print(metrics.accumulate())
         print("Dry run completed successfully.")
-        exit(0)
+        exit()
 
-    wandb.login(key=WANDB_API)
-    wandb.init(entity="ColabCode", project="Jan", tags=[args.modelname, args.dataset])
+    # wandb.login(key=WANDB_API)
+    wandb.init(
+            entity="ColabCode-org",
+            # entity="FYS-8805 Exam",
+            project="Test", 
+            tags=[args.modelname, args.dataset]
+            )
     wandb.watch(model)
-
+    exit()
     for epoch in range(args.epoch):
         # Training loop start
         trainingloss = []
@@ -133,8 +135,7 @@ def main():
             optimizer.zero_grad(set_to_none=True)
             trainingloss.append(loss.item())
 
-            preds = th.argmax(logits, dim=1)
-            metrics(y, preds)
+            metrics(y, logits)
 
         wandb.log(metrics.accumulate(str_prefix="Train "))
         metrics.reset()
@@ -149,8 +150,7 @@ def main():
                 loss = criterion(logits, y)
                 evalloss.append(loss.item())
 
-                preds = th.argmax(logits, dim=1)
-                metrics(y, preds)
+                metrics(y, logits)
 
         wandb.log(metrics.accumulate(str_prefix="Evaluation "))
         metrics.reset()
