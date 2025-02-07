@@ -98,13 +98,9 @@ def get_args():
     args = parser.parse_args()
     
     
-    assert args.device in ["cuda", "cpu", "mps"], "Device should be either 'cuda' or 'cpu' or 'mps'."
     assert args.epoch > 0, "Epoch should be a positive integer."
     assert args.learning_rate > 0, "Learning rate should be a positive float."
     assert args.batchsize > 0, "Batch size should be a positive integer."
-    assert args.dataset in ["svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"], "Dataset should be either 'svhn', 'usps_0-6', 'usps_7-9', 'mnist_0-3' or 'mnist_4-9'."
-    assert args.modelname in ["MagnusModel", "ChristianModel", "SolveigModel", "JanModel", "JohanModel"], "Model name should be either 'MagnusModel', 'ChristianModel', 'SolveigModel', 'JanModel', or 'JohanModel."
-    assert all([metric in ["entropy", "f1", "recall", "precision", "accuracy"] for metric in args.metric]), "Metric should be either 'entropy', 'f1', 'recall', 'precision', or 'accuracy'."
    
     
     
