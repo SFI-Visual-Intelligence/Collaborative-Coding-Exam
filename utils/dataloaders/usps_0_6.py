@@ -10,7 +10,6 @@ import h5py as h5
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
-from torchvision import transforms
 
 
 class USPSDataset0_6(Dataset):

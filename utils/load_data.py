@@ -1,5 +1,5 @@
 import numpy as np
-from torch.utils.data import Dataset, random_split
+from torch.utils.data import random_split
 
 from .dataloaders import (
     Downloader,
