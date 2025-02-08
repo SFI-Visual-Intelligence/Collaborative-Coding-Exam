@@ -1,11 +1,20 @@
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, random_split
 
-from .dataloaders import MNISTDataset0_3, USPSDataset0_6, USPSH5_Digit_7_9_Dataset
+from .dataloaders import (
+    Downloader,
+    MNISTDataset0_3,
+    USPSDataset0_6,
+    USPSH5_Digit_7_9_Dataset,
+)
 
 
-def load_data(dataset: str, *args, **kwargs) -> Dataset:
+def filter_labels(samples: list, wanted_labels: list) -> list:
+    return list(filter(lambda x: x in wanted_labels, samples))
+
+
+def load_data(dataset: str, *args, **kwargs) -> tuple:
     """
-    Load the dataset based on the dataset name.
+    load the dataset based on the dataset name.
 
     Args
     ----
@@ -18,8 +27,8 @@ def load_data(dataset: str, *args, **kwargs) -> Dataset:
 
     Returns
     -------
-    dataset : torch.utils.data.Dataset
-        Dataset object.
+    tuple
+        Tuple of train, validation and test datasets.
 
     Raises
     ------
@@ -28,17 +37,54 @@ def load_data(dataset: str, *args, **kwargs) -> Dataset:
 
     Examples
     --------
-    >>> from utils import load_data
-    >>> dataset = load_data("usps_0-6", data_path="data", train=True, download=True)
-    >>> len(dataset)
-    5460
+    >>> from utils import setup_data
+    >>> train, val, test = setup_data("usps_0-6", data_path="data", train=True, download=True)
+    >>> len(train), len(val), len(test)
+    (4914, 546, 1782)
     """
+
     match dataset.lower():
         case "usps_0-6":
-            return USPSDataset0_6(*args, **kwargs)
-        case "mnist_0-3":
-            return MNISTDataset0_3(*args, **kwargs)
+            dataset = USPSDataset0_6
+            train_samples, test_samples = Downloader.usps(*args, **kwargs)
+            labels = range(7)
         case "usps_7-9":
-            return USPSH5_Digit_7_9_Dataset(*args, **kwargs)
+            dataset = USPSH5_Digit_7_9_Dataset
+            train_samples, test_samples = Downloader.usps(*args, **kwargs)
+            labels = range(7, 10)
+        case "mnist_0-3":
+            dataset = MNISTDataset0_3
+            train_samples, test_samples = Downloader.mnist(*args, **kwargs)
+            labels = range(4)
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")
+
+    val_size = kwargs.get("val_size", 0.1)
+
+    train_samples = filter_labels(train_samples, labels)
+    test_samples = filter_labels(test_samples, labels)
+
+    train_samples, val_samples = random_split(train_samples, [1 - val_size, val_size])
+
+    train = dataset(
+        *args,
+        sample_ids=train_samples,
+        train=True,
+        **kwargs,
+    )
+
+    val = dataset(
+        *args,
+        sample_ids=val_samples,
+        train=True,
+        **kwargs,
+    )
+
+    test = dataset(
+        *args,
+        sample_ids=test_samples,
+        train=False,
+        **kwargs,
+    )
+
+    return train, val, test
