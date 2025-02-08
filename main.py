@@ -46,6 +46,7 @@ def main():
         data_path=args.datafolder,
         transform=transform,
         download=args.download_data,
+        val_size=args.val_size,
     )
 
     metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
