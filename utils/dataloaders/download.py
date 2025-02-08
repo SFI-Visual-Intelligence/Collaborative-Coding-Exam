@@ -6,7 +6,6 @@ from urllib.request import urlretrieve
 
 import h5py as h5
 import numpy as np
-from PIL import Image
 
 from .datasources import USPS_SOURCE
 
