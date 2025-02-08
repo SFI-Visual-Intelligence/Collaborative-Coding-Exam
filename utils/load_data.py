@@ -1,3 +1,4 @@
+import numpy as np
 from torch.utils.data import Dataset, random_split
 
 from .dataloaders import (
@@ -46,23 +47,28 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
     match dataset.lower():
         case "usps_0-6":
             dataset = USPSDataset0_6
-            train_samples, test_samples = Downloader.usps(*args, **kwargs)
-            labels = range(7)
+            train_labels, test_labels = Downloader.usps(*args, **kwargs)
+            labels = np.arange(7)
         case "usps_7-9":
             dataset = USPSH5_Digit_7_9_Dataset
-            train_samples, test_samples = Downloader.usps(*args, **kwargs)
-            labels = range(7, 10)
+            train_labels, test_labels = Downloader.usps(*args, **kwargs)
+            labels = np.arange(7, 10)
         case "mnist_0-3":
             dataset = MNISTDataset0_3
-            train_samples, test_samples = Downloader.mnist(*args, **kwargs)
-            labels = range(4)
+            train_labels, test_labels = Downloader.mnist(*args, **kwargs)
+            labels = np.arange(4)
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")
 
-    val_size = kwargs.get("val_size", 0.1)
+    val_size = kwargs.get("val_size", 0.2)
 
-    train_samples = filter_labels(train_samples, labels)
-    test_samples = filter_labels(test_samples, labels)
+    # Get the indices of the samples
+    train_indices = np.arange(len(train_labels))
+    test_indices = np.arange(len(test_labels))
+
+    # Filter the labels to only get indices of the wanted labels
+    train_samples = train_indices[np.isin(train_labels, labels)]
+    test_samples = test_indices[np.isin(test_labels, labels)]
 
     train_samples, val_samples = random_split(train_samples, [1 - val_size, val_size])
 
