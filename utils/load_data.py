@@ -4,9 +4,9 @@ from torch.utils.data import random_split
 from .dataloaders import (
     Downloader,
     MNISTDataset0_3,
+    SVHNDataset,
     USPSDataset0_6,
     USPSH5_Digit_7_9_Dataset,
-    SVHNDataset,
 )
 
 
