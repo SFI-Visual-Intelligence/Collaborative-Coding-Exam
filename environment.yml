@@ -9,7 +9,7 @@ dependencies:
   - sphinx-autobuild
   - sphinx-rtd-theme
   - pip
-  - h5py
+  - h5py==3.12.1
   - black
   - isort
   - jupyterlab
