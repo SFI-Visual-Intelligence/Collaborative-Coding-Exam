@@ -68,6 +68,12 @@ def get_args():
         nargs="+",
         help="Which metric to use for evaluation",
     )
+    parser.add_argument(
+        "--macro_averaging",
+        action="store_true",
+        help="If the flag is included, the metrics will be calculated using macro averaging.",
+    )
+        
 
     parser.add_argument("--imagesize", type=int, default=28, help="Imagesize")
 
@@ -108,7 +114,7 @@ def get_args():
     parser.add_argument(
         "--dry_run",
         action="store_true",
-        help="If true, the code will not run the training loop.",
+        help="If the flag is included, the code will not run the training loop.",
     )
     args = parser.parse_args()
 
