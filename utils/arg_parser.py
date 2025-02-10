@@ -73,17 +73,6 @@ def get_args():
         action="store_true",
         help="If the flag is included, the metrics will be calculated using macro averaging.",
     )
-        
-
-    parser.add_argument("--imagesize", type=int, default=28, help="Imagesize")
-
-    parser.add_argument(
-        "--nr_channels",
-        type=int,
-        default=1,
-        choices=[1, 3],
-        help="Number of image channels",
-    )
 
     # Training specific values
     parser.add_argument(

@@ -9,6 +9,7 @@ import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 from wandb_api import WANDB_API
 
+
 def main():
     """
 
@@ -46,7 +47,21 @@ def main():
         val_size=args.val_size,
     )
 
-    metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes, macro_averaging=args.macro_averaging)
+    train_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
+    val_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
+    test_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
 
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
@@ -98,22 +113,22 @@ def main():
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
 
-            metrics(y, logits)
+            train_metrics(y, logits)
 
             break
-        print(metrics.accumulate())
+        print(train_metrics.accumulate())
         print("Dry run completed successfully.")
         exit()
 
     # wandb.login(key=WANDB_API)
     wandb.init(
-            entity="ColabCode",
-            # entity="FYS-8805 Exam",
-            project="Jan", 
-            tags=[args.modelname, args.dataset]
-            )
+        entity="ColabCode",
+        # entity="FYS-8805 Exam",
+        project="Jan",
+        tags=[args.modelname, args.dataset],
+    )
     wandb.watch(model)
-    
+
     for epoch in range(args.epoch):
         # Training loop start
         trainingloss = []
@@ -129,10 +144,7 @@ def main():
             optimizer.zero_grad(set_to_none=True)
             trainingloss.append(loss.item())
 
-            metrics(y, logits)
-
-        wandb.log(metrics.accumulate(str_prefix="Train "))
-        metrics.reset()
+            train_metrics(y, logits)
 
         valloss = []
         # Validation loop start
@@ -144,10 +156,7 @@ def main():
                 loss = criterion(logits, y)
                 valloss.append(loss.item())
 
-                metrics(y, logits)
-
-        wandb.log(metrics.accumulate(str_prefix="Validation "))
-        metrics.reset()
+                val_metrics(y, logits)
 
         wandb.log(
             {
@@ -155,7 +164,11 @@ def main():
                 "Train loss": np.mean(trainingloss),
                 "Validation loss": np.mean(valloss),
             }
+            | train_metrics.accumulate(str_prefix="Train ")
+            | val_metrics.accumulate(str_prefix="Validation ")
         )
+        train_metrics.reset()
+        val_metrics.reset()
 
     testloss = []
     model.eval()
@@ -167,11 +180,13 @@ def main():
             testloss.append(loss.item())
 
             preds = th.argmax(logits, dim=1)
-            metrics(y, preds)
+            test_metrics(y, preds)
 
-    wandb.log(metrics.accumulate(str_prefix="Test "))
-    metrics.reset()
-    wandb.log({"Test loss": np.mean(testloss)})
+    wandb.log(
+        {"Epoch": 1, "Test loss": np.mean(testloss)}
+        | test_metrics.accumulate(str_prefix="Test ")
+    )
+    test_metrics.reset()
 
 
 if __name__ == "__main__":
