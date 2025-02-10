@@ -33,12 +33,6 @@ def get_args():
         help="Whether model should be saved or not.",
     )
 
-    parser.add_argument(
-        "--download-data",
-        action="store_true",
-        help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
-    )
-
     # Data/Model specific values
     parser.add_argument(
         "--modelname",
@@ -55,7 +49,7 @@ def get_args():
         help="Which dataset to train the model on.",
     )
     parser.add_argument(
-        "--validation_split_percentage",
+        "--val_size",
         type=float,
         default=0.2,
         help="Percentage of training dataset to be used as validation dataset - must be within (0,1).",

@@ -1,153 +1,76 @@
-import gzip
-import os
-import urllib.request
 from pathlib import Path
 
 import numpy as np
-import torch
-from torch.utils.data import Dataset, random_split
+from torch.utils.data import Dataset
+
+from .datasources import MNIST_SOURCE
 
 
 class MNISTDataset0_3(Dataset):
     """
-    A custom dataset class for loading MNIST data, specifically for digits 0 through 3.
-
+    A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.
     Parameters
     ----------
     data_path : Path
-        The root directory where the MNIST data is stored or will be downloaded.
+        The root directory where the MNIST data is stored.
+    sample_ids : list
+        A list of indices specifying which samples to load.
     train : bool, optional
-        If True, loads the training data, otherwise loads the test data. Default is False.
+        If True, load training data, otherwise load test data. Default is False.
     transform : callable, optional
-        A function/transform that takes in an image and returns a transformed version. Default is None.
-    download : bool, optional
-        If True, downloads the dataset if it is not already present in the specified data_path. Default is False.
-
+        A function/transform to apply to the images. Default is None.
     Attributes
     ----------
     data_path : Path
         The root directory where the MNIST data is stored.
     mnist_path : Path
-        The directory where the MNIST data files are stored.
+        The directory where the MNIST dataset is located within the root directory.
+    idx : list
+        A list of indices specifying which samples to load.
     train : bool
-        Indicates whether the training data or test data is being used.
+        Indicates whether to load training data or test data.
     transform : callable
-        A function/transform that takes in an image and returns a transformed version.
-    download : bool
-        Indicates whether the dataset should be downloaded if not present.
+        A function/transform to apply to the images.
+    num_classes : int
+        The number of classes in the dataset (0 to 3).
     images_path : Path
-        The path to the image file (training or test) based on the `train` flag.
+        The path to the image file (train or test) based on the `train` flag.
     labels_path : Path
-        The path to the label file (training or test) based on the `train` flag.
-    idx : numpy.ndarray
-        Indices of the labels that are less than 4.
+        The path to the label file (train or test) based on the `train` flag.
     length : int
         The number of samples in the dataset.
-
     Methods
     -------
-    _parse_labels(train)
-        Parses the labels from the label file.
-    _chech_is_downloaded()
-        Checks if the dataset is already downloaded.
-    _download_data()
-        Downloads and extracts the MNIST dataset.
     __len__()
         Returns the number of samples in the dataset.
     __getitem__(index)
-        Returns the image and label at the specified index.
+        Retrieves the image and label at the specified index.
     """
 
     def __init__(
         self,
-        split: str,
-        split_percentage: float,
         data_path: Path,
-        download: bool = False,
+        sample_ids: list,
+        train: bool = False,
         transform=None,
     ):
         super().__init__()
 
         self.data_path = data_path
         self.mnist_path = self.data_path / "MNIST"
-        self.split = split
-        self.split_percentage = split_percentage
+        self.idx = sample_ids
+        self.train = train
         self.transform = transform
-        self.download = download
         self.num_classes = 4
 
-        if self.split == "test":
-            train = False  # used to decide whether to load training or test dataset
-        else:
-            train = True
-
-        if not self.download and not self._chech_is_downloaded():
-            raise ValueError(
-                "Data not found. Set --download-data=True to download the data."
-            )
-        if self.download and not self._chech_is_downloaded():
-            self._download_data()
-
         self.images_path = self.mnist_path / (
-            "train-images-idx3-ubyte" if train else "t10k-images-idx3-ubyte"
+            MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1]
         )
         self.labels_path = self.mnist_path / (
-            "train-labels-idx1-ubyte" if train else "t10k-labels-idx1-ubyte"
+            MNIST_SOURCE["train_labels"][1] if train else MNIST_SOURCE["test_labels"][1]
         )
 
-        labels = self._parse_labels()
-
-        self.idx = np.where(labels < 4)[0]
-
-        if self.split != "test":
-            generator1 = torch.Generator().manual_seed(42)
-            tr, val = random_split(
-                self.idx,
-                [1 - self.split_percentage, self.split_percentage],
-                generator=generator1,
-            )
-            self.idx = tr if self.split == "train" else val
-
         self.length = len(self.idx)
-
-    def _parse_labels(self):
-        with open(self.labels_path, "rb") as f:
-            data = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
-        return data
-
-    def _chech_is_downloaded(self):
-        if self.mnist_path.exists():
-            required_files = [
-                "train-images-idx3-ubyte",
-                "train-labels-idx1-ubyte",
-                "t10k-images-idx3-ubyte",
-                "t10k-labels-idx1-ubyte",
-            ]
-            if all([(self.mnist_path / file).exists() for file in required_files]):
-                print("MNIST Dataset already downloaded.")
-                return True
-            else:
-                return False
-        else:
-            self.mnist_path.mkdir(parents=True, exist_ok=True)
-            return False
-
-    def _download_data(self):
-        urls = {
-            "train_images": "https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz",
-            "train_labels": "https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz",
-            "test_images": "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz",
-            "test_labels": "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz",
-        }
-
-        for name, url in urls.items():
-            file_path = os.path.join(self.mnist_path, url.split("/")[-1])
-            if not os.path.exists(file_path.replace(".gz", "")):  # Avoid re-downloading
-                urllib.request.urlretrieve(url, file_path)
-                with gzip.open(file_path, "rb") as f_in:
-                    with open(file_path.replace(".gz", ""), "wb") as f_out:
-                        f_out.write(f_in.read())
-                os.remove(file_path)  # Remove compressed file
 
     def __len__(self):
         return self.length

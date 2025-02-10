@@ -1,13 +1,11 @@
-from pathlib import Path
-
 import numpy as np
 import torch as th
 import torch.nn as nn
+import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
@@ -32,42 +30,20 @@ def main():
     device = args.device
 
     if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
-        augmentations = transforms.Compose(
+        transform = transforms.Compose(
             [
                 transforms.Resize((16, 16)),
                 transforms.ToTensor(),
             ]
         )
     else:
-        augmentations = transforms.Compose([transforms.ToTensor()])
+        transform = transforms.Compose([transforms.ToTensor()])
 
-    # Dataset
-    assert (
-        args.validation_split_percentage < 1.0 and args.validation_split_percentage > 0
-    ), "Validation split should be in interval (0,1)"
-    traindata = load_data(
+    traindata, validata, testdata = load_data(
         args.dataset,
-        split="train",
-        split_percentage=args.validation_split_percentage,
-        data_path=args.datafolder,
-        download=args.download_data,
-        transform=augmentations,
-    )
-    validata = load_data(
-        args.dataset,
-        split="validation",
-        split_percentage=args.validation_split_percentage,
-        data_path=args.datafolder,
-        download=args.download_data,
-        transform=augmentations,
-    )
-    testdata = load_data(
-        args.dataset,
-        split="test",
-        split_percentage=args.validation_split_percentage,
-        data_path=args.datafolder,
-        download=args.download_data,
-        transform=augmentations,
+        data_dir=args.datafolder,
+        transform=transform,
+        val_size=args.val_size,
     )
 
     metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
