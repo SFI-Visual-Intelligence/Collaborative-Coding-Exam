@@ -32,4 +32,3 @@ def test_jan_model(image_shape, num_classes):
     y = model(x)
 
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-
