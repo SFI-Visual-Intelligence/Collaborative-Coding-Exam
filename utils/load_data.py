@@ -43,19 +43,21 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
     >>> len(train), len(val), len(test)
     (4914, 546, 1782)
     """
-
+    downloader = Downloader()
+    data_dir = kwargs.get("data_dir")
+    transform = kwargs.get("transform")
     match dataset.lower():
         case "usps_0-6":
             dataset = USPSDataset0_6
-            train_labels, test_labels = Downloader.usps(*args, **kwargs)
+            train_labels, test_labels = downloader.usps(data_dir=data_dir)
             labels = np.arange(7)
         case "usps_7-9":
             dataset = USPSH5_Digit_7_9_Dataset
-            train_labels, test_labels = Downloader.usps(*args, **kwargs)
+            train_labels, test_labels = downloader.usps(data_dir=data_dir)
             labels = np.arange(7, 10)
         case "mnist_0-3":
             dataset = MNISTDataset0_3
-            train_labels, test_labels = Downloader.mnist(*args, **kwargs)
+            train_labels, test_labels = downloader.mnist(data_dir=data_dir)
             labels = np.arange(4)
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")
@@ -73,24 +75,24 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
     train_samples, val_samples = random_split(train_samples, [1 - val_size, val_size])
 
     train = dataset(
-        *args,
+        data_path=data_dir,
         sample_ids=train_samples,
         train=True,
-        **kwargs,
+        transform=transform,
     )
 
     val = dataset(
-        *args,
+        data_path=data_dir,
         sample_ids=val_samples,
         train=True,
-        **kwargs,
+        transform=transform,
     )
 
     test = dataset(
-        *args,
+        data_path=data_dir,
         sample_ids=test_samples,
         train=False,
-        **kwargs,
+        transform=transform,
     )
 
     return train, val, test

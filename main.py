@@ -41,9 +41,8 @@ def main():
 
     traindata, validata, testdata = load_data(
         args.dataset,
-        data_path=args.datafolder,
+        data_dir=args.datafolder,
         transform=transform,
-        download=args.download_data,
         val_size=args.val_size,
     )
 
