@@ -5,25 +5,32 @@ from scipy.stats import entropy
 class EntropyPrediction(nn.Module):
     def __init__(self, averages: str = "average"):
         """
-        Initializes the EntropyPrediction module.
+        Initializes the EntropyPrediction module, which calculates the Shannon Entropy
+        of predicted logits and aggregates the results based on the specified method.
         Args:
             averages (str): Specifies the method of aggregation for entropy values.
-                            Must be either 'mean', 'sum' or 'none.
+                            Must be one of 'mean', 'sum', or 'none'.
         Raises:
-            AssertionError: If the averages parameter is not 'mean' or 'sum'.
+            AssertionError: If the averages parameter is not 'mean', 'sum', or 'none'.
         """
         super().__init__()
 
-        assert averages == "mean" or averages == "sum"
+        assert averages in ["mean", "sum", "none"], (
+            "averages must be 'mean', 'sum', or 'none'"
+        )
         self.averages = averages
         self.stored_entropy_values = []
 
     def __call__(self, y_true, y_logits):
         """
-        Computes the Shannon Entropy of the predicted logits, storing the results.
+        Computes the Shannon Entropy of the predicted logits and stores the results.
         Args:
-            y_true: The true labels. Does nothing, but needed for compatability sake.
-            y_logits: The predicted logits.
+            y_true: The true labels. This parameter is not used in the computation
+                    but is included for compatibility with certain interfaces.
+            y_logits: The predicted logits from which entropy is calculated.
+        Returns:
+            torch.Tensor: The aggregated entropy value(s) based on the specified
+                          method ('mean', 'sum', or 'none').
         """
         entropy_values = entropy(y_logits, axis=1)
         entropy_values = th.from_numpy(entropy_values)
@@ -34,10 +41,8 @@ class EntropyPrediction(nn.Module):
 
         if self.averages == "mean":
             entropy_values = th.mean(entropy_values)
-
         elif self.averages == "sum":
             entropy_values = th.sum(entropy_values)
-
         elif self.averages == "none":
             return entropy_values
 

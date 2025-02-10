@@ -16,17 +16,17 @@ class SVHNDataset(Dataset):
         nr_channels=3,
     ):
         """
-        Initializes the SVHNDataset object.
+        Initializes the SVHNDataset object for loading the Street View House Numbers (SVHN) dataset.
         Args:
-            data_path (str): Path to where the data lies. If download_data is set to True, this is where the data will be downloaded.
-            transforms: Torch composite of transformations which are to be applied to the dataset images.
-            download_data (bool): If True, downloads the dataset to the specified data_path.
-            split (str): The dataset split to use, either 'train' or 'test'.
+            data_path (str): Path to where the data is stored. If `download` is set to True, this is where the data will be downloaded.
+            train (bool): If True, loads the training split of the dataset; otherwise, loads the test split.
+            transform (callable, optional): A function/transform to apply to the images.
+            download (bool): If True, downloads the dataset to the specified `data_path`.
+            nr_channels (int): Number of channels in the images. Default is 3 for RGB images.
         Raises:
             AssertionError: If the split is not 'train' or 'test'.
         """
         super().__init__()
-        # assert split == "train" or split == "test"
         self.split = "train" if train else "test"
 
         if download:
@@ -34,9 +34,10 @@ class SVHNDataset(Dataset):
 
         data = loadmat(os.path.join(data_path, f"{self.split}_32x32.mat"))
 
-        # Images on the form N x H x W x C
+        # Reform images to the form N x H x W x C
         self.images = data["X"].transpose(3, 1, 0, 2)
         self.labels = data["y"].flatten()
+
         self.labels[self.labels == 10] = 0
 
         self.nr_channels = nr_channels
@@ -45,13 +46,11 @@ class SVHNDataset(Dataset):
 
     def _download_data(self, path: str):
         """
-        Downloads the SVHN dataset.
+        Downloads the SVHN dataset to the specified directory.
         Args:
             path (str): The directory where the dataset will be downloaded.
-            split (str): The dataset split to download, either 'train' or 'test'.
         """
         print(f"Downloading SVHN data into {path}")
-
         SVHN(path, split=self.split, download=True)
 
     def __len__(self):
@@ -74,7 +73,6 @@ class SVHNDataset(Dataset):
 
         if self.nr_channels == 1:
             img = np.mean(img, axis=2, keepdims=True)
-
         if self.transforms is not None:
             img = self.transforms(img)
 

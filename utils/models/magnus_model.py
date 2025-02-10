@@ -5,20 +5,16 @@ class MagnusModel(nn.Module):
     def __init__(self, image_shape, num_classes: int, nr_channels: int):
         """
         Initializes the MagnusModel, a neural network designed for image classification tasks.
-
         The model consists of three linear layers, each with 133 neurons, and uses ReLU activation
         functions between the layers. The first layer's input size is determined by the image shape
         and number of channels, while the output layer's size is determined by the number of classes.
         Args:
-            image_shape (tuple): A tuple representing the dimensions of the input image (Channels, Height, Width).
+            image_shape (tuple): A tuple representing the dimensions of the input image (Height, Width).
             num_classes (int): The number of output classes for classification.
             nr_channels (int): The number of channels in the input image.
-        Returns:
-            MagnusModel (nn.Module): An instance of the MagnusModel neural network.
         """
         super().__init__()
         *_, H, W = image_shape
-
         self.layer1 = nn.Sequential(
             *(
                 [
@@ -40,7 +36,8 @@ class MagnusModel(nn.Module):
         """
         Defines the forward pass of the MagnusModel.
         Args:
-            x (torch.Tensor): A four-dimensional tensor with shape (Batch Size, Channels, Image Height, Image Width).
+            x (torch.Tensor): A four-dimensional tensor with shape
+                              (Batch Size, Channels, Image Height, Image Width).
         Returns:
             torch.Tensor: The output tensor containing class logits for each input sample.
         """
