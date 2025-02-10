@@ -2,28 +2,25 @@ import torch.nn as nn
 
 
 class MagnusModel(nn.Module):
-    def __init__(self, image_shape: int, num_classes: int, imagechannels: int):
+    def __init__(self, image_shape, num_classes: int, nr_channels: int):
         """
-        Magnus model contains the model for Magnus' part of the homeexam.
-        This class contains a neural network consisting of three linear layers of 133 neurons each,
-        with ReLU activation between each layer.
-
-        Args
-        ----
-            image_shape (int): Expected size of input image. This is needed to scale first layer input
-            imagechannels (int): Expected number of image channels. This is needed to scale first layer input
-            num_classes (int): Number of classes we are to provide.
-
-        Returns
-        -------
-            MagnusModel (nn.Module): Neural network as described above in this docstring.
+        Initializes the MagnusModel, a neural network designed for image classification tasks.
+        
+        The model consists of three linear layers, each with 133 neurons, and uses ReLU activation 
+        functions between the layers. The first layer's input size is determined by the image shape 
+        and number of channels, while the output layer's size is determined by the number of classes.
+        Args:
+            image_shape (tuple): A tuple representing the dimensions of the input image (Channels, Height, Width).
+            num_classes (int): The number of output classes for classification.
+            nr_channels (int): The number of channels in the input image.
+        Returns:
+            MagnusModel (nn.Module): An instance of the MagnusModel neural network.
         """
         super().__init__()
-        self.image_shape = image_shape
-        self.imagechannels = imagechannels
-
+        _, H, W = image_shape
+        
         self.layer1 = nn.Sequential(*([
-                        nn.Linear(self.imagechannels * self.imagesize * self.imagesize, 133),
+                        nn.Linear(nr_channels * H * W, 133),
                         nn.ReLU(),
                     ]))
         self.layer2 = nn.Sequential(*([
@@ -32,27 +29,32 @@ class MagnusModel(nn.Module):
                     ]))
         self.layer3 = nn.Sequential(*([
                         nn.Linear(133, num_classes), 
-                        nn.ReLU()
                     ]))
-
     def forward(self, x):
         """
-        Forward pass of MagnusModel
-
-        Args
-        ----
-            x (th.Tensor): Four-dimensional tensor in the form (Batch Size x Channels x Image Height x Image Width)
-
-        Returns
-        -------
-            out (th.Tensor): Class-logits of network given input x
+        Defines the forward pass of the MagnusModel.
+        Args:
+            x (torch.Tensor): A four-dimensional tensor with shape (Batch Size, Channels, Image Height, Image Width).
+        Returns:
+            torch.Tensor: The output tensor containing class logits for each input sample.
         """
-        assert len(x.size) == 4
-
+        assert len(x.size()) == 4
         x = x.view(x.size(0), -1)
-
         x = self.layer1(x)
         x = self.layer2(x)
         out = self.layer3(x)
-
         return out
+
+
+if __name__ == '__main__':
+    import torch as th 
+    
+    data_shape = [28,28]
+    
+    data_shape = (3, *data_shape)
+    model = MagnusModel(data_shape, 10)
+    
+    dummy_img = th.rand((5,*data_shape))
+    print(dummy_img.size())
+    with th.no_grad():
+        print(model(dummy_img).size())

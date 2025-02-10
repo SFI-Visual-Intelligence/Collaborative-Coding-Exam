@@ -40,6 +40,7 @@ class SVHNDataset(Dataset):
         
         self.nr_channels = nr_channels
         self.transforms = transform
+        self.num_classes = len(np.unique(self.labels))
 
     def _download_data(self, path: str):
         """

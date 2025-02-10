@@ -1,8 +1,6 @@
 import copy
-
 import numpy as np
 import torch.nn as nn
-
 from .metrics import Accuracy, EntropyPrediction, F1Score, Precision, Recall
 
 
@@ -45,7 +43,7 @@ class MetricWrapper(nn.Module):
     {'entropy': [], 'f1': [], 'precision': []}
     """
 
-    def __init__(self, *metrics, num_classes):
+    def __init__(self, num_classes, *metrics):
         super().__init__()
         self.metrics = {}
         self.num_classes = num_classes
@@ -72,7 +70,8 @@ class MetricWrapper(nn.Module):
 
         match key.lower():
             case "entropy":
-                return EntropyPrediction(num_classes=self.num_classes)
+                #Not dependent on knowing the number of classes
+                return EntropyPrediction()
             case "f1":
                 return F1Score(num_classes=self.num_classes)
             case "recall":
