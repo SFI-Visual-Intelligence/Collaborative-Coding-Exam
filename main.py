@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
-
+from wandb_api import WANDB_API
 
 def main():
     """
@@ -29,7 +29,7 @@ def main():
 
     device = args.device
 
-    if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
+    if args.dataset.lower() in ["usps_0-6", "usps_7-9"]:
         transform = transforms.Compose(
             [
                 transforms.Resize((16, 16)),
@@ -107,13 +107,13 @@ def main():
 
     # wandb.login(key=WANDB_API)
     wandb.init(
-            entity="ColabCode-org",
+            entity="ColabCode",
             # entity="FYS-8805 Exam",
-            project="Test", 
+            project="Jan", 
             tags=[args.modelname, args.dataset]
             )
     wandb.watch(model)
-    exit()
+    
     for epoch in range(args.epoch):
         # Training loop start
         trainingloss = []

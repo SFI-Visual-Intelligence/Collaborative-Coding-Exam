@@ -20,6 +20,7 @@ dependencies:
   - scalene
   - tqdm
   - scipy
+  - wandb
   - pip:
     - torch
     - torchvision
