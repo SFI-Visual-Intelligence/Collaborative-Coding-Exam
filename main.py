@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
+import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
@@ -22,13 +22,13 @@ def main():
     ------
 
     """
-    
+
     args = get_args()
-    
+
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
-    
+
     device = args.device
-    
+
     if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
         augmentations = transforms.Compose(
             [
@@ -38,7 +38,7 @@ def main():
         )
     else:
         augmentations = transforms.Compose([transforms.ToTensor()])
-    
+
     # Dataset
     traindata = load_data(
         args.dataset,
@@ -54,14 +54,14 @@ def main():
         download=args.download_data,
         transform=augmentations,
     )
-    
+
     metrics = MetricWrapper(traindata.num_classes, *args.metric)
-    
+
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
     if len(data_shape) == 2:
         data_shape = (1, *data_shape)
-    
+
     # load model
     model = load_model(
         args.modelname,
@@ -69,7 +69,7 @@ def main():
         num_classes=traindata.num_classes,
     )
     model.to(device)
-    
+
     trainloader = DataLoader(
         traindata,
         batch_size=args.batchsize,
@@ -113,11 +113,11 @@ def main():
 
     # wandb.login(key=WANDB_API)
     wandb.init(
-            entity="ColabCode-org",
-            # entity="FYS-8805 Exam",
-            project="Test", 
-            tags=[args.modelname, args.dataset]
-            )
+        entity="ColabCode-org",
+        # entity="FYS-8805 Exam",
+        project="Test",
+        tags=[args.modelname, args.dataset],
+    )
     wandb.watch(model)
     exit()
     for epoch in range(args.epoch):

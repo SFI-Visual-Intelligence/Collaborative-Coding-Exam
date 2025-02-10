@@ -1,4 +1,5 @@
-from utils.dataloaders import USPSDataset0_6, SVHNDataset
+from utils.dataloaders import SVHNDataset, USPSDataset0_6
+
 
 def test_uspsdataset0_6():
     from pathlib import Path
@@ -32,28 +33,23 @@ def test_uspsdataset0_6():
         assert data.shape == (1, 16, 16)
         assert all(target == np.array([0, 0, 0, 0, 0, 0, 1]))
 
-        
+
 def test_svhn_dataset():
     import os
     from tempfile import TemporaryDirectory
+
     from torchvision import transforms
-    
-    with TemporaryDirectory() as tempdir: 
-        
-        trans = transforms.Compose([
-            transforms.Resize((28,28)),
-            transforms.ToTensor()
-        ])
-        
-        dataset = SVHNDataset(tempdir,
-                              train=True,
-                              transform=trans,
-                              download=True,
-                              nr_channels=1)
-        
+
+    with TemporaryDirectory() as tempdir:
+        trans = transforms.Compose([transforms.Resize((28, 28)), transforms.ToTensor()])
+
+        dataset = SVHNDataset(
+            tempdir, train=True, transform=trans, download=True, nr_channels=1
+        )
+
         assert dataset.__len__() != 0
-        assert os.path.exists(os.path.join(tempdir, 'train_32x32.mat'))
-        
+        assert os.path.exists(os.path.join(tempdir, "train_32x32.mat"))
+
         img, label = dataset.__getitem__(0)
-        assert len(img.size()) == 3 and img.size() == (1,28,28) and img.size(0) == 1
+        assert len(img.size()) == 3 and img.size() == (1, 28, 28) and img.size(0) == 1
         assert len(label.size()) == 1
