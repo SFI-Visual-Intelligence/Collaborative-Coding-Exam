@@ -35,7 +35,8 @@ def get_args():
 
     parser.add_argument(
         "--download-data",
-        action="store_true",
+        type=bool,
+        default=False,
         help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
     )
 
@@ -68,6 +69,21 @@ def get_args():
         choices=["entropy", "f1", "recall", "precision", "accuracy"],
         nargs="+",
         help="Which metric to use for evaluation",
+    )
+    
+    parser.add_argument(
+        '--imagesize',
+        type=int,
+        default=28,
+        help='Imagesize'
+    )
+    
+    parser.add_argument(
+        '--nr_channels',
+        type=int,
+        default=1,
+        choices=[1,3],
+        help='Number of image channels'
     )
 
     # Training specific values
