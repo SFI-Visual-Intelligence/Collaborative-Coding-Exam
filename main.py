@@ -46,7 +46,7 @@ def main():
         val_size=args.val_size,
     )
 
-    metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
+    metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes, macro_averaging=args.macro_averaging)
 
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
