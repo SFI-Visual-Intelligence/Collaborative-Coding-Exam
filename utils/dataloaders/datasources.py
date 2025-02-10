@@ -19,20 +19,24 @@ USPS_SOURCE = {
 }
 
 MNIST_SOURCE = {
-    "train_images": ["https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz", 
-                     "train-images-idx3-ubyte", 
-                     None
+    "train_images": [
+        "https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz",
+        "train-images-idx3-ubyte",
+        None,
     ],
-    "train_labels": ["https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz",
-                    "train-labels-idx1-ubyte",
-                    None
+    "train_labels": [
+        "https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz",
+        "train-labels-idx1-ubyte",
+        None,
     ],
-    "test_images": ["https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz",
-                    "t10k-images-idx3-ubyte",
-                    None
+    "test_images": [
+        "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz",
+        "t10k-images-idx3-ubyte",
+        None,
     ],
-    "test_labels": ["https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz",
-                    "t10k-labels-idx1-ubyte",
-                    None
+    "test_labels": [
+        "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz",
+        "t10k-labels-idx1-ubyte",
+        None,
     ],
 }

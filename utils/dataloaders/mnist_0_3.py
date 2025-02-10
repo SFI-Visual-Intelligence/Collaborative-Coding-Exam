@@ -2,6 +2,7 @@ from pathlib import Path
 
 import numpy as np
 from torch.utils.data import Dataset
+
 from .datasources import MNIST_SOURCE
 
 
@@ -62,11 +63,15 @@ class MNISTDataset0_3(Dataset):
         self.transform = transform
         self.num_classes = 4
 
-        self.images_path = self.mnist_path / (MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1])
-        self.labels_path = self.mnist_path / (MNIST_SOURCE["train_labels"][1] if train else MNIST_SOURCE["test_labels"][1])
+        self.images_path = self.mnist_path / (
+            MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1]
+        )
+        self.labels_path = self.mnist_path / (
+            MNIST_SOURCE["train_labels"][1] if train else MNIST_SOURCE["test_labels"][1]
+        )
 
         self.length = len(self.idx)
-        
+
     def __len__(self):
         return self.length
 

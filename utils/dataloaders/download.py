@@ -1,7 +1,7 @@
 import bz2
+import gzip
 import hashlib
 import os
-import gzip
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.request import urlretrieve
@@ -9,7 +9,7 @@ from urllib.request import urlretrieve
 import h5py as h5
 import numpy as np
 
-from .datasources import USPS_SOURCE, MNIST_SOURCE
+from .datasources import MNIST_SOURCE, USPS_SOURCE
 
 
 class Downloader:
@@ -52,35 +52,36 @@ class Downloader:
             else:
                 path.mkdir(parents=True, exist_ok=True)
                 return False
-            
+
         def _download_data(path: Path) -> None:
             urls = {key: MNIST_SOURCE[key][0] for key in MNIST_SOURCE.keys()}
 
             for name, url in urls.items():
                 file_path = os.path.join(path, url.split("/")[-1])
-                if not os.path.exists(file_path.replace(".gz", "")):  # Avoid re-downloading
+                if not os.path.exists(
+                    file_path.replace(".gz", "")
+                ):  # Avoid re-downloading
                     urlretrieve(url, file_path)
                     with gzip.open(file_path, "rb") as f_in:
                         with open(file_path.replace(".gz", ""), "wb") as f_out:
                             f_out.write(f_in.read())
                     os.remove(file_path)  # Remove compressed file
-                    
+
         def _get_labels(path: Path) -> np.ndarray:
             with open(path, "rb") as f:
                 data = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
             return data
-                    
+
         if not _chech_is_downloaded(data_dir):
             _download_data(data_dir)
-            
+
         train_labels_path = data_dir / "MNIST" / MNIST_SOURCE["train_labels"][1]
         test_labels_path = data_dir / "MNIST" / MNIST_SOURCE["test_labels"][1]
-        
+
         train_labels = _get_labels(train_labels_path)
         test_labels = _get_labels(test_labels_path)
-        
+
         return train_labels, test_labels
-        
 
     def svhn(self, data_dir: Path) -> tuple[np.ndarray, np.ndarray]:
         raise NotImplementedError("SVHN download not implemented yet")
