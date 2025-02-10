@@ -11,7 +11,7 @@ wandb_api.py
 #Magnus specific
 docker/*
 job*
-
+env2/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -149,6 +149,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
 
 # Spyder project settings
 .spyderproject

@@ -17,7 +17,7 @@ class MagnusModel(nn.Module):
             MagnusModel (nn.Module): An instance of the MagnusModel neural network.
         """
         super().__init__()
-        _, H, W = image_shape
+        *_, H, W = image_shape
 
         self.layer1 = nn.Sequential(
             *(
@@ -55,12 +55,12 @@ class MagnusModel(nn.Module):
 if __name__ == "__main__":
     import torch as th
 
-    data_shape = [28, 28]
+    image_shape = (3, 28, 28)
+    n, c, h, w = 5, *image_shape
+    model = MagnusModel([h, w], 10, c)
 
-    data_shape = (3, *data_shape)
-    model = MagnusModel(data_shape, 10)
-
-    dummy_img = th.rand((5, *data_shape))
-    print(dummy_img.size())
+    x = th.rand((n, c, h, w))
     with th.no_grad():
-        print(model(dummy_img).size())
+        y = model(x)
+
+    assert y.shape == (n, 10), f"Shape: {y.shape}"
