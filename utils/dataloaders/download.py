@@ -61,7 +61,7 @@ class Downloader:
                 if not os.path.exists(
                     file_path.replace(".gz", "")
                 ):  # Avoid re-downloading
-                    urlretrieve(url, file_path)
+                    urlretrieve(url, file_path, reporthook=self.__reporthook)
                     with gzip.open(file_path, "rb") as f_in:
                         with open(file_path.replace(".gz", ""), "wb") as f_out:
                             f_out.write(f_in.read())
