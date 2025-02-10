@@ -10,6 +10,7 @@ dependencies:
   - sphinx-rtd-theme
   - pip
   - h5py==3.12.1
+  - hdf5==1.14.4
   - black
   - isort
   - jupyterlab
