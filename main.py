@@ -113,13 +113,13 @@ def main():
 
     # wandb.login(key=WANDB_API)
     wandb.init(
-        entity="ColabCode-org",
-        # entity="FYS-8805 Exam",
-        project="Test",
+        entity="ColabCode",
+        project="Magnus Runs",
         tags=[args.modelname, args.dataset],
+        config=args,
     )
     wandb.watch(model)
-    exit()
+
     for epoch in range(args.epoch):
         # Training loop start
         trainingloss = []

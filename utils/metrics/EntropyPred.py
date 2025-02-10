@@ -3,7 +3,7 @@ from scipy.stats import entropy
 
 
 class EntropyPrediction(nn.Module):
-    def __init__(self, averages: str = "average"):
+    def __init__(self, averages: str = "mean"):
         """
         Initializes the EntropyPrediction module, which calculates the Shannon Entropy
         of predicted logits and aggregates the results based on the specified method.
