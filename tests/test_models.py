@@ -34,7 +34,7 @@ def test_jan_model(image_shape, num_classes):
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
 
 
-@pytest.mark.parameterize("image_shape", [(3, 28, 28)])
+@pytest.mark.parametrize("image_shape", [(3, 28, 28)])
 def test_magnus_model(image_shape):
     import torch as th
 
