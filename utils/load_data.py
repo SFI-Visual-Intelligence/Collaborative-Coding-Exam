@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset
 
-from .dataloaders import MNISTDataset0_3, USPSDataset0_6, USPSH5_Digit_7_9_Dataset
+from .dataloaders import MNISTDataset0_3, USPSDataset0_6, USPSH5_Digit_7_9_Dataset, SVHNDataset
 
 
 def load_data(dataset: str, *args, **kwargs) -> Dataset:
@@ -40,5 +40,9 @@ def load_data(dataset: str, *args, **kwargs) -> Dataset:
             return MNISTDataset0_3(*args, **kwargs)
         case "usps_7-9":
             return USPSH5_Digit_7_9_Dataset(*args, **kwargs)
+        case "svhn":
+            return SVHNDataset(*args, **kwargs)
+        case "mnist_4-9":
+            raise NotImplementedError("MNIST 4-9 dataset not yet implemented.")
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")

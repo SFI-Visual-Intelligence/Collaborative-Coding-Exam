@@ -1,12 +1,16 @@
 __pycache__/
 .ipynb_checkpoints/
-Data/
-Results/
-Experiments/
+Data/*
+Results/*
+Experiments/*
 _build/
-bin/
-wandb/
+bin/*
+wandb/*
 wandb_api.py
+
+#Magnus specific
+docker/*
+job*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

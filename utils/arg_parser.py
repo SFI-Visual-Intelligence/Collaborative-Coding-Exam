@@ -35,7 +35,8 @@ def get_args():
 
     parser.add_argument(
         "--download-data",
-        action="store_true",
+        type=bool,
+        default=False,
         help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
     )
 
@@ -44,14 +45,20 @@ def get_args():
         "--modelname",
         type=str,
         default="MagnusModel",
-        choices=["MagnusModel", "ChristianModel", "SolveigModel", "JanModel"],
+        choices=[
+            "MagnusModel",
+            "ChristianModel",
+            "SolveigModel",
+            "JanModel",
+            "JohanModel",
+        ],
         help="Model which to be trained on",
     )
     parser.add_argument(
         "--dataset",
         type=str,
         default="svhn",
-        choices=["svhn", "usps_0-6", "uspsh5_7_9", "mnist_0-3"],
+        choices=["svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"],
         help="Which dataset to train the model on.",
     )
 
@@ -62,6 +69,21 @@ def get_args():
         choices=["entropy", "f1", "recall", "precision", "accuracy"],
         nargs="+",
         help="Which metric to use for evaluation",
+    )
+    
+    parser.add_argument(
+        '--imagesize',
+        type=int,
+        default=28,
+        help='Imagesize'
+    )
+    
+    parser.add_argument(
+        '--nr_channels',
+        type=int,
+        default=1,
+        choices=[1,3],
+        help='Number of image channels'
     )
 
     # Training specific values
@@ -95,4 +117,10 @@ def get_args():
         action="store_true",
         help="If true, the code will not run the training loop.",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    assert args.epoch > 0, "Epoch should be a positive integer."
+    assert args.learning_rate > 0, "Learning rate should be a positive float."
+    assert args.batchsize > 0, "Batch size should be a positive integer."
+
+    return args
