@@ -57,7 +57,3 @@ def test_svhn_dataset():
         img, label = dataset.__getitem__(0)
         assert len(img.size()) == 3 and img.size() == (1,28,28) and img.size(0) == 1
         assert len(label.size()) == 1
-
-
-if __name__ == '__main__':
-    test_svhn_dataset()
