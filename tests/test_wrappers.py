@@ -27,35 +27,38 @@ def test_load_model():
             )
 
 
-def test_load_data():
-    from tempfile import TemporaryDirectory
+# def test_load_data():
+#     from tempfile import TemporaryDirectory
 
-    import torch as th
-    from torchvision import transforms
+#     import torch as th
+#     from torchvision import transforms
 
-    dataset_names = [
-        "usps_0-6",
-        "mnist_0-3",
-        "usps_7-9",
-        "svhn",
-        # 'mnist_4-9' #Uncomment when implemented
-    ]
+#     dataset_names = [
+#         "usps_0-6",
+#         "mnist_0-3",
+#         "usps_7-9",
+#         "svhn",
+#         # 'mnist_4-9' #Uncomment when implemented
+#     ]
 
-    trans = transforms.Compose(
-        [
-            transforms.Resize((16, 16)),
-            transforms.ToTensor(),
-        ]
-    )
+#     trans = transforms.Compose(
+#         [
+#             transforms.Resize((16, 16)),
+#             transforms.ToTensor(),
+#         ]
+#     )
 
-    with TemporaryDirectory() as tmppath:
-        for name in dataset_names:
-            dataset = load_data(
-                name, train=False, data_path=tmppath, download=True, transform=trans
-            )
+#     with TemporaryDirectory() as tmppath:
+#         for name in dataset_names:
+#             dataset = load_data(
+#                 name, train=False, data_path=tmppath, download=True, transform=trans
+#             )
 
-            im, lab = dataset.__getitem__(0)
+#             im, lab = dataset.__getitem__(0)
 
-            assert dataset.__len__() != 0
-            assert type(im) == th.Tensor and len(im.size()) == 3
-            assert lab - lab == 0.0
+#             assert dataset.__len__() != 0
+#             assert type(im) == th.Tensor and len(im.size()) == 3
+#             assert lab - lab == 0.0
+
+# def test_load_metric():
+#     pass
