@@ -2,6 +2,7 @@ import gzip
 import os
 import urllib.request as ur
 from pathlib import Path
+
 import numpy as np
 from torch.utils.data import Dataset
 
