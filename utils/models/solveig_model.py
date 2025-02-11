@@ -58,7 +58,6 @@ class SolveigModel(nn.Module):
         x = torch.flatten(x, 1)
 
         x = self.fc1(x)
-        x = nn.Softmax(x)
 
         return x
 

@@ -58,7 +58,6 @@ class ChristianModel(nn.Module):
         self.cnn2 = CNNBlock(50, 100)
 
         self.fc1 = nn.Linear(100 * 4 * 4, num_classes)
-        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         x = self.cnn1(x)
@@ -66,7 +65,6 @@ class ChristianModel(nn.Module):
 
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
-        x = self.softmax(x)
 
         return x
 

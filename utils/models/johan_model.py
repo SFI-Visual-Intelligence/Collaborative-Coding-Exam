@@ -43,14 +43,12 @@ class JohanModel(nn.Module):
         self.fc2 = nn.Linear(77, 77)
         self.fc3 = nn.Linear(77, 77)
         self.fc4 = nn.Linear(77, num_classes)
-        self.softmax = nn.Softmax(dim=1)
         self.relu = nn.ReLU()
 
     def forward(self, x):
         for layer in [self.fc1, self.fc2, self.fc3, self.fc4]:
             x = layer(x)
             x = self.relu(x)
-        x = self.softmax(x)
         return x
 
 

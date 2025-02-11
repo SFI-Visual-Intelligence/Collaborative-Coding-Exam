@@ -10,6 +10,7 @@ from torch.utils.data import Dataset
 class MNISTDataset0_3(Dataset):
     """
     A custom dataset class for loading MNIST data, specifically for digits 0 through 3.
+
     Parameters
     ----------
     data_path : Path
@@ -20,6 +21,7 @@ class MNISTDataset0_3(Dataset):
         A function/transform that takes in an image and returns a transformed version. Default is None.
     download : bool, optional
         If True, downloads the dataset if it is not already present in the specified data_path. Default is False.
+
     Attributes
     ----------
     data_path : Path
@@ -40,6 +42,7 @@ class MNISTDataset0_3(Dataset):
         Indices of the labels that are less than 4.
     length : int
         The number of samples in the dataset.
+
     Methods
     -------
     _parse_labels(train)
@@ -134,11 +137,11 @@ class MNISTDataset0_3(Dataset):
 
     def __getitem__(self, index):
         with open(self.labels_path, "rb") as f:
-            f.seek(8 + index)  # Jump to the label position
+            f.seek(8 + self.idx[index])  # Jump to the label position
             label = int.from_bytes(f.read(1), byteorder="big")  # Read 1 byte for label
 
         with open(self.images_path, "rb") as f:
-            f.seek(16 + index * 28 * 28)  # Jump to image position
+            f.seek(16 + self.idx[index] * 28 * 28)  # Jump to image position
             image = np.frombuffer(f.read(28 * 28), dtype=np.uint8).reshape(
                 28, 28
             )  # Read image data
