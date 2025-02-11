@@ -12,5 +12,8 @@ culpa qui officia deserunt mollit anim id est laborum.
 :caption: Some caption
 
 about.md
-Magnus_page.md
+Magnus_page
 :::
+
+Individual Sections
+===================
