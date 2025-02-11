@@ -46,7 +46,20 @@ class EntropyPrediction(nn.Module):
         elif self.averages == "none":
             return entropy_values
 
+        self.stored_entropy_values.append(entropy_values)
+
         return entropy_values
+
+    def return_value(self):
+        if self.averages == "mean":
+            self.stored_entropy_values = th.mean(self.stored_entropy_values)
+        elif self.averages == "sum":
+            self.stored_entropy_values = th.sum(self.stored_entropy_values)
+        elif self.averages == "none":
+            return self.stored_entropy_values
+
+    def reset(self):
+        self.stored_entropy_values = []
 
 
 if __name__ == "__main__":
