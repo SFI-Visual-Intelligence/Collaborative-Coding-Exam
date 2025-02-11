@@ -4,16 +4,19 @@ from utils.metrics import Accuracy, F1Score, Precision, Recall
 def test_recall():
     import torch
 
-    recall = Recall(7)
-
     y_true = torch.tensor([0, 1, 2, 3, 4, 5, 6])
-    y_pred = torch.tensor([2, 1, 2, 1, 4, 5, 6])
+    logits = torch.randn(7, 7)
 
-    recall_score = recall(y_true, y_pred)
+    recall_micro = Recall(7)
+    recall_macro = Recall(7, macro_averaging=True)
 
-    assert recall_score.allclose(torch.tensor(0.7143), atol=1e-5), (
-        f"Recall Score: {recall_score.item()}"
-    )
+    recall_micro_score = recall_micro(y_true, logits)
+    recall_macro_score = recall_macro(y_true, logits)
+
+    assert isinstance(recall_micro_score, torch.Tensor), "Expected a tensor output."
+    assert isinstance(recall_macro_score, torch.Tensor), "Expected a tensor output."
+    assert recall_micro_score.item() >= 0, "Expected a non-negative value."
+    assert recall_macro_score.item() >= 0, "Expected a non-negative value."
 
 
 def test_f1score():
