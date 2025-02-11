@@ -75,13 +75,21 @@ class MetricWrapper(nn.Module):
             case "entropy":
                 return EntropyPrediction(num_classes=self.num_classes)
             case "f1":
-                return F1Score(num_classes=self.num_classes, macro_averaging=self.macro_averaging)
+                return F1Score(
+                    num_classes=self.num_classes, macro_averaging=self.macro_averaging
+                )
             case "recall":
-                return Recall(num_classes=self.num_classes, macro_averaging=self.macro_averaging)
+                return Recall(
+                    num_classes=self.num_classes, macro_averaging=self.macro_averaging
+                )
             case "precision":
-                return Precision(num_classes=self.num_classes, macro_averaging=self.macro_averaging)
+                return Precision(
+                    num_classes=self.num_classes, macro_averaging=self.macro_averaging
+                )
             case "accuracy":
-                return Accuracy(num_classes=self.num_classes, macro_averaging=self.macro_averaging)
+                return Accuracy(
+                    num_classes=self.num_classes, macro_averaging=self.macro_averaging
+                )
             case _:
                 raise ValueError(f"Metric {key} not supported")
 
