@@ -12,6 +12,8 @@ wandb_api.py
 docker/*
 job*
 env2/*
+ruffian.sh 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
