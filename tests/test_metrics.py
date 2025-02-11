@@ -26,7 +26,7 @@ def test_f1score():
 
     target = torch.tensor([0, 1, 0, 2])
 
-    f1_metric.update(preds, target)
+    f1_metric(preds, target)
     assert f1_metric.tp.sum().item() > 0, "Expected some true positives."
     assert f1_metric.fp.sum().item() > 0, "Expected some false positives."
     assert f1_metric.fn.sum().item() > 0, "Expected some false negatives."

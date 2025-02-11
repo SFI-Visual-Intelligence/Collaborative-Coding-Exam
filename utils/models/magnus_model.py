@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class MagnusModel(nn.Module):
-    def __init__(self, imagesize: int, imagechannels: int, n_classes: int = 10):
+    def __init__(self, image_shape: int, num_classes: int, imagechannels: int):
         """
         Magnus model contains the model for Magnus' part of the homeexam.
         This class contains a neural network consisting of three linear layers of 133 neurons each,
@@ -10,30 +10,30 @@ class MagnusModel(nn.Module):
 
         Args
         ----
-            imagesize (int): Expected size of input image. This is needed to scale first layer input
+            image_shape (int): Expected size of input image. This is needed to scale first layer input
             imagechannels (int): Expected number of image channels. This is needed to scale first layer input
-            n_classes (int): Number of classes we are to provide.
+            num_classes (int): Number of classes we are to provide.
 
         Returns
         -------
             MagnusModel (nn.Module): Neural network as described above in this docstring.
         """
         super().__init__()
-        self.imagesize = imagesize
+        self.image_shape = image_shape
         self.imagechannels = imagechannels
 
-        self.layer1 = nn.Sequential(*([
-                        nn.Linear(self.imagechannels * self.imagesize * self.imagesize, 133),
-                        nn.ReLU(),
-                    ]))
-        self.layer2 = nn.Sequential(*([
-                        nn.Linear(133, 133), 
-                        nn.ReLU()
-                    ]))
-        self.layer3 = nn.Sequential(*([
-                        nn.Linear(133, n_classes), 
-                        nn.ReLU()
-                    ]))
+        self.layer1 = nn.Sequential(
+            *(
+                [
+                    nn.Linear(
+                        self.imagechannels * self.imagesize * self.imagesize, 133
+                    ),
+                    nn.ReLU(),
+                ]
+            )
+        )
+        self.layer2 = nn.Sequential(*([nn.Linear(133, 133), nn.ReLU()]))
+        self.layer3 = nn.Sequential(*([nn.Linear(133, num_classes), nn.ReLU()]))
 
     def forward(self, x):
         """
