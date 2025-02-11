@@ -90,6 +90,6 @@ class MetricWrapper(nn.Module):
                 return_metrics[key] = self.metrics[key].__returnmetric__()
         return return_metrics
 
-    def reset(self):
+    def __resetmetrics__(self):
         for key in self.metrics:
-            self.metrics[key].reset()
+            self.metrics[key].__reset__()
