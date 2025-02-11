@@ -1,12 +1,12 @@
 Magnus Individual Task
 ======================
 
-#Magnus Størdal Individual Task
+# Magnus Størdal Individual Task
 
-##Task overview
+## Task overview
 In addition to the overall task, I was tasked to implement a three layer linear network, a dataset loader for the SVHN dataset, and a entropy metric.
 
-##Network Implementation In-Depth
+## Network Implementation In-Depth
 For the network part I was tasked with making a three-layer linear network where each layer conists of 133 neurons. This is a fairly straightforward implementation where we make a custom class which inherits from the PyTorch Module class. This allows for our class to have two methods. The __init__ method and a forward method. When we make an instance of the class we'll be able to call the instance like we would call a function, and have it run the forward method. 
 
 The network is initialized with the following metrics: 
@@ -22,12 +22,12 @@ The forward method in this class has an assertion making sure the input has four
 Each input is flattened over the channel, height and width channels. Then they are passed through each layer and the resulting logits are returned.
 
 
-##SVHN Dataset In-Depth
+## SVHN Dataset In-Depth
 
 
 
 
-##Entropy Metric In-Depth
+## Entropy Metric In-Depth
 
 The EntropyPrediction class' main job is to take some inputs and return the Shannon Entropy metric of those inputs. The class has four methods with the following jobs: 
 * __init__ : Initialize the class.
