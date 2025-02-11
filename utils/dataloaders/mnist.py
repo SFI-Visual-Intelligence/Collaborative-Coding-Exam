@@ -6,9 +6,9 @@ from torch.utils.data import Dataset
 from .datasources import MNIST_SOURCE
 
 
-class MNISTDataset0_3(Dataset):
+class MNISTDataset(Dataset):
     """
-    A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.
+    A custom Dataset class for loading a subset of the MNIST dataset
     Parameters
     ----------
     data_path : Path
@@ -61,7 +61,6 @@ class MNISTDataset0_3(Dataset):
         self.idx = sample_ids
         self.train = train
         self.transform = transform
-        self.num_classes = 4
 
         self.images_path = self.mnist_path / (
             MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1]
