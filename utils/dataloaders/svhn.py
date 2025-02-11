@@ -1,6 +1,8 @@
 import os
 
+import h5py 
 import numpy as np
+from PIL import Image
 from scipy.io import loadmat
 from torch.utils.data import Dataset
 from torchvision.datasets import SVHN
@@ -27,22 +29,23 @@ class SVHNDataset(Dataset):
             AssertionError: If the split is not 'train' or 'test'.
         """
         super().__init__()
+        self.data_path = data_path
         self.split = "train" if train else "test"
 
         if download:
             self._download_data(data_path)
 
-        data = loadmat(os.path.join(data_path, f"{self.split}_32x32.mat"))
-
-        # Reform images to the form N x H x W x C
-        self.images = data["X"].transpose(3, 1, 0, 2)
-        self.labels = data["y"].flatten()
-
-        self.labels[self.labels == 10] = 0
-
         self.nr_channels = nr_channels
         self.transforms = transform
+        
+        
+        assert os.path.exists(os.path.join(self.data_path, f'svhn_{self.split}data.h5')), f'File svhn_{self.split}data.h5 does not exists. Run download=True'
+        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'r') as h5f:
+            self.labels = h5f['labels'][:]
+        
         self.num_classes = len(np.unique(self.labels))
+        
+        
 
     def _download_data(self, path: str):
         """
@@ -52,7 +55,17 @@ class SVHNDataset(Dataset):
         """
         print(f"Downloading SVHN data into {path}")
         SVHN(path, split=self.split, download=True)
+        data = loadmat(os.path.join(path, f'{self.split}_32x32.mat'))
 
+        images, labels = data['X'], data['y']
+        images = images.transpose(3,1,0,2)
+        labels[labels == 10] = 0
+        labels = labels.flatten()
+        
+        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'w') as h5f:
+            h5f.create_dataset('images', data=images)
+            h5f.create_dataset('labels', data=labels)
+ 
     def __len__(self):
         """
         Returns the number of samples in the dataset.
@@ -69,11 +82,15 @@ class SVHNDataset(Dataset):
         Returns:
             tuple: A tuple containing the image and its corresponding label.
         """
-        img, lab = self.images[index], self.labels[index]
-
+        lab = self.labels[index]
+        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'r') as h5f:
+            img = Image.fromarray(h5f['images'][index])
+            
         if self.nr_channels == 1:
-            img = np.mean(img, axis=2, keepdims=True)
+            img = img.convert('L')
+            
         if self.transforms is not None:
             img = self.transforms(img)
 
         return img, lab
+

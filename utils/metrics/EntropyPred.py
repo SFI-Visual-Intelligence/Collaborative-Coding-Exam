@@ -63,15 +63,3 @@ class EntropyPrediction(nn.Module):
     def __reset__(self):
         self.stored_entropy_values = []
 
-if __name__ == '__main__':
-     
-    pred_logits = th.rand(6, 5)
-    true_lab = th.rand(6, 5)
-    
-    metric = EntropyPrediction(averages="mean")
-    metric2 = EntropyPrediction(averages="sum")
-    
-    # Test for averaging metric consistency
-    metric(true_lab, pred_logits)
-    metric2(true_lab, pred_logits)
-    assert (th.abs(th.sum(6 * metric.__returnmetric__() - metric2.__returnmetric__())) < 1e-5)

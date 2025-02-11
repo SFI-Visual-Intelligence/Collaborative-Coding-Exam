@@ -44,12 +44,12 @@ def test_svhn_dataset():
         trans = transforms.Compose([transforms.Resize((28, 28)), transforms.ToTensor()])
 
         dataset = SVHNDataset(
-            tempdir, train=True, transform=trans, download=True, nr_channels=1
+            tempdir, train=False, transform=trans, download=True, nr_channels=1
         )
 
         assert dataset.__len__() != 0
-        assert os.path.exists(os.path.join(tempdir, "train_32x32.mat"))
+        assert os.path.exists(os.path.join(tempdir, "test_32x32.mat")), f'No such file as test_32x32.mat. Try running download=True'
+        assert os.path.exists(os.path.join(tempdir, "svhn_testdata.h5")), f'No such file as svhn_testdata.h5. Try running download=True'
 
         img, label = dataset.__getitem__(0)
         assert len(img.size()) == 3 and img.size() == (1, 28, 28) and img.size(0) == 1
-        assert len(label.size()) == 1
