@@ -1,6 +1,6 @@
 import os
 
-import h5py 
+import h5py
 import numpy as np
 from PIL import Image
 from scipy.io import loadmat
@@ -37,15 +37,16 @@ class SVHNDataset(Dataset):
 
         self.nr_channels = nr_channels
         self.transforms = transform
-        
-        
-        assert os.path.exists(os.path.join(self.data_path, f'svhn_{self.split}data.h5')), f'File svhn_{self.split}data.h5 does not exists. Run download=True'
-        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'r') as h5f:
-            self.labels = h5f['labels'][:]
-        
+
+        assert os.path.exists(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5")
+        ), f"File svhn_{self.split}data.h5 does not exists. Run download=True"
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "r"
+        ) as h5f:
+            self.labels = h5f["labels"][:]
+
         self.num_classes = len(np.unique(self.labels))
-        
-        
 
     def _download_data(self, path: str):
         """
@@ -55,17 +56,19 @@ class SVHNDataset(Dataset):
         """
         print(f"Downloading SVHN data into {path}")
         SVHN(path, split=self.split, download=True)
-        data = loadmat(os.path.join(path, f'{self.split}_32x32.mat'))
+        data = loadmat(os.path.join(path, f"{self.split}_32x32.mat"))
 
-        images, labels = data['X'], data['y']
-        images = images.transpose(3,1,0,2)
+        images, labels = data["X"], data["y"]
+        images = images.transpose(3, 1, 0, 2)
         labels[labels == 10] = 0
         labels = labels.flatten()
-        
-        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'w') as h5f:
-            h5f.create_dataset('images', data=images)
-            h5f.create_dataset('labels', data=labels)
- 
+
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "w"
+        ) as h5f:
+            h5f.create_dataset("images", data=images)
+            h5f.create_dataset("labels", data=labels)
+
     def __len__(self):
         """
         Returns the number of samples in the dataset.
@@ -83,14 +86,15 @@ class SVHNDataset(Dataset):
             tuple: A tuple containing the image and its corresponding label.
         """
         lab = self.labels[index]
-        with h5py.File(os.path.join(self.data_path, f'svhn_{self.split}data.h5'), 'r') as h5f:
-            img = Image.fromarray(h5f['images'][index])
-            
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "r"
+        ) as h5f:
+            img = Image.fromarray(h5f["images"][index])
+
         if self.nr_channels == 1:
-            img = img.convert('L')
-            
+            img = img.convert("L")
+
         if self.transforms is not None:
             img = self.transforms(img)
 
         return img, lab
-

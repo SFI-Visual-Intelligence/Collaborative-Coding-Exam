@@ -48,8 +48,12 @@ def test_svhn_dataset():
         )
 
         assert dataset.__len__() != 0
-        assert os.path.exists(os.path.join(tempdir, "test_32x32.mat")), f'No such file as test_32x32.mat. Try running download=True'
-        assert os.path.exists(os.path.join(tempdir, "svhn_testdata.h5")), f'No such file as svhn_testdata.h5. Try running download=True'
+        assert os.path.exists(os.path.join(tempdir, "test_32x32.mat")), (
+            f"No such file as test_32x32.mat. Try running download=True"
+        )
+        assert os.path.exists(os.path.join(tempdir, "svhn_testdata.h5")), (
+            f"No such file as svhn_testdata.h5. Try running download=True"
+        )
 
         img, label = dataset.__getitem__(0)
         assert len(img.size()) == 3 and img.size() == (1, 28, 28) and img.size(0) == 1

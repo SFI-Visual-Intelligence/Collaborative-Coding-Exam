@@ -1,6 +1,6 @@
-import torch as th 
-import torch.nn as nn
 import numpy as np
+import torch as th
+import torch.nn as nn
 from scipy.stats import entropy
 
 
@@ -34,20 +34,19 @@ class EntropyPrediction(nn.Module):
             torch.Tensor: The aggregated entropy value(s) based on the specified
                           method ('mean', 'sum', or 'none').
         """
-        
-        assert len(y_logits.size()) == 2, f'y_logits shape: {y_logits.size()}'
+
+        assert len(y_logits.size()) == 2, f"y_logits shape: {y_logits.size()}"
         y_pred = nn.Softmax(dim=1)(y_logits)
-        print(f'y_pred: {y_pred}')
+        print(f"y_pred: {y_pred}")
         entropy_values = entropy(y_pred, axis=1)
         entropy_values = th.from_numpy(entropy_values)
 
         # Fix numerical errors for perfect guesses
         entropy_values[entropy_values == th.inf] = 0
         entropy_values = th.nan_to_num(entropy_values)
-        print(f'Entropy Values: {entropy_values}')
+        print(f"Entropy Values: {entropy_values}")
         for sample in entropy_values:
             self.stored_entropy_values.append(sample.item())
-
 
     def __returnmetric__(self):
         stored_entropy_values = th.from_numpy(np.asarray(self.stored_entropy_values))
@@ -57,9 +56,8 @@ class EntropyPrediction(nn.Module):
         elif self.averages == "sum":
             stored_entropy_values = th.sum(stored_entropy_values)
         elif self.averages == "none":
-            pass 
+            pass
         return stored_entropy_values
 
     def __reset__(self):
         self.stored_entropy_values = []
-
