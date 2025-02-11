@@ -131,7 +131,7 @@ class F1Score(nn.Module):
         torch.Tensor
             The computed F1 score (either micro or macro, based on `macro_averaging`).
         """
-        preds = torch.argmax(preds, dim=1)
+        preds = torch.argmax(preds, dim=-1)
 
         # Calculate True Positives (TP), False Positives (FP), and False Negatives (FN) per class
         for i in range(self.num_classes):
