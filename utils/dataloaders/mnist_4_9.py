@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 
 from .datasources import MNIST_SOURCE
 
-class MNIST_4_9(Dataset):
+class MNISTDataset4_9(Dataset):
     """
     MNIST dataset of numbers 4-9.
 
