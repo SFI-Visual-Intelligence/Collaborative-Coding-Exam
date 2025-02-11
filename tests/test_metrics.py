@@ -35,7 +35,7 @@ def test_f1score():
 def test_precision_case1():
     import torch
 
-    for boolean, true_precision in zip([True, False], [25.0 / 36, 7.0 / 10]):
+    for boolean, true_precision in zip([False, True], [25.0 / 36, 7.0 / 10]):
         true1 = torch.tensor([0, 1, 2, 1, 0, 2, 1, 0, 2, 1])
         pred1 = torch.tensor([0, 2, 1, 1, 0, 2, 0, 0, 2, 1])
         P = Precision(3, micro_averaging=boolean)
@@ -48,7 +48,7 @@ def test_precision_case1():
 def test_precision_case2():
     import torch
 
-    for boolean, true_precision in zip([True, False], [8.0 / 15, 6.0 / 15]):
+    for boolean, true_precision in zip([False, True], [8.0 / 15, 6.0 / 15]):
         true2 = torch.tensor([0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4])
         pred2 = torch.tensor([0, 0, 4, 3, 4, 0, 4, 4, 2, 3, 4, 1, 2, 4, 0])
         P = Precision(5, micro_averaging=boolean)
@@ -61,7 +61,7 @@ def test_precision_case2():
 def test_precision_case3():
     import torch
 
-    for boolean, true_precision in zip([True, False], [3.0 / 4, 4.0 / 5]):
+    for boolean, true_precision in zip([False, True], [3.0 / 4, 4.0 / 5]):
         true3 = torch.tensor([0, 0, 0, 1, 0])
         pred3 = torch.tensor([1, 0, 0, 1, 0])
         P = Precision(2, micro_averaging=boolean)
@@ -74,7 +74,7 @@ def test_precision_case3():
 def test_for_zero_denominator():
     import torch
 
-    for boolean in [True, False]:
+    for boolean in [False, True]:
         true4 = torch.tensor([1, 1, 1, 1, 1])
         pred4 = torch.tensor([0, 0, 0, 0, 0])
         P = Precision(2, micro_averaging=boolean)
