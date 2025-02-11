@@ -1,4 +1,47 @@
+from random import randint
+
+import pytest
+
+from utils.load_metric import MetricWrapper
 from utils.metrics import Accuracy, F1Score, Precision, Recall
+
+
+@pytest.mark.parametrize(
+    "metric, num_classes, macro_averaging",
+    [
+        ("f1", randint(2, 10), False),
+        ("f1", randint(2, 10), True),
+        ("recall", randint(2, 10), False),
+        ("recall", randint(2, 10), True),
+        ("accuracy", randint(2, 10), False),
+        ("accuracy", randint(2, 10), True),
+        ("precision", randint(2, 10), False),
+        ("precision", randint(2, 10), True),
+        # TODO: Add test for EntropyPrediction
+    ],
+)
+def test_metric_wrapper(metric, num_classes, macro_averaging):
+    import numpy as np
+    import torch
+
+    y_true = torch.arange(num_classes, dtype=torch.int64)
+    logits = torch.rand(num_classes, num_classes)
+
+    metrics = MetricWrapper(
+        metric,
+        num_classes=num_classes,
+        macro_averaging=macro_averaging,
+    )
+
+    metrics(y_true, logits)
+    score = metrics.accumulate()
+    metrics.reset()
+    empty_score = metrics.accumulate()
+
+    assert isinstance(score, dict), "Expected a dictionary output."
+    assert metric in score, f"Expected {metric} metric in the output."
+    assert score[metric] >= 0, "Expected a non-negative value."
+    assert np.isnan(empty_score[metric]), "Expected an empty list."
 
 
 def test_recall():
