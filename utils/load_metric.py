@@ -1,6 +1,3 @@
-import copy
-
-import numpy as np
 import torch.nn as nn
 
 from .metrics import Accuracy, EntropyPrediction, F1Score, Precision, Recall
