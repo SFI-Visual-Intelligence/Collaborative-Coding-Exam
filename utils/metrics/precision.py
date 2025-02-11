@@ -1,10 +1,6 @@
 import torch
 import torch.nn as nn
 
-USE_MEAN = True
-
-# Precision = TP / (TP + FP)
-
 
 class Precision(nn.Module):
     """Metric module for precision. Can calculate precision both as a mean of precisions or as brute function of true positives and false positives.
