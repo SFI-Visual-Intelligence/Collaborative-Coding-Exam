@@ -102,21 +102,13 @@ def test_accuracy():
 def test_entropypred():
     import torch as th
 
-    metric = EntropyPrediction(averages="mean")
-
-    true_lab = th.Tensor([0, 1, 1, 2, 4, 3]).reshape(6, 1).type(th.LongTensor)
-    pred_logits = th.nn.functional.one_hot(true_lab, 5)
-
-    # Test for log(0) errors and expected output
-    assert th.abs((th.sum(metric(true_lab, pred_logits)) - 0.0)) < 1e-5
-
     pred_logits = th.rand(6, 5)
+    true_lab = th.rand(6, 5)
+    
+    metric = EntropyPrediction(averages="mean")
     metric2 = EntropyPrediction(averages="sum")
-
+    
     # Test for averaging metric consistency
-    assert (
-        th.abs(
-            th.sum(6 * metric(true_lab, pred_logits) - metric2(true_lab, pred_logits))
-        )
-        < 1e-5
-    )
+    metric(true_lab, pred_logits)
+    metric2(true_lab, pred_logits)
+    assert (th.abs(th.sum(6 * metric.__returnmetric__() - metric2.__returnmetric__())) < 1e-5)

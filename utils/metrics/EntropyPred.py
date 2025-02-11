@@ -1,5 +1,6 @@
 import torch as th 
 import torch.nn as nn
+import numpy as np
 from scipy.stats import entropy
 
 
@@ -22,7 +23,7 @@ class EntropyPrediction(nn.Module):
         self.averages = averages
         self.stored_entropy_values = []
 
-    def __call__(self, y_true, y_logits):
+    def __call__(self, y_true: th.Tensor, y_logits: th.Tensor):
         """
         Computes the Shannon Entropy of the predicted logits and stores the results.
         Args:
@@ -33,27 +34,44 @@ class EntropyPrediction(nn.Module):
             torch.Tensor: The aggregated entropy value(s) based on the specified
                           method ('mean', 'sum', or 'none').
         """
+        
+        assert len(y_logits.size()) == 2, f'y_logits shape: {y_logits.size()}'
         y_pred = nn.Softmax(dim=1)(y_logits)
+        print(f'y_pred: {y_pred}')
         entropy_values = entropy(y_pred, axis=1)
         entropy_values = th.from_numpy(entropy_values)
 
         # Fix numerical errors for perfect guesses
         entropy_values[entropy_values == th.inf] = 0
         entropy_values = th.nan_to_num(entropy_values)
-
+        print(f'Entropy Values: {entropy_values}')
         for sample in entropy_values:
             self.stored_entropy_values.append(sample.item())
-        
+
 
     def __returnmetric__(self):
+        stored_entropy_values = th.from_numpy(np.asarray(self.stored_entropy_values))
+
         if self.averages == "mean":
-            self.stored_entropy_values = th.mean(self.stored_entropy_values)
+            stored_entropy_values = th.mean(stored_entropy_values)
         elif self.averages == "sum":
-            self.stored_entropy_values = th.sum(self.stored_entropy_values)
+            stored_entropy_values = th.sum(stored_entropy_values)
         elif self.averages == "none":
             pass 
-        return self.stored_entropy_values
+        return stored_entropy_values
 
     def __reset__(self):
         self.stored_entropy_values = []
 
+if __name__ == '__main__':
+     
+    pred_logits = th.rand(6, 5)
+    true_lab = th.rand(6, 5)
+    
+    metric = EntropyPrediction(averages="mean")
+    metric2 = EntropyPrediction(averages="sum")
+    
+    # Test for averaging metric consistency
+    metric(true_lab, pred_logits)
+    metric2(true_lab, pred_logits)
+    assert (th.abs(th.sum(6 * metric.__returnmetric__() - metric2.__returnmetric__())) < 1e-5)
