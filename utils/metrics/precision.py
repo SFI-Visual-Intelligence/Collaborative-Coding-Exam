@@ -17,7 +17,7 @@ class Precision(nn.Module):
         super().__init__()
 
         self.num_classes = num_classes
-        self._micro_averaging = micro_averaging
+        self.micro_averaging = micro_averaging
 
     def forward(self, y_true: torch.tensor, y_pred: torch.tensor) -> torch.tensor:
         """Compute precision of model
