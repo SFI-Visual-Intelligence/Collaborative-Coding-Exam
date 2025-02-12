@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
+import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-import wandb
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
@@ -29,15 +29,15 @@ def main():
 
     device = args.device
 
-    if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
-        augmentations = transforms.Compose(
+    if "usps" in args.dataset.lower():
+        transform = transforms.Compose(
             [
-                transforms.Resize((16, 16)),
+                transforms.Resize((28, 28)),
                 transforms.ToTensor(),
             ]
         )
     else:
-        augmentations = transforms.Compose([transforms.ToTensor()])
+        transform = transforms.Compose([transforms.ToTensor()])
 
     # Dataset
     traindata = load_data(
@@ -45,14 +45,14 @@ def main():
         train=True,
         data_path=args.datafolder,
         download=args.download_data,
-        transform=augmentations,
+        transform=transform,
     )
     validata = load_data(
         args.dataset,
         train=False,
         data_path=args.datafolder,
         download=args.download_data,
-        transform=augmentations,
+        transform=transform,
     )
 
     metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
@@ -113,11 +113,11 @@ def main():
 
     # wandb.login(key=WANDB_API)
     wandb.init(
-            entity="ColabCode-org",
-            # entity="FYS-8805 Exam",
-            project="Test", 
-            tags=[args.modelname, args.dataset]
-            )
+        entity="ColabCode-org",
+        # entity="FYS-8805 Exam",
+        project="Test",
+        tags=[args.modelname, args.dataset],
+    )
     wandb.watch(model)
     exit()
     for epoch in range(args.epoch):
