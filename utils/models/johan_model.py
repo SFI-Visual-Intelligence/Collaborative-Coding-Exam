@@ -46,6 +46,7 @@ class JohanModel(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self, x):
+        x = x.flatten()
         for layer in [self.fc1, self.fc2, self.fc3, self.fc4]:
             x = layer(x)
             x = self.relu(x)
