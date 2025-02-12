@@ -1,4 +1,5 @@
 import os
+
 import numpy as np
 from scipy.io import loadmat
 from torch.utils.data import Dataset
@@ -7,13 +8,13 @@ from torchvision.datasets import SVHN
 
 class SVHNDataset(Dataset):
     def __init__(
-        self, 
-        data_path: str, 
+        self,
+        data_path: str,
         train: bool,
-        transform=None, 
-        download:bool=True, 
-        nr_channels=3
-        ):
+        transform=None,
+        download: bool = True,
+        nr_channels=3,
+    ):
         """
         Initializes the SVHNDataset object.
         Args:
@@ -26,8 +27,8 @@ class SVHNDataset(Dataset):
         """
         super().__init__()
         # assert split == "train" or split == "test"
-        self.split = 'train' if train else 'test'
-    
+        self.split = "train" if train else "test"
+
         if download:
             self._download_data(data_path)
 
@@ -37,7 +38,7 @@ class SVHNDataset(Dataset):
         self.images = data["X"].transpose(3, 1, 0, 2)
         self.labels = data["y"].flatten()
         self.labels[self.labels == 10] = 0
-        
+
         self.nr_channels = nr_channels
         self.transforms = transform
 
@@ -49,7 +50,7 @@ class SVHNDataset(Dataset):
             split (str): The dataset split to download, either 'train' or 'test'.
         """
         print(f"Downloading SVHN data into {path}")
-        
+
         SVHN(path, split=self.split, download=True)
 
     def __len__(self):
@@ -72,7 +73,7 @@ class SVHNDataset(Dataset):
 
         if self.nr_channels == 1:
             img = np.mean(img, axis=2, keepdims=True)
-        
+
         if self.transforms is not None:
             img = self.transforms(img)
 
