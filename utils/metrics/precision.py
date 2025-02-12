@@ -13,11 +13,11 @@ class Precision(nn.Module):
         Wheter to compute the micro or macro precision (default False)
     """
 
-    def __init__(self, num_classes: int, micro_averaging: bool = False):
+    def __init__(self, num_classes: int, macro_averaging: bool = False):
         super().__init__()
 
         self.num_classes = num_classes
-        self.micro_averaging = micro_averaging
+        self.macro_averaging = macro_averaging
 
     def forward(self, y_true: torch.tensor, y_pred: torch.tensor) -> torch.tensor:
         """Compute precision of model
@@ -35,9 +35,9 @@ class Precision(nn.Module):
             Precision score
         """
         return (
-            self._micro_avg_precision(y_true, y_pred)
-            if self.micro_averaging
-            else self._macro_avg_precision(y_true, y_pred)
+            self._macro_avg_precision(y_true, y_pred)
+            if self.macro_averaging
+            else self._micro_avg_precision(y_true, y_pred)
         )
 
     def _micro_avg_precision(
