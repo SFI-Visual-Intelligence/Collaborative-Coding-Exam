@@ -1,13 +1,19 @@
 __pycache__/
 .ipynb_checkpoints/
-Data/
-Results/
-Experiments/
+Data/*
+Results/*
+Experiments/*
 _build/
-bin/
-wandb/
+bin/*
+wandb/*
 wandb_api.py
 doc/autoapi
+
+#Magnus specific
+job*
+env2/*
+ruffian.sh 
+localtest.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -146,6 +152,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
 
 # Spyder project settings
 .spyderproject

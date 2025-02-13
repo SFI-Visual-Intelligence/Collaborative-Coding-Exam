@@ -9,7 +9,8 @@ dependencies:
   - sphinx-autobuild
   - sphinx-rtd-theme
   - pip
-  - h5py
+  - h5py==3.12.1
+  - hdf5==1.14.4
   - black
   - isort
   - jupyterlab
@@ -19,6 +20,9 @@ dependencies:
   - ruff
   - scalene
   - tqdm
+  - scipy
+  - wandb
+  - scikit-learn
   - pip:
     - torch
     - torchvision

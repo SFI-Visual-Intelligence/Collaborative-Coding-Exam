@@ -50,18 +50,25 @@ def test_uspsdataset0_6():
 
         # Create a h5 file
         with h5py.File(tf, "w") as f:
+            targets = np.array([6, 5, 4, 3, 2, 1, 0, 0, 0, 0])
+            indices = np.arange(len(targets))
             # Populate the file with data
             f["train/data"] = np.random.rand(10, 16 * 16)
-            f["train/target"] = np.array([6, 5, 4, 3, 2, 1, 0, 0, 0, 0])
+            f["train/target"] = targets
 
         trans = transforms.Compose(
             [
-                transforms.Resize((16, 16)),  # At least for USPS
+                transforms.Resize((16, 16)),
                 transforms.ToTensor(),
             ]
         )
-        dataset = USPSDataset0_6(data_path=tempdir, train=True, transform=trans)
+        dataset = USPSDataset0_6(
+            data_path=tempdir,
+            sample_ids=indices,
+            train=True,
+            transform=trans,
+        )
         assert len(dataset) == 10
         data, target = dataset[0]
         assert data.shape == (1, 16, 16)
-        assert all(target == np.array([0, 0, 0, 0, 0, 0, 1]))
+        assert target == 6

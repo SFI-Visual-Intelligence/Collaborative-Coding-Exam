@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import h5py
 import numpy as np
 import torch
@@ -30,9 +32,11 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         A transform function to apply to the images.
     """
 
-    filename = "usps.h5"
+
 
     def __init__(self, data_path, train=False, transform=None, download=False):
+
+    def __init__(self, data_path, train=False, transform=None):
         super().__init__()
         """
         Initializes the USPS dataset by loading images and labels from the given `.h5` file.
@@ -45,12 +49,15 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         transform : callable, optional, default=None
             A transform function to apply on images.
         """
-
+        self.filename = "usps.h5"
+        path = data_path if isinstance(data_path, Path) else Path(data_path)
+        self.filepath = path / self.filename
         self.transform = transform
         self.mode = "train" if train else "test"
         self.h5_path = data_path / self.filename
+
         # Load the dataset from the HDF5 file
-        with h5py.File(self.h5_path, "r") as hf:
+        with h5py.File(self.filepath, "r") as hf:
             images = hf[self.mode]["data"][:]
             labels = hf[self.mode]["target"][:]
 
@@ -107,8 +114,8 @@ def main():
 
     # Load the dataset
     dataset = USPSH5_Digit_7_9_Dataset(
-        h5_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git/usps.h5",
-        mode="train",
+        data_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git",
+        train=False,
         transform=transform,
     )
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=2, shuffle=True)

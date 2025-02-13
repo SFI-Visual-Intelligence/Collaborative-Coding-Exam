@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import numpy as np
 import torch as th
 import torch.nn as nn
@@ -7,6 +5,7 @@ import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
+from wandb_api import WANDB_API
 
 from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
@@ -24,39 +23,45 @@ def main():
     ------
 
     """
+
     args = get_args()
 
     createfolders(args.datafolder, args.resultfolder, args.modelfolder)
 
     device = args.device
 
-    if args.dataset.lower() in ["usps_0-6", "uspsh5_7_9"]:
-        augmentations = transforms.Compose(
+    if "usps" in args.dataset.lower():
+        transform = transforms.Compose(
             [
-                transforms.Resize((16, 16)),
+                transforms.Resize((28, 28)),
                 transforms.ToTensor(),
             ]
         )
     else:
-        augmentations = transforms.Compose([transforms.ToTensor()])
+        transform = transforms.Compose([transforms.ToTensor()])
 
-    # Dataset
-    traindata = load_data(
+    traindata, validata, testdata = load_data(
         args.dataset,
-        train=True,
-        data_path=args.datafolder,
-        download=args.download_data,
-        transform=augmentations,
-    )
-    validata = load_data(
-        args.dataset,
-        train=False,
-        data_path=args.datafolder,
-        download=args.download_data,
-        transform=augmentations,
+        data_dir=args.datafolder,
+        transform=transform,
+        val_size=args.val_size,
     )
 
-    metrics = MetricWrapper(*args.metric, num_classes=traindata.num_classes)
+    train_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
+    val_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
+    test_metrics = MetricWrapper(
+        *args.metric,
+        num_classes=traindata.num_classes,
+        macro_averaging=args.macro_averaging,
+    )
 
     # Find the shape of the data, if is 2D, add a channel dimension
     data_shape = traindata[0][0].shape
@@ -80,6 +85,9 @@ def main():
     )
     valiloader = DataLoader(
         validata, batch_size=args.batchsize, shuffle=False, pin_memory=True
+    )
+    testloader = DataLoader(
+        testdata, batch_size=args.batchsize, shuffle=False, pin_memory=True
     )
 
     criterion = nn.CrossEntropyLoss()
@@ -105,16 +113,20 @@ def main():
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
 
-            preds = th.argmax(logits, dim=1)
-            metrics(y, preds)
+            train_metrics(y, logits)
 
             break
-        print(metrics.accumulate())
+        print(train_metrics.accumulate())
         print("Dry run completed successfully.")
-        exit(0)
+        exit()
 
-    wandb.login(key=WANDB_API)
-    wandb.init(entity="ColabCode", project="Jan", tags=[args.modelname, args.dataset])
+    # wandb.login(key=WANDB_API)
+    wandb.init(
+        entity="ColabCode",
+        project=args.run_name,
+        tags=[args.modelname, args.dataset],
+        config=args,
+    )
     wandb.watch(model)
 
     for epoch in range(args.epoch):
@@ -132,35 +144,49 @@ def main():
             optimizer.zero_grad(set_to_none=True)
             trainingloss.append(loss.item())
 
-            preds = th.argmax(logits, dim=1)
-            metrics(y, preds)
+            train_metrics(y, logits)
 
-        wandb.log(metrics.accumulate(str_prefix="Train "))
-        metrics.reset()
-
-        evalloss = []
-        # Eval loop start
+        valloss = []
+        # Validation loop start
         model.eval()
         with th.no_grad():
             for x, y in tqdm(valiloader, desc="Validation"):
                 x, y = x.to(device), y.to(device)
                 logits = model.forward(x)
                 loss = criterion(logits, y)
-                evalloss.append(loss.item())
+                valloss.append(loss.item())
 
-                preds = th.argmax(logits, dim=1)
-                metrics(y, preds)
-
-        wandb.log(metrics.accumulate(str_prefix="Evaluation "))
-        metrics.reset()
+                val_metrics(y, logits)
 
         wandb.log(
             {
                 "Epoch": epoch,
                 "Train loss": np.mean(trainingloss),
-                "Evaluation Loss": np.mean(evalloss),
+                "Validation loss": np.mean(valloss),
             }
+            | train_metrics.__getmetrics__(str_prefix="Train ")
+            | val_metrics.__getmetrics__(str_prefix="Validation ")
         )
+        train_metrics.__resetmetrics__()
+        val_metrics.__resetmetrics__()
+
+    testloss = []
+    model.eval()
+    with th.no_grad():
+        for x, y in tqdm(testloader, desc="Testing"):
+            x, y = x.to(device), y.to(device)
+            logits = model.forward(x)
+            loss = criterion(logits, y)
+            testloss.append(loss.item())
+
+            preds = th.argmax(logits, dim=1)
+            test_metrics(y, preds)
+
+    wandb.log(
+        {"Epoch": 1, "Test loss": np.mean(testloss)}
+        | test_metrics.__getmetrics__(str_prefix="Test ")
+    )
+    test_metrics.__resetmetrics__()
 
 
 if __name__ == "__main__":
