@@ -1,8 +1,6 @@
 Magnus Individual Task
 ======================
 
-# Magnus Størdal Individual Task
-
 ## Task overview
 In addition to the overall task, I was tasked to implement a three layer linear network, a dataset loader for the SVHN dataset, and a entropy metric.
 
