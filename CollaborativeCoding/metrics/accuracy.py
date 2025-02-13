@@ -76,14 +76,9 @@ class Accuracy(nn.Module):
         float
             Micro-average accuracy score.
         """
-        print(self.y_true, self.y_pred)
         return (self.y_true == self.y_pred).float().mean().item()
     
     def __returnmetric__(self):
-        print(self.y_true, self.y_pred)
-        print(self.y_true == [], self.y_pred == [])
-        print(len(self.y_true), len(self.y_pred))
-        print(type(self.y_true), type(self.y_pred))
         if self.y_true == [] or self.y_pred == []:
             return 0.0
         if isinstance(self.y_true,list):
@@ -95,7 +90,7 @@ class Accuracy(nn.Module):
                 self.y_pred = torch.cat(self.y_pred)
         return self._micro_acc() if not self.macro_averaging else self._macro_acc()
     
-    def __resetmetric__(self):
+    def __reset__(self):
         self.y_true = []
         self.y_pred = []
         return None
@@ -121,9 +116,6 @@ if __name__ == "__main__":
     y_pred_1 = torch.tensor([0, 1, 2, 3, 4, 4])
     accuracy(y_true_1, y_pred_1)
     print(accuracy.__returnmetric__())  # 0.9166666865348816
-    #accuracy.__resetmetric__()
-    #accuracy(y_true, y_pred)
-    #accuracy(y_true_1, y_pred_1)
     accuracy.macro_averaging = False
     print(accuracy.__returnmetric__())  # 0.8333333134651184
     accuracy.__resetmetric__()
