@@ -1,10 +1,11 @@
+from pathlib import Path
+
 import h5py
 import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
-from pathlib import Path
 
 
 class USPSH5_Digit_7_9_Dataset(Dataset):
@@ -31,7 +32,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         A transform function to apply to the images.
     """
 
-    def __init__(self, data_path, train = False, transform=None):
+    def __init__(self, data_path, train=False, transform=None):
         super().__init__()
         """
         Initializes the USPS dataset by loading images and labels from the given `.h5` file.
@@ -108,7 +109,7 @@ def main():
     # Load the dataset
     dataset = USPSH5_Digit_7_9_Dataset(
         data_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git",
-        train = False,
+        train=False,
         transform=transform,
     )
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=2, shuffle=True)

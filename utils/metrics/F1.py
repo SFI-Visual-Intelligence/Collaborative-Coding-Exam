@@ -76,7 +76,9 @@ class F1Score(nn.Module):
         precision = tp / (tp + fp + 1e-8)  # Avoid division by zero
         recall = tp / (tp + fn + 1e-8)  # Avoid division by zero
 
-        f1 = 2 * precision * recall / (precision + recall + 1e-8)  # Avoid division by zero
+        f1 = (
+            2 * precision * recall / (precision + recall + 1e-8)
+        )  # Avoid division by zero
         return f1
 
     def _macro_F1(self):
@@ -91,10 +93,18 @@ class F1Score(nn.Module):
         torch.Tensor
             The macro-averaged F1 score.
         """
-        precision_per_class = self.tp / (self.tp + self.fp + 1e-8)  # Avoid division by zero
-        recall_per_class = self.tp / (self.tp + self.fn + 1e-8)  # Avoid division by zero
-        f1_per_class = 2 * precision_per_class * recall_per_class / (
-                    precision_per_class + recall_per_class + 1e-8)  # Avoid division by zero
+        precision_per_class = self.tp / (
+            self.tp + self.fp + 1e-8
+        )  # Avoid division by zero
+        recall_per_class = self.tp / (
+            self.tp + self.fn + 1e-8
+        )  # Avoid division by zero
+        f1_per_class = (
+            2
+            * precision_per_class
+            * recall_per_class
+            / (precision_per_class + recall_per_class + 1e-8)
+        )  # Avoid division by zero
 
         # Take the average of F1 scores across all classes
         f1_score = torch.mean(f1_per_class)
@@ -138,4 +148,3 @@ class F1Score(nn.Module):
             f1_score = self._micro_F1()
 
         return f1_score
-
