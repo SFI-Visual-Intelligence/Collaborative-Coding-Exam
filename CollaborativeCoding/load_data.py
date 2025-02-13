@@ -39,7 +39,7 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
 
     Examples
     --------
-    >>> from utils import setup_data
+    >>> from CollaborativeCoding import setup_data
     >>> train, val, test = setup_data("usps_0-6", data_path="data", train=True, download=True)
     >>> len(train), len(val), len(test)
     (4914, 546, 1782)
