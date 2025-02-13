@@ -33,7 +33,7 @@ class Downloader:
     Examples
     --------
     >>> from pathlib import Path
-    >>> from utils import Downloader
+    >>> from CollaborativeCoding import Downloader
     >>> dir = Path('tmp')
     >>> dir.mkdir(exist_ok=True)
     >>> train, test = Downloader().usps(dir)

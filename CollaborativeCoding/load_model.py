@@ -28,7 +28,7 @@ def load_model(modelname: str, *args, **kwargs) -> nn.Module:
 
     Examples
     --------
-    >>> from utils import load_model
+    >>> from CollaborativeCoding import load_model
     >>> model = load_model("magnusmodel", num_classes=10)
     >>> model
     MagnusModel(
