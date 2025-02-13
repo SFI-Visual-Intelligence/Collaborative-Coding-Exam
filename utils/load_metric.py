@@ -43,10 +43,14 @@ class MetricWrapper(nn.Module):
     {'entropy': [], 'f1': [], 'precision': []}
     """
 
-    def __init__(self, num_classes, *metrics):
+    def __init__(self, *metrics, num_classes, macro_averaging=False, **kwargs):
         super().__init__()
         self.metrics = {}
-        self.num_classes = num_classes
+        self.params = {
+            "num_classes": num_classes,
+            "macro_averaging": macro_averaging,
+        } | kwargs
+
         for metric in metrics:
             self.metrics[metric] = self._get_metric(metric)
 
@@ -62,15 +66,15 @@ class MetricWrapper(nn.Module):
         """
         match key.lower():
             case "entropy":
-                return EntropyPrediction()
+                return EntropyPrediction(**self.params)
             case "f1":
-                return F1Score(num_classes=self.num_classes)
+                return F1Score(**self.params)
             case "recall":
-                return Recall(num_classes=self.num_classes)
+                return Recall(**self.params)
             case "precision":
-                return Precision(num_classes=self.num_classes)
+                return Precision(**self.params)
             case "accuracy":
-                return Accuracy(num_classes=self.num_classes)
+                return Accuracy(**self.params)
             case _:
                 raise ValueError(f"Metric {key} not supported")
 
