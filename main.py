@@ -30,10 +30,12 @@ def main():
 
     device = args.device
 
-    if args.dataset.lower() in ["usps_0-6", "usps_7-9"]:
+
+    if "usps" in args.dataset.lower():
+
         transform = transforms.Compose(
             [
-                transforms.Resize((16, 16)),
+                transforms.Resize((28, 28)),
                 transforms.ToTensor(),
             ]
         )
@@ -45,6 +47,7 @@ def main():
         data_dir=args.datafolder,
         transform=transform,
         val_size=args.val_size,
+
     )
 
     train_metrics = MetricWrapper(
@@ -126,6 +129,7 @@ def main():
         project=args.run_name,
         tags=[args.modelname, args.dataset],
         config=args,
+
     )
     wandb.watch(model)
 
