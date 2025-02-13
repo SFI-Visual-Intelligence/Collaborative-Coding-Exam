@@ -9,10 +9,10 @@ wandb/*
 wandb_api.py
 
 #Magnus specific
-docker/*
 job*
 env2/*
 ruffian.sh 
+localtest.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
