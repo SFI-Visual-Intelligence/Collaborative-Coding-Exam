@@ -79,48 +79,52 @@ def test_f1score():
 
 
 def test_precision():
-    import torch
-    import numpy as np
-    from sklearn.metrics import precision_score
     from random import randint
-    
-    C = randint(2, 10) # number of classes
-    N = randint(2,10*C) # batchsize
-    y_true = torch.randint(0,C, (N,))
+
+    import numpy as np
+    import torch
+    from sklearn.metrics import precision_score
+
+    C = randint(2, 10)  # number of classes
+    N = randint(2, 10 * C)  # batchsize
+    y_true = torch.randint(0, C, (N,))
     logits = torch.randn(N, C)
-    
+
     # create metric objects
     precision_micro = Precision(num_classes=C)
     precision_macro = Precision(num_classes=C, macro_averaging=True)
-    
+
     # find scores
     micro_precision_score = precision_micro(y_true, logits)
     macro_precision_score = precision_macro(y_true, logits)
-    
+
     # check output to be tensor
     assert isinstance(micro_precision_score, torch.Tensor), "Tensor output is expected."
     assert isinstance(macro_precision_score, torch.Tensor), "Tensor output is expected."
-    
+
     # check for non-negativity
     assert micro_precision_score.item() >= 0, "Expected non-negative value"
     assert macro_precision_score.item() >= 0, "Expected non-negative value"
-    
+
     # find predictions
     y_pred = logits.argmax(dim=-1, keepdims=True)
-    
-    # check dimension
-    assert y_true.shape == torch.Size([N,1]) or torch.Size([N])
-    assert logits.shape == torch.Size([N,C])
-    assert y_pred.shape == torch.Size([N,1]) or torch.Size([N])
 
-    
+    # check dimension
+    assert y_true.shape == torch.Size([N, 1]) or torch.Size([N])
+    assert logits.shape == torch.Size([N, C])
+    assert y_pred.shape == torch.Size([N, 1]) or torch.Size([N])
+
     # find true values with scikit learn
     scikit_macro_precision = precision_score(y_true, y_pred, average="macro")
     scikit_micro_precision = precision_score(y_true, y_pred, average="micro")
-    
+
     # check for similarity
-    assert np.isclose(scikit_micro_precision, micro_precision_score, atol=1e-5), "Score does not match scikit's score"
-    assert np.isclose(scikit_macro_precision, macro_precision_score, atol=1e-5), "Score does not match scikit's score"
+    assert np.isclose(scikit_micro_precision, micro_precision_score, atol=1e-5), (
+        "Score does not match scikit's score"
+    )
+    assert np.isclose(scikit_macro_precision, macro_precision_score, atol=1e-5), (
+        "Score does not match scikit's score"
+    )
 
 
 def test_accuracy():
