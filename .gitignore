@@ -9,6 +9,9 @@ wandb/*
 wandb_api.py
 doc/autoapi
 
+*.DS_Store
+
+
 #Magnus specific
 job*
 env2/*
