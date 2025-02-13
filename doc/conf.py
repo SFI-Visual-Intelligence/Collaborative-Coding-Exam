@@ -11,7 +11,7 @@ extensions = [
 ]
 
 # search this directory for Python files
-autoapi_dirs = ["../utils"]
+autoapi_dirs = ["../CollaborativeCoding"]
 
 myst_enable_extensions = [
     "colon_fence",  # ::: can be used instead of ``` for better rendering

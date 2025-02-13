@@ -3,10 +3,10 @@ name: Format
 on:
   push:
     paths:
-      - 'utils/**'
+      - 'CollaborativeCoding/**'
   pull_request:
     paths:
-      - 'utils/**'
+      - 'CollaborativeCoding/**'
 
 jobs:
   format:
@@ -28,8 +28,8 @@ jobs:
 
       - name: Run Ruff check
         run: |
-          ruff check utils/
+          ruff check CollaborativeCoding/
 
       - name: Run isort check
         run: |
-          isort --check-only utils/
+          isort --check-only CollaborativeCoding/
