@@ -2,8 +2,8 @@ from random import randint
 
 import pytest
 
-from utils.load_metric import MetricWrapper
-from utils.metrics import Accuracy, F1Score, Precision, Recall
+from CollaborativeCoding.load_metric import MetricWrapper
+from CollaborativeCoding.metrics import Accuracy, F1Score, Precision, Recall
 
 
 @pytest.mark.parametrize(

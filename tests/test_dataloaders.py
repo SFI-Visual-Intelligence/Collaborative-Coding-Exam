@@ -6,8 +6,12 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
-from utils.dataloaders import MNISTDataset0_3, USPSDataset0_6, USPSH5_Digit_7_9_Dataset
-from utils.load_data import load_data
+from CollaborativeCoding.dataloaders import (
+    MNISTDataset0_3,
+    USPSDataset0_6,
+    USPSH5_Digit_7_9_Dataset,
+)
+from CollaborativeCoding.load_data import load_data
 
 
 @pytest.mark.parametrize(

@@ -31,7 +31,7 @@ class MetricWrapper(nn.Module):
             Resets the state of all metric computations.
     Examples
     --------
-    >>> from utils import MetricWrapperProposed
+    >>> from CollaborativeCoding import MetricWrapperProposed
     >>> metrics = MetricWrapperProposed(2, "entropy", "f1", "precision")
     >>> y_true = [0, 1, 0, 1]
     >>> y_pred = [0, 1, 1, 0]
