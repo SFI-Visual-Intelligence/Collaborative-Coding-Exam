@@ -5,6 +5,7 @@ import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
+#from wandb_api import WANDB_API
 
 from CollaborativeCoding import (
     MetricWrapper,
@@ -121,11 +122,11 @@ def main():
             train_metrics(y, logits)
 
             break
-        print(train_metrics.accumulate())
+        print(train_metrics.__getmetrics__())
         print("Dry run completed successfully.")
         exit()
 
-    # wandb.login(key=WANDB_API)
+#    wandb.login(key=WANDB_API)
     wandb.init(
         entity="ColabCode",
         project=args.run_name,
