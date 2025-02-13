@@ -1,6 +1,6 @@
+import numpy as np
 import torch
 from torch import nn
-import numpy as np
 
 
 class Accuracy(nn.Module):
@@ -78,11 +78,11 @@ class Accuracy(nn.Module):
             Micro-average accuracy score.
         """
         return (self.y_true == self.y_pred).float().mean().item()
-    
+
     def __returnmetric__(self):
         if self.y_true == [] or self.y_pred == []:
             return np.nan
-        if isinstance(self.y_true,list):
+        if isinstance(self.y_true, list):
             if len(self.y_true) == 1:
                 self.y_true = self.y_true[0]
                 self.y_pred = self.y_pred[0]
@@ -90,10 +90,8 @@ class Accuracy(nn.Module):
                 self.y_true = torch.cat(self.y_true)
                 self.y_pred = torch.cat(self.y_pred)
         return self._micro_acc() if not self.macro_averaging else self._macro_acc()
-    
+
     def __reset__(self):
         self.y_true = []
         self.y_pred = []
         return None
-
-

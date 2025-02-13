@@ -3,7 +3,13 @@ from random import randint
 import pytest
 
 from CollaborativeCoding.load_metric import MetricWrapper
-from CollaborativeCoding.metrics import Accuracy, F1Score, Precision, Recall, EntropyPrediction
+from CollaborativeCoding.metrics import (
+    Accuracy,
+    EntropyPrediction,
+    F1Score,
+    Precision,
+    Recall,
+)
 
 
 @pytest.mark.parametrize(
@@ -128,8 +134,8 @@ def test_precision():
 
 
 def test_accuracy():
-    import torch
     import numpy as np
+    import torch
 
     # Test the accuracy metric
     y_true = torch.tensor([0, 1, 2, 3, 4, 5])
@@ -141,18 +147,23 @@ def test_accuracy():
     assert accuracy.__returnmetric__() is np.nan, "Expected accuracy to be 0.0"
     y_pred = torch.tensor([0, 1, 2, 3, 4, 4])
     accuracy(y_true, y_pred)
-    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, "Expected accuracy to be 0.8333333134651184"
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651184"
+    )
     accuracy.__reset__()
     accuracy.macro_averaging = True
     accuracy(y_true, y_pred)
     y_true_1 = torch.tensor([0, 1, 2, 3, 4, 5])
     y_pred_1 = torch.tensor([0, 1, 2, 3, 4, 4])
     accuracy(y_true_1, y_pred_1)
-    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, "Expected accuracy to be 0.8333333134651186"
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651186"
+    )
     accuracy.macro_averaging = False
-    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, "Expected accuracy to be 0.8333333134651184"
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651184"
+    )
     accuracy.__reset__()
-
 
 
 def test_entropypred():
