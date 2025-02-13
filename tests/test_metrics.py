@@ -23,7 +23,7 @@ from CollaborativeCoding.metrics import (
         ("accuracy", randint(2, 10), True),
         ("precision", randint(2, 10), False),
         ("precision", randint(2, 10), True),
-        ("EntropyPrediction", randint(2, 10), False),
+        ("entropy", randint(2, 10), False),
     ],
 )
 def test_metric_wrapper(metric, num_classes, macro_averaging):
@@ -40,9 +40,9 @@ def test_metric_wrapper(metric, num_classes, macro_averaging):
     )
 
     metrics(y_true, logits)
-    score = metrics.accumulate()
-    metrics.reset()
-    empty_score = metrics.accumulate()
+    score = metrics.getmetrics()
+    metrics.resetmetric()
+    empty_score = metrics.getmetrics()
 
     assert isinstance(score, dict), "Expected a dictionary output."
     assert metric in score, f"Expected {metric} metric in the output."
@@ -151,16 +151,22 @@ def test_accuracy():
 def test_entropypred():
     import torch as th
 
-    pred_logits = th.rand(6, 5)
     true_lab = th.rand(6, 5)
 
-    metric = EntropyPrediction(averages="mean")
-    metric2 = EntropyPrediction(averages="sum")
+    metric = EntropyPrediction(num_classes=5)
 
-    # Test for averaging metric consistency
+    # Test if the metric stores multiple values
+    pred_logits = th.rand(6, 5)
     metric(true_lab, pred_logits)
-    metric2(true_lab, pred_logits)
-    assert (
-        th.abs(th.sum(6 * metric.__returnmetric__() - metric2.__returnmetric__()))
-        < 1e-5
-    )
+
+    pred_logits = th.rand(6, 5)
+    metric(true_lab, pred_logits)
+
+    pred_logits = th.rand(6, 5)
+    metric(true_lab, pred_logits)
+
+    assert type(metric.__returnmetric__()) == th.Tensor
+
+    # Test than an error is raised with num_class != class dimension length
+    with pytest.raises(AssertionError):
+        metric(true_lab, th.rand(6, 6))

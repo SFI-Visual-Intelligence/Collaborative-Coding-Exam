@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from CollaborativeCoding import load_data, load_metric, load_model
 
 
@@ -18,6 +20,7 @@ def test_load_model():
     ]
 
     for name in modelnames:
+        print(name)
         model = load_model(name, image_shape=image_shape, num_classes=num_classes)
 
         with th.no_grad():
@@ -51,7 +54,7 @@ def test_load_data():
     with TemporaryDirectory() as tmppath:
         for name in dataset_names:
             dataset = load_data(
-                name, train=False, data_path=tmppath, download=True, transform=trans
+                name, train=False, data_dir=Path(tmppath), transform=trans
             )
 
             im, _ = dataset.__getitem__(0)
