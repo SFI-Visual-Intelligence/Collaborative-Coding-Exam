@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import numpy as np
 
 
 class Accuracy(nn.Module):
@@ -80,7 +81,7 @@ class Accuracy(nn.Module):
     
     def __returnmetric__(self):
         if self.y_true == [] or self.y_pred == []:
-            return 0.0
+            return np.nan
         if isinstance(self.y_true,list):
             if len(self.y_true) == 1:
                 self.y_true = self.y_true[0]
@@ -96,28 +97,3 @@ class Accuracy(nn.Module):
         return None
 
 
-if __name__ == "__main__":
-    # Test the accuracy metric
-    y_true = torch.tensor([0, 1, 2, 3, 4, 5])
-    y_pred = torch.tensor([0, 1, 2, 3, 4, 5])
-    accuracy = Accuracy(num_classes=6, macro_averaging=False)
-    accuracy(y_true, y_pred)
-    print(accuracy.__returnmetric__())  # 1.0
-    accuracy.__resetmetric__()
-    print(accuracy.__returnmetric__())  # 0.0
-    y_pred = torch.tensor([0, 1, 2, 3, 4, 4])
-    accuracy(y_true, y_pred)
-    print(accuracy.__returnmetric__())  # 0.8333333134651184
-    accuracy.__resetmetric__()
-    print(accuracy.__returnmetric__())  # 0.0
-    accuracy.macro_averaging = True
-    accuracy(y_true, y_pred)
-    y_true_1 = torch.tensor([0, 1, 2, 3, 4, 5])
-    y_pred_1 = torch.tensor([0, 1, 2, 3, 4, 4])
-    accuracy(y_true_1, y_pred_1)
-    print(accuracy.__returnmetric__())  # 0.9166666865348816
-    accuracy.macro_averaging = False
-    print(accuracy.__returnmetric__())  # 0.8333333134651184
-    accuracy.__resetmetric__()
-    print(accuracy.__returnmetric__())  # 0.0
-    print(accuracy.__resetmetric__())  # None
