@@ -29,6 +29,7 @@ class SVHNDataset(Dataset):
             AssertionError: If the split is not 'train' or 'test'.
         """
         super().__init__()
+
         self.data_path = data_path
         self.split = "train" if train else "test"
 
@@ -55,6 +56,7 @@ class SVHNDataset(Dataset):
             path (str): The directory where the dataset will be downloaded.
         """
         print(f"Downloading SVHN data into {path}")
+
         SVHN(path, split=self.split, download=True)
         data = loadmat(os.path.join(path, f"{self.split}_32x32.mat"))
 
@@ -93,7 +95,6 @@ class SVHNDataset(Dataset):
 
         if self.nr_channels == 1:
             img = img.convert("L")
-
         if self.transforms is not None:
             img = self.transforms(img)
 

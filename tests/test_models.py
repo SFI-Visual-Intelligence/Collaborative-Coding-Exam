@@ -34,6 +34,21 @@ def test_jan_model(image_shape, num_classes):
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
 
 
+@pytest.mark.parametrize(
+    "image_shape, num_classes",
+    [((3, 16, 16), 3), ((3, 16, 16), 7)],
+)
+def test_solveig_model(image_shape, num_classes):
+    n, c, h, w = 5, *image_shape
+
+    model = SolveigModel(image_shape, num_classes)
+
+    x = torch.randn(n, c, h, w)
+    y = model(x)
+
+    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
+
+
 @pytest.mark.parametrize("image_shape", [(3, 28, 28)])
 def test_magnus_model(image_shape):
     import torch as th
