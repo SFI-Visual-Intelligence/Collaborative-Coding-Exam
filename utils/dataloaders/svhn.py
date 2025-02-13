@@ -1,6 +1,5 @@
 import os
 
-
 import h5py
 import numpy as np
 from PIL import Image
@@ -95,7 +94,6 @@ class SVHNDataset(Dataset):
             img = Image.fromarray(h5f["images"][index])
 
         if self.nr_channels == 1:
-
             img = img.convert("L")
         if self.transforms is not None:
             img = self.transforms(img)

@@ -33,7 +33,6 @@ def get_args():
         help="Whether model should be saved or not.",
     )
 
-
     # Data/Model specific values
     parser.add_argument(
         "--modelname",
@@ -83,7 +82,6 @@ def get_args():
         "--macro_averaging",
         action="store_true",
         help="If the flag is included, the metrics will be calculated using macro averaging.",
-
     )
 
     # Training specific values
