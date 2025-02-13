@@ -22,18 +22,18 @@ class MagnusModel(nn.Module):
         self.image_shape = image_shape
         self.imagechannels = imagechannels
 
-        self.layer1 = nn.Sequential(*([
-                        nn.Linear(self.imagechannels * self.imagesize * self.imagesize, 133),
-                        nn.ReLU(),
-                    ]))
-        self.layer2 = nn.Sequential(*([
-                        nn.Linear(133, 133), 
-                        nn.ReLU()
-                    ]))
-        self.layer3 = nn.Sequential(*([
-                        nn.Linear(133, num_classes), 
-                        nn.ReLU()
-                    ]))
+        self.layer1 = nn.Sequential(
+            *(
+                [
+                    nn.Linear(
+                        self.imagechannels * self.imagesize * self.imagesize, 133
+                    ),
+                    nn.ReLU(),
+                ]
+            )
+        )
+        self.layer2 = nn.Sequential(*([nn.Linear(133, 133), nn.ReLU()]))
+        self.layer3 = nn.Sequential(*([nn.Linear(133, num_classes), nn.ReLU()]))
 
     def forward(self, x):
         """
