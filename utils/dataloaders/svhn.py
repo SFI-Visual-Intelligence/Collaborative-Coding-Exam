@@ -1,6 +1,8 @@
 import os
 
+import h5py
 import numpy as np
+from PIL import Image
 from scipy.io import loadmat
 from torch.utils.data import Dataset
 from torchvision.datasets import SVHN
@@ -16,42 +18,56 @@ class SVHNDataset(Dataset):
         nr_channels=3,
     ):
         """
-        Initializes the SVHNDataset object.
+        Initializes the SVHNDataset object for loading the Street View House Numbers (SVHN) dataset.
         Args:
-            data_path (str): Path to where the data lies. If download_data is set to True, this is where the data will be downloaded.
-            transforms: Torch composite of transformations which are to be applied to the dataset images.
-            download_data (bool): If True, downloads the dataset to the specified data_path.
-            split (str): The dataset split to use, either 'train' or 'test'.
+            data_path (str): Path to where the data is stored. If `download` is set to True, this is where the data will be downloaded.
+            train (bool): If True, loads the training split of the dataset; otherwise, loads the test split.
+            transform (callable, optional): A function/transform to apply to the images.
+            download (bool): If True, downloads the dataset to the specified `data_path`.
+            nr_channels (int): Number of channels in the images. Default is 3 for RGB images.
         Raises:
             AssertionError: If the split is not 'train' or 'test'.
         """
         super().__init__()
-        # assert split == "train" or split == "test"
+        self.data_path = data_path
         self.split = "train" if train else "test"
 
         if download:
             self._download_data(data_path)
 
-        data = loadmat(os.path.join(data_path, f"{self.split}_32x32.mat"))
-
-        # Images on the form N x H x W x C
-        self.images = data["X"].transpose(3, 1, 0, 2)
-        self.labels = data["y"].flatten()
-        self.labels[self.labels == 10] = 0
-
         self.nr_channels = nr_channels
         self.transforms = transform
 
+        assert os.path.exists(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5")
+        ), f"File svhn_{self.split}data.h5 does not exists. Run download=True"
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "r"
+        ) as h5f:
+            self.labels = h5f["labels"][:]
+
+        self.num_classes = len(np.unique(self.labels))
+
     def _download_data(self, path: str):
         """
-        Downloads the SVHN dataset.
+        Downloads the SVHN dataset to the specified directory.
         Args:
             path (str): The directory where the dataset will be downloaded.
-            split (str): The dataset split to download, either 'train' or 'test'.
         """
         print(f"Downloading SVHN data into {path}")
-
         SVHN(path, split=self.split, download=True)
+        data = loadmat(os.path.join(path, f"{self.split}_32x32.mat"))
+
+        images, labels = data["X"], data["y"]
+        images = images.transpose(3, 1, 0, 2)
+        labels[labels == 10] = 0
+        labels = labels.flatten()
+
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "w"
+        ) as h5f:
+            h5f.create_dataset("images", data=images)
+            h5f.create_dataset("labels", data=labels)
 
     def __len__(self):
         """
@@ -69,10 +85,14 @@ class SVHNDataset(Dataset):
         Returns:
             tuple: A tuple containing the image and its corresponding label.
         """
-        img, lab = self.images[index], self.labels[index]
+        lab = self.labels[index]
+        with h5py.File(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5"), "r"
+        ) as h5f:
+            img = Image.fromarray(h5f["images"][index])
 
         if self.nr_channels == 1:
-            img = np.mean(img, axis=2, keepdims=True)
+            img = img.convert("L")
 
         if self.transforms is not None:
             img = self.transforms(img)

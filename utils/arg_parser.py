@@ -68,6 +68,16 @@ def get_args():
         nargs="+",
         help="Which metric to use for evaluation",
     )
+
+    parser.add_argument("--imagesize", type=int, default=28, help="Imagesize")
+
+    parser.add_argument(
+        "--nr_channels",
+        type=int,
+        default=1,
+        choices=[1, 3],
+        help="Number of image channels",
+    )
     parser.add_argument(
         "--macro_averaging",
         action="store_true",
@@ -104,6 +114,10 @@ def get_args():
         "--dry_run",
         action="store_true",
         help="If the flag is included, the code will not run the training loop.",
+    )
+
+    parser.add_argument(
+        "--run_name", type=str, required=True, help="Name for WANDB project"
     )
     args = parser.parse_args()
 

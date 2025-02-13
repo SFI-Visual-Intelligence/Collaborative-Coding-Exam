@@ -1,13 +1,13 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
+import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
-
-import wandb
-from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 from wandb_api import WANDB_API
+
+from utils import MetricWrapper, createfolders, get_args, load_data, load_model
 
 
 def main():
@@ -123,9 +123,9 @@ def main():
     # wandb.login(key=WANDB_API)
     wandb.init(
         entity="ColabCode",
-        # entity="FYS-8805 Exam",
-        project="Jan",
+        project=args.run_name,
         tags=[args.modelname, args.dataset],
+        config=args,
     )
     wandb.watch(model)
 
@@ -164,11 +164,11 @@ def main():
                 "Train loss": np.mean(trainingloss),
                 "Validation loss": np.mean(valloss),
             }
-            | train_metrics.accumulate(str_prefix="Train ")
-            | val_metrics.accumulate(str_prefix="Validation ")
+            | train_metrics.__getmetrics__(str_prefix="Train ")
+            | val_metrics.__getmetrics__(str_prefix="Validation ")
         )
-        train_metrics.reset()
-        val_metrics.reset()
+        train_metrics.__resetmetrics__()
+        val_metrics.__resetmetrics__()
 
     testloss = []
     model.eval()
@@ -184,9 +184,9 @@ def main():
 
     wandb.log(
         {"Epoch": 1, "Test loss": np.mean(testloss)}
-        | test_metrics.accumulate(str_prefix="Test ")
+        | test_metrics.__getmetrics__(str_prefix="Test ")
     )
-    test_metrics.reset()
+    test_metrics.__resetmetrics__()
 
 
 if __name__ == "__main__":
