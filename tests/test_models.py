@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from utils.models import ChristianModel, JanModel, MagnusModel
+from CollaborativeCoding.models import ChristianModel, JanModel, MagnusModel
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-from utils.dataloaders.usps_0_6 import USPSDataset0_6
+from CollaborativeCoding.dataloaders.usps_0_6 import USPSDataset0_6
 
 
 def test_uspsdataset0_6():
