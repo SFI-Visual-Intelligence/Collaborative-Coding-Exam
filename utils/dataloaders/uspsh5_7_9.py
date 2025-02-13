@@ -50,6 +50,8 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         self.filepath = path / self.filename
         self.transform = transform
         self.mode = "train" if train else "test"
+        self.h5_path = data_path / self.filename
+
         # Load the dataset from the HDF5 file
         with h5py.File(self.filepath, "r") as hf:
             images = hf[self.mode]["data"][:]
