@@ -33,12 +33,6 @@ def get_args():
         help="Whether model should be saved or not.",
     )
 
-    parser.add_argument(
-        "--download-data",
-        type=bool,
-        default=False,
-        help="Whether the data should be downloaded or not. Might cause code to start a bit slowly.",
-    )
 
     # Data/Model specific values
     parser.add_argument(
@@ -61,7 +55,12 @@ def get_args():
         choices=["svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"],
         help="Which dataset to train the model on.",
     )
-
+    parser.add_argument(
+        "--val_size",
+        type=float,
+        default=0.2,
+        help="Percentage of training dataset to be used as validation dataset - must be within (0,1).",
+    )
     parser.add_argument(
         "--metric",
         type=str,
@@ -70,20 +69,21 @@ def get_args():
         nargs="+",
         help="Which metric to use for evaluation",
     )
-    
+
+    parser.add_argument("--imagesize", type=int, default=28, help="Imagesize")
+
     parser.add_argument(
-        '--imagesize',
-        type=int,
-        default=28,
-        help='Imagesize'
-    )
-    
-    parser.add_argument(
-        '--nr_channels',
+        "--nr_channels",
         type=int,
         default=1,
-        choices=[1,3],
-        help='Number of image channels'
+        choices=[1, 3],
+        help="Number of image channels",
+    )
+    parser.add_argument(
+        "--macro_averaging",
+        action="store_true",
+        help="If the flag is included, the metrics will be calculated using macro averaging.",
+
     )
 
     # Training specific values
@@ -115,7 +115,11 @@ def get_args():
     parser.add_argument(
         "--dry_run",
         action="store_true",
-        help="If true, the code will not run the training loop.",
+        help="If the flag is included, the code will not run the training loop.",
+    )
+
+    parser.add_argument(
+        "--run_name", type=str, required=True, help="Name for WANDB project"
     )
     args = parser.parse_args()
 

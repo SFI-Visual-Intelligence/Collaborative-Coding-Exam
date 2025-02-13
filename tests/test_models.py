@@ -1,7 +1,8 @@
 import pytest
 import torch
 
-from utils.models import ChristianModel, JanModel, SolveigModel
+
+from utils.models import ChristianModel, JanModel, MagnusModel, SolveigModel
 
 
 @pytest.mark.parametrize(
@@ -48,3 +49,16 @@ def test_solveig_model(image_shape, num_classes):
 
     assert y.shape == (n, num_classes), f"Shape: {y.shape}"
 
+
+@pytest.mark.parametrize("image_shape", [(3, 28, 28)])
+def test_magnus_model(image_shape):
+    import torch as th
+
+    n, c, h, w = 5, *image_shape
+    model = MagnusModel([h, w], 10, c)
+
+    x = th.rand((n, c, h, w))
+    with th.no_grad():
+        y = model(x)
+
+    assert y.shape == (n, 10), f"Shape: {y.shape}"

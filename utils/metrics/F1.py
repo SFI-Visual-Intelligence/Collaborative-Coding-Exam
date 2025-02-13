@@ -102,6 +102,7 @@ class F1Score(nn.Module):
 
     def forward(self, preds, target):
         """
+
         Update the True Positives, False Positives, and False Negatives, and compute the F1 score.
 
         This method computes the F1 score based on the predictions and true labels. It can compute either the
@@ -121,7 +122,7 @@ class F1Score(nn.Module):
         torch.Tensor
             The computed F1 score (either micro or macro, based on `macro_averaging`).
         """
-        preds = torch.argmax(preds, dim=1)
+        preds = torch.argmax(preds, dim=-1)
 
         # Calculate True Positives (TP), False Positives (FP), and False Negatives (FN) per class
         for i in range(self.num_classes):
@@ -137,3 +138,4 @@ class F1Score(nn.Module):
             f1_score = self._micro_F1()
 
         return f1_score
+

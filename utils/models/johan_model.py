@@ -26,7 +26,6 @@ class JohanModel(nn.Module):
         Numer of input features.
     num_classes : int
         Number of classes in the dataset.
-
     """
 
     def __init__(self, image_shape, num_classes):
@@ -44,17 +43,15 @@ class JohanModel(nn.Module):
         self.fc3 = nn.Linear(77, 77)
         self.fc4 = nn.Linear(77, num_classes)
         self.relu = nn.ReLU()
+        self.flatten = nn.Flatten()
 
     def forward(self, x):
+        x = self.flatten(x)
         for layer in [self.fc1, self.fc2, self.fc3, self.fc4]:
             x = layer(x)
             x = self.relu(x)
         return x
 
 
-# TODO
-# Add your tests here
-
-
 if __name__ == "__main__":
-    pass  # Add your tests here
+    print("This is JohanModel")
