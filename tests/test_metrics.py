@@ -3,7 +3,13 @@ from random import randint
 import pytest
 
 from CollaborativeCoding.load_metric import MetricWrapper
-from CollaborativeCoding.metrics import Accuracy, F1Score, Precision, Recall
+from CollaborativeCoding.metrics import (
+    Accuracy,
+    EntropyPrediction,
+    F1Score,
+    Precision,
+    Recall,
+)
 
 
 @pytest.mark.parametrize(
@@ -17,7 +23,7 @@ from CollaborativeCoding.metrics import Accuracy, F1Score, Precision, Recall
         ("accuracy", randint(2, 10), True),
         ("precision", randint(2, 10), False),
         ("precision", randint(2, 10), True),
-        # TODO: Add test for EntropyPrediction
+        ("EntropyPrediction", randint(2, 10), False),
     ],
 )
 def test_metric_wrapper(metric, num_classes, macro_averaging):
