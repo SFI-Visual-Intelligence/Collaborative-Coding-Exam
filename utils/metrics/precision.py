@@ -19,7 +19,7 @@ class Precision(nn.Module):
         self.num_classes = num_classes
         self.macro_averaging = macro_averaging
 
-    def forward(self, y_true: torch.tensor, y_pred: torch.tensor) -> torch.tensor:
+    def forward(self, y_true: torch.tensor, logits: torch.tensor) -> torch.tensor:
         """Compute precision of model
 
         Parameters
@@ -34,6 +34,7 @@ class Precision(nn.Module):
         torch.tensor
             Precision score
         """
+        y_pred = logits.argmax(dim=-1)
         return (
             self._macro_avg_precision(y_true, y_pred)
             if self.macro_averaging
@@ -57,6 +58,7 @@ class Precision(nn.Module):
         torch.tensor
             Micro-averaged precision
         """
+        print(y_true.shape)
         true_oh = torch.zeros(y_true.size(0), self.num_classes).scatter_(
             1, y_true.unsqueeze(1), 1
         )

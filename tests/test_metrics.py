@@ -78,56 +78,49 @@ def test_f1score():
     assert f1_metric.fn.sum().item() > 0, "Expected some false negatives."
 
 
-def test_precision_case1():
+def test_precision():
     import torch
+    import numpy as np
+    from sklearn.metrics import precision_score
+    from random import randint
+    
+    C = randint(2, 10) # number of classes
+    N = randint(2,10*C) # batchsize
+    y_true = torch.randint(0,C, (N,))
+    logits = torch.randn(N, C)
+    
+    # create metric objects
+    precision_micro = Precision(num_classes=C)
+    precision_macro = Precision(num_classes=C, macro_averaging=True)
+    
+    # find scores
+    micro_precision_score = precision_micro(y_true, logits)
+    macro_precision_score = precision_macro(y_true, logits)
+    
+    # check output to be tensor
+    assert isinstance(micro_precision_score, torch.Tensor), "Tensor output is expected."
+    assert isinstance(macro_precision_score, torch.Tensor), "Tensor output is expected."
+    
+    # check for non-negativity
+    assert micro_precision_score.item() >= 0, "Expected non-negative value"
+    assert macro_precision_score.item() >= 0, "Expected non-negative value"
+    
+    # find predictions
+    y_pred = logits.argmax(dim=-1, keepdims=True)
+    
+    # check dimension
+    assert y_true.shape == torch.Size([N,1]) or torch.Size([N])
+    assert logits.shape == torch.Size([N,C])
+    assert y_pred.shape == torch.Size([N,1]) or torch.Size([N])
 
-    for boolean, true_precision in zip([False, True], [25.0 / 36, 7.0 / 10]):
-        true1 = torch.tensor([0, 1, 2, 1, 0, 2, 1, 0, 2, 1])
-        pred1 = torch.tensor([0, 2, 1, 1, 0, 2, 0, 0, 2, 1])
-        P = Precision(3, micro_averaging=boolean)
-        precision1 = P(true1, pred1)
-        assert precision1.allclose(torch.tensor(true_precision), atol=1e-5), (
-            f"Precision Score: {precision1.item()}"
-        )
-
-
-def test_precision_case2():
-    import torch
-
-    for boolean, true_precision in zip([False, True], [8.0 / 15, 6.0 / 15]):
-        true2 = torch.tensor([0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4])
-        pred2 = torch.tensor([0, 0, 4, 3, 4, 0, 4, 4, 2, 3, 4, 1, 2, 4, 0])
-        P = Precision(5, micro_averaging=boolean)
-        precision2 = P(true2, pred2)
-        assert precision2.allclose(torch.tensor(true_precision), atol=1e-5), (
-            f"Precision Score: {precision2.item()}"
-        )
-
-
-def test_precision_case3():
-    import torch
-
-    for boolean, true_precision in zip([False, True], [3.0 / 4, 4.0 / 5]):
-        true3 = torch.tensor([0, 0, 0, 1, 0])
-        pred3 = torch.tensor([1, 0, 0, 1, 0])
-        P = Precision(2, micro_averaging=boolean)
-        precision3 = P(true3, pred3)
-        assert precision3.allclose(torch.tensor(true_precision), atol=1e-5), (
-            f"Precision Score: {precision3.item()}"
-        )
-
-
-def test_for_zero_denominator():
-    import torch
-
-    for boolean in [False, True]:
-        true4 = torch.tensor([1, 1, 1, 1, 1])
-        pred4 = torch.tensor([0, 0, 0, 0, 0])
-        P = Precision(2, micro_averaging=boolean)
-        precision4 = P(true4, pred4)
-        assert precision4.allclose(torch.tensor(0.0), atol=1e-5), (
-            f"Precision Score: {precision4.item()}"
-        )
+    
+    # find true values with scikit learn
+    scikit_macro_precision = precision_score(y_true, y_pred, average="macro")
+    scikit_micro_precision = precision_score(y_true, y_pred, average="micro")
+    
+    # check for similarity
+    assert np.isclose(scikit_micro_precision, micro_precision_score, atol=1e-5), "Score does not match scikit's score"
+    assert np.isclose(scikit_macro_precision, macro_precision_score, atol=1e-5), "Score does not match scikit's score"
 
 
 def test_accuracy():
