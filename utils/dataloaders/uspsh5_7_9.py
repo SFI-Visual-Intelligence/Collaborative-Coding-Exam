@@ -32,10 +32,6 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         A transform function to apply to the images.
     """
 
-
-
-    def __init__(self, data_path, train=False, transform=None, download=False):
-
     def __init__(self, data_path, train=False, transform=None):
         super().__init__()
         """
