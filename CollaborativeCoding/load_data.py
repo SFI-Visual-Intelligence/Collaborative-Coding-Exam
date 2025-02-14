@@ -4,6 +4,7 @@ from torch.utils.data import random_split
 from .dataloaders import (
     Downloader,
     MNISTDataset0_3,
+    MNISTDataset4_9,
     SVHNDataset,
     USPSDataset0_6,
     USPSH5_Digit_7_9_Dataset,
@@ -65,7 +66,9 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
             train_labels, test_labels = downloader.svhn(data_dir=data_dir)
             labels = np.arange(10)
         case "mnist_4-9":
-            raise NotImplementedError("MNIST 4-9 dataset not yet implemented.")
+            dataset = MNISTDataset4_9
+            train_labels, test_labels = downloader.mnist(data_dir=data_dir)
+            labels = np.arange(4,10)
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")
 
