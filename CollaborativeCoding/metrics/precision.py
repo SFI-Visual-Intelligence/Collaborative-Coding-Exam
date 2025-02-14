@@ -40,6 +40,12 @@ class Precision(nn.Module):
             if self.macro_averaging
             else self._micro_avg_precision(y_true, y_pred)
         )
+        
+    def accumulate(self):
+        pass # TODO fill
+    
+    def reset(self):
+        pass # TODO fill
 
     def _micro_avg_precision(
         self, y_true: torch.tensor, y_pred: torch.tensor
