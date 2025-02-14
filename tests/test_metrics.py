@@ -98,9 +98,13 @@ def test_precision():
     precision_micro = Precision(num_classes=C)
     precision_macro = Precision(num_classes=C, macro_averaging=True)
 
-    # find scores
-    micro_precision_score = precision_micro(y_true, logits)
-    macro_precision_score = precision_macro(y_true, logits)
+    # run metric object
+    precision_micro(y_true, logits)
+    precision_macro(y_true, logits)
+
+    # get metric scores
+    micro_precision_score = precision_micro.__returnmetric__()
+    macro_precision_score = precision_macro.__returnmetric__()
 
     # check output to be tensor
     assert isinstance(micro_precision_score, torch.Tensor), "Tensor output is expected."

@@ -68,7 +68,7 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
         case "mnist_4-9":
             dataset = MNISTDataset4_9
             train_labels, test_labels = downloader.mnist(data_dir=data_dir)
-            labels = np.arange(4,10)
+            labels = np.arange(4, 10)
         case _:
             raise NotImplementedError(f"Dataset: {dataset} not implemented.")
 

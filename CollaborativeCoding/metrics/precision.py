@@ -1,6 +1,6 @@
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
 
 
 class Precision(nn.Module):
@@ -42,7 +42,6 @@ class Precision(nn.Module):
         # Append to the class-global values
         self.y_true.append(y_true)
         self.y_pred.append(y_pred)
-        
 
     def _micro_avg_precision(
         self, y_true: torch.tensor, y_pred: torch.tensor
@@ -99,7 +98,7 @@ class Precision(nn.Module):
         fp = torch.sum(~true_oh.bool() * pred_oh, 0)
 
         return torch.nanmean(tp / (tp + fp))
-    
+
     def __returnmetric__(self):
         if self.y_true == [] and self.y_pred == []:
             return np.nan
@@ -107,9 +106,13 @@ class Precision(nn.Module):
             raise ValueError("y_true or y_pred is empty.")
         self.y_true = torch.cat(self.y_true)
         self.y_pred = torch.cat(self.y_pred)
-        
-        return self._macro_avg_precision(self.y_true, self.y_pred) if self.macro_averaging else self._micro_avg_precision(self.y_true, self.y_pred)    
-    
+
+        return (
+            self._macro_avg_precision(self.y_true, self.y_pred)
+            if self.macro_averaging
+            else self._micro_avg_precision(self.y_true, self.y_pred)
+        )
+
     def __reset__(self):
         """Resets the class-global lists of true and predicted values to empty lists.
 
