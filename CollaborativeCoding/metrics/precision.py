@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import numpy as np
 
 
 class Precision(nn.Module):
@@ -101,7 +102,7 @@ class Precision(nn.Module):
     
     def __returnmetric__(self):
         if self.y_true == [] and self.y_pred == []:
-            return []
+            return np.nan
         elif self.y_true == [] or self.y_pred == []:
             raise ValueError("y_true or y_pred is empty.")
         self.y_true = torch.cat(self.y_true)
