@@ -25,9 +25,9 @@ class MetricWrapper(nn.Module):
     -------
         __call__(y_true, y_pred)
             Computes the specified metrics on the provided true and predicted labels.
-        __getmetrics__(str_prefix: str = None)
+        getmetrics(str_prefix: str = None)
             Retrieves the computed metrics, optionally prefixed with a string.
-        reset()
+        resetmetric()
             Resets the state of all metric computations.
     Examples
     --------
@@ -36,10 +36,10 @@ class MetricWrapper(nn.Module):
     >>> y_true = [0, 1, 0, 1]
     >>> y_pred = [0, 1, 1, 0]
     >>> metrics(y_true, y_pred)
-    >>> metrics.__getmetrics__()
+    >>> metrics.getmetrics()
     {'entropy': 0.6931471805599453, 'f1': 0.5, 'precision': 0.5}
-    >>> metrics.reset()
-    >>> metrics.__getmetrics__()
+    >>> metrics.resetmetric()
+    >>> metrics.getmetrics()
     {'entropy': [], 'f1': [], 'precision': []}
     """
 
