@@ -82,7 +82,7 @@ class MetricWrapper(nn.Module):
         for key in self.metrics:
             self.metrics[key](y_true, y_pred)
 
-    def __getmetrics__(self, str_prefix: str = None):
+    def getmetrics(self, str_prefix: str = None):
         return_metrics = {}
         for key in self.metrics:
             if str_prefix is not None:
@@ -91,6 +91,6 @@ class MetricWrapper(nn.Module):
                 return_metrics[key] = self.metrics[key].__returnmetric__()
         return return_metrics
 
-    def __resetmetrics__(self):
+    def resetmetric(self):
         for key in self.metrics:
             self.metrics[key].__reset__()

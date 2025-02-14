@@ -53,6 +53,7 @@ def main():
         data_dir=args.datafolder,
         transform=transform,
         val_size=args.val_size,
+        nr_channels=args.nr_channels,
     )
 
     train_metrics = MetricWrapper(
@@ -124,7 +125,7 @@ def main():
             train_metrics(y, logits)
 
             break
-        print(train_metrics.__getmetrics__())
+        print(train_metrics.getmetrics())
         print("Dry run completed successfully.")
         exit()
 
@@ -172,11 +173,11 @@ def main():
                 "Train loss": np.mean(trainingloss),
                 "Validation loss": np.mean(valloss),
             }
-            | train_metrics.__getmetrics__(str_prefix="Train ")
-            | val_metrics.__getmetrics__(str_prefix="Validation ")
+            | train_metrics.getmetric(str_prefix="Train ")
+            | val_metrics.getmetric(str_prefix="Validation ")
         )
-        train_metrics.__resetmetrics__()
-        val_metrics.__resetmetrics__()
+        train_metrics.resetmetric()
+        val_metrics.resetmetric()
 
     testloss = []
     model.eval()
@@ -192,9 +193,9 @@ def main():
 
     wandb.log(
         {"Epoch": 1, "Test loss": np.mean(testloss)}
-        | test_metrics.__getmetrics__(str_prefix="Test ")
+        | test_metrics.getmetric(str_prefix="Test ")
     )
-    test_metrics.__resetmetrics__()
+    test_metrics.resetmetric()
 
 
 if __name__ == "__main__":

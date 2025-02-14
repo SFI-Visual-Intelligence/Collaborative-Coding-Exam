@@ -8,6 +8,8 @@ from urllib.request import urlretrieve
 
 import h5py as h5
 import numpy as np
+from scipy.io import loadmat
+from torchvision.datasets import SVHN
 
 from .datasources import MNIST_SOURCE, USPS_SOURCE
 
@@ -84,7 +86,26 @@ class Downloader:
         return train_labels, test_labels
 
     def svhn(self, data_dir: Path) -> tuple[np.ndarray, np.ndarray]:
-        raise NotImplementedError("SVHN download not implemented yet")
+        def download_svhn(path, train: bool = True):
+            SVHN()
+
+        parent_path = data_dir / "SVHN"
+
+        if not parent_path.exists():
+            parent_path.mkdir(parents=True)
+
+        train_data = parent_path / "train_32x32.mat"
+        test_data = parent_path / "test_32x32.mat"
+
+        if not train_data.exists():
+            download_svhn(parent_path, train=True)
+        if not test_data.exists():
+            download_svhn(parent_path, train=False)
+
+        train_labels = loadmat(train_data)["y"]
+        test_labels = loadmat(test_data)["y"]
+
+        return train_labels, test_labels
 
     def usps(self, data_dir: Path) -> tuple[np.ndarray, np.ndarray]:
         """
