@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import h5py
 import numpy as np
@@ -11,10 +12,10 @@ from torchvision.datasets import SVHN
 class SVHNDataset(Dataset):
     def __init__(
         self,
-        data_path: str,
+        data_path: Path,
+        sample_ids: list,
         train: bool,
         transform=None,
-        download: bool = True,
         nr_channels=3,
     ):
         """
@@ -31,10 +32,8 @@ class SVHNDataset(Dataset):
         super().__init__()
 
         self.data_path = data_path
+        self.indexes = sample_ids
         self.split = "train" if train else "test"
-
-        if download:
-            self._download_data(data_path)
 
         self.nr_channels = nr_channels
         self.transforms = transform

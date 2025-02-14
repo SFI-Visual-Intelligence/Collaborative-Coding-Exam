@@ -5,7 +5,7 @@ from scipy.stats import entropy
 
 
 class EntropyPrediction(nn.Module):
-    def __init__(self, averages: str = "mean"):
+    def __init__(self, num_classes, macro_averaging=None):
         """
         Initializes the EntropyPrediction module, which calculates the Shannon Entropy
         of predicted logits and aggregates the results based on the specified method.
@@ -17,11 +17,8 @@ class EntropyPrediction(nn.Module):
         """
         super().__init__()
 
-        assert averages in ["mean", "sum", "none"], (
-            "averages must be 'mean', 'sum', or 'none'"
-        )
-        self.averages = averages
         self.stored_entropy_values = []
+        self.num_classes = num_classes
 
     def __call__(self, y_true: th.Tensor, y_logits: th.Tensor):
         """
@@ -36,6 +33,10 @@ class EntropyPrediction(nn.Module):
         """
 
         assert len(y_logits.size()) == 2, f"y_logits shape: {y_logits.size()}"
+        assert y_logits.size(-1) == self.num_classes, (
+            f"y_logit class length: {y_logits.size(-1)}, expected: {self.num_classes}"
+        )
+
         y_pred = nn.Softmax(dim=1)(y_logits)
         print(f"y_pred: {y_pred}")
         entropy_values = entropy(y_pred, axis=1)
@@ -50,13 +51,8 @@ class EntropyPrediction(nn.Module):
 
     def __returnmetric__(self):
         stored_entropy_values = th.from_numpy(np.asarray(self.stored_entropy_values))
+        stored_entropy_values = th.mean(stored_entropy_values)
 
-        if self.averages == "mean":
-            stored_entropy_values = th.mean(stored_entropy_values)
-        elif self.averages == "sum":
-            stored_entropy_values = th.sum(stored_entropy_values)
-        elif self.averages == "none":
-            pass
         return stored_entropy_values
 
     def __reset__(self):
