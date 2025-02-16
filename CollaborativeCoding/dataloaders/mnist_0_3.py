@@ -53,6 +53,7 @@ class MNISTDataset0_3(Dataset):
         sample_ids: list,
         train: bool = False,
         transform=None,
+        nr_channels: int = 1,
     ):
         super().__init__()
 

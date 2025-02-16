@@ -26,8 +26,7 @@ from CollaborativeCoding.load_data import load_data
 def test_load_data(data_name, expected):
     dataset = load_data(
         data_name,
-        data_path=Path("data"),
-        download=True,
+        data_dir=Path("data"),
         transform=transforms.ToTensor(),
     )
     assert isinstance(dataset, expected)

@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
-import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
+import wandb
 from CollaborativeCoding import (
     MetricWrapper,
     createfolders,
@@ -13,6 +13,9 @@ from CollaborativeCoding import (
     load_data,
     load_model,
 )
+
+# from wandb_api import WANDB_API
+
 
 
 def main():
@@ -126,7 +129,7 @@ def main():
         print("Dry run completed successfully.")
         exit()
 
-    # wandb.login(key=WANDB_API)
+    #    wandb.login(key=WANDB_API)
     wandb.init(
         entity="ColabCode",
         project=args.run_name,

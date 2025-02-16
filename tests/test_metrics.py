@@ -134,18 +134,36 @@ def test_precision():
 
 
 def test_accuracy():
+    import numpy as np
     import torch
 
-    accuracy = Accuracy(num_classes=5)
-
-    y_true = torch.tensor([0, 3, 2, 3, 4])
-    y_pred = torch.tensor([0, 1, 2, 3, 4])
-
-    accuracy_score = accuracy(y_true, y_pred)
-
-    assert torch.abs(torch.tensor(accuracy_score - 0.8)) < 1e-5, (
-        f"Accuracy Score: {accuracy_score.item()}"
+    # Test the accuracy metric
+    y_true = torch.tensor([0, 1, 2, 3, 4, 5])
+    y_pred = torch.tensor([0, 1, 2, 3, 4, 5])
+    accuracy = Accuracy(num_classes=6, macro_averaging=False)
+    accuracy(y_true, y_pred)
+    assert accuracy.__returnmetric__() == 1.0, "Expected accuracy to be 1.0"
+    accuracy.__reset__()
+    assert accuracy.__returnmetric__() is np.nan, "Expected accuracy to be 0.0"
+    y_pred = torch.tensor([0, 1, 2, 3, 4, 4])
+    accuracy(y_true, y_pred)
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651184"
     )
+    accuracy.__reset__()
+    accuracy.macro_averaging = True
+    accuracy(y_true, y_pred)
+    y_true_1 = torch.tensor([0, 1, 2, 3, 4, 5])
+    y_pred_1 = torch.tensor([0, 1, 2, 3, 4, 4])
+    accuracy(y_true_1, y_pred_1)
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651186"
+    )
+    accuracy.macro_averaging = False
+    assert np.abs(accuracy.__returnmetric__() - 0.8333333134651184) < 1e-5, (
+        "Expected accuracy to be 0.8333333134651184"
+    )
+    accuracy.__reset__()
 
 
 def test_entropypred():
