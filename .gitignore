@@ -18,6 +18,9 @@ env2/*
 ruffian.sh 
 localtest.sh
 
+# Johanthings
+formatting.x 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

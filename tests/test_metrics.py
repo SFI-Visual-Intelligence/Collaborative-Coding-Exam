@@ -85,8 +85,6 @@ def test_f1score():
 
 
 def test_precision():
-    from random import randint
-
     import numpy as np
     import torch
     from sklearn.metrics import precision_score
@@ -100,9 +98,13 @@ def test_precision():
     precision_micro = Precision(num_classes=C)
     precision_macro = Precision(num_classes=C, macro_averaging=True)
 
-    # find scores
-    micro_precision_score = precision_micro(y_true, logits)
-    macro_precision_score = precision_macro(y_true, logits)
+    # run metric object
+    precision_micro(y_true, logits)
+    precision_macro(y_true, logits)
+
+    # get metric scores
+    micro_precision_score = precision_micro.__returnmetric__()
+    macro_precision_score = precision_macro.__returnmetric__()
 
     # check output to be tensor
     assert isinstance(micro_precision_score, torch.Tensor), "Tensor output is expected."
@@ -113,12 +115,12 @@ def test_precision():
     assert macro_precision_score.item() >= 0, "Expected non-negative value"
 
     # find predictions
-    y_pred = logits.argmax(dim=-1, keepdims=True)
+    y_pred = logits.argmax(dim=-1)
 
     # check dimension
-    assert y_true.shape == torch.Size([N, 1]) or torch.Size([N])
+    assert y_true.shape == torch.Size([N])
     assert logits.shape == torch.Size([N, C])
-    assert y_pred.shape == torch.Size([N, 1]) or torch.Size([N])
+    assert y_pred.shape == torch.Size([N])
 
     # find true values with scikit learn
     scikit_macro_precision = precision_score(y_true, y_pred, average="macro")

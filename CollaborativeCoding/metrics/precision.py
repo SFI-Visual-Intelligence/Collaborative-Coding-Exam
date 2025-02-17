@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -18,6 +19,8 @@ class Precision(nn.Module):
 
         self.num_classes = num_classes
         self.macro_averaging = macro_averaging
+        self.y_true = []
+        self.y_pred = []
 
     def forward(self, y_true: torch.tensor, logits: torch.tensor) -> torch.tensor:
         """Compute precision of model
@@ -35,11 +38,10 @@ class Precision(nn.Module):
             Precision score
         """
         y_pred = logits.argmax(dim=-1)
-        return (
-            self._macro_avg_precision(y_true, y_pred)
-            if self.macro_averaging
-            else self._micro_avg_precision(y_true, y_pred)
-        )
+
+        # Append to the class-global values
+        self.y_true.append(y_true)
+        self.y_pred.append(y_pred)
 
     def _micro_avg_precision(
         self, y_true: torch.tensor, y_pred: torch.tensor
@@ -58,7 +60,6 @@ class Precision(nn.Module):
         torch.tensor
             Micro-averaged precision
         """
-        print(y_true.shape)
         true_oh = torch.zeros(y_true.size(0), self.num_classes).scatter_(
             1, y_true.unsqueeze(1), 1
         )
@@ -97,6 +98,31 @@ class Precision(nn.Module):
         fp = torch.sum(~true_oh.bool() * pred_oh, 0)
 
         return torch.nanmean(tp / (tp + fp))
+
+    def __returnmetric__(self):
+        if self.y_true == [] and self.y_pred == []:
+            return np.nan
+        elif self.y_true == [] or self.y_pred == []:
+            raise ValueError("y_true or y_pred is empty.")
+        self.y_true = torch.cat(self.y_true)
+        self.y_pred = torch.cat(self.y_pred)
+
+        return (
+            self._macro_avg_precision(self.y_true, self.y_pred)
+            if self.macro_averaging
+            else self._micro_avg_precision(self.y_true, self.y_pred)
+        )
+
+    def __reset__(self):
+        """Resets the class-global lists of true and predicted values to empty lists.
+
+        Returns
+        -------
+        None
+            Returns None
+        """
+        self.y_true = self.y_pred = []
+        return None
 
 
 if __name__ == "__main__":

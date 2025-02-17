@@ -20,7 +20,14 @@ class MNISTDataset4_9(Dataset):
         Whether to train the model or not, by default False
     """
 
-    def __init__(self, data_path: Path, sample_ids: np.ndarray, train: bool = False):
+    def __init__(
+        self,
+        data_path: Path,
+        sample_ids: np.ndarray,
+        train: bool = False,
+        transform=None,
+        nr_channels: int = 1,
+    ):
         super.__init__()
         self.data_path = data_path
         self.mnist_path = self.data_path / "MNIST"
@@ -51,5 +58,8 @@ class MNISTDataset4_9(Dataset):
             )
 
         image = np.expand_dims(image, axis=0)  # Channel
+
+        if self.transform:
+            image = self.transform(image)
 
         return image, label
