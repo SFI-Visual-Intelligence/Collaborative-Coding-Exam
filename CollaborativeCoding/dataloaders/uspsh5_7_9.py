@@ -109,7 +109,6 @@ def main():
             transforms.Normalize((0.5,), (0.5,)),  # Normalize to [-1, 1]
         ]
     )
-    targets = np.array([6, 5, 4, 3, 2, 1, 0, 0, 0, 0])
     indices = np.array([7, 8, 9])
     # Load the dataset
     dataset = USPSH5_Digit_7_9_Dataset(
