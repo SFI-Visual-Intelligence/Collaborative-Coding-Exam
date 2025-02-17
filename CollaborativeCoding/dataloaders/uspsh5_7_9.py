@@ -32,7 +32,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         A transform function to apply to the images.
     """
 
-    def __init__(self, data_path, train=False, transform=None):
+    def __init__(self, data_path, sample_ids, train=False, transform=None,  nr_channels=1):
         super().__init__()
         """
         Initializes the USPS dataset by loading images and labels from the given `.h5` file.
@@ -51,6 +51,8 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         self.transform = transform
         self.mode = "train" if train else "test"
         self.h5_path = data_path / self.filename
+        self.sample_ids = sample_ids
+        self.nr_channels = nr_channels
 
         # Load the dataset from the HDF5 file
         with h5py.File(self.filepath, "r") as hf:
@@ -107,10 +109,10 @@ def main():
             transforms.Normalize((0.5,), (0.5,)),  # Normalize to [-1, 1]
         ]
     )
-
+    indices = np.array([7, 8, 9])
     # Load the dataset
     dataset = USPSH5_Digit_7_9_Dataset(
-        data_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git",
+        data_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git", sample_ids=indices,
         train=False,
         transform=transform,
     )

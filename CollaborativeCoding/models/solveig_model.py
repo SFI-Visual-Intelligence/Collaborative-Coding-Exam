@@ -2,6 +2,37 @@ import torch
 import torch.nn as nn
 
 
+def find_fc_input_shape(image_shape, model):
+    """
+      Find the shape of the input to the fully connected layer after passing through the convolutional layers.
+
+      Code inspired by @Seilmast (https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/67#issuecomment-2651212254)
+
+      Args
+      ----
+      image_shape : tuple(int, int, int)
+          Shape of the input image (C, H, W), where C is the number of channels,
+          H is the height, and W is the width of the image.
+      model : nn.Module
+          The CNN model containing the convolutional layers, whose output size is used to
+          determine the number of input features for the fully connected layer.
+
+      Returns
+      -------
+      int
+          The number of elements in the input to the fully connected layer.
+      """
+
+    dummy_img = torch.randn(1, *image_shape)
+    with torch.no_grad():
+        x = model.conv_block1(dummy_img)
+        x = model.conv_block2(x)
+        x = model.conv_block3(x)
+        x = torch.flatten(x, 1)
+
+    return x.size(1)
+
+
 class SolveigModel(nn.Module):
     """
     A Convolutional Neural Network model for classification.
@@ -49,9 +80,19 @@ class SolveigModel(nn.Module):
             nn.ReLU(),
         )
 
-        self.fc1 = nn.Linear(100 * 8 * 8, num_classes)
+        fc_input_size = find_fc_input_shape(image_shape, self)
+
+        self.fc1 = nn.Linear(fc_input_size, num_classes)
 
     def forward(self, x):
+        """
+        Defines the forward pass.
+        Args:
+            x (torch.Tensor): A four-dimensional tensor with shape
+                        (Batch Size, Channels, Image Height, Image Width).
+        Returns:
+        torch.Tensor: The output tensor containing class logits for each input sample.
+        """
         x = self.conv_block1(x)
         x = self.conv_block2(x)
         x = self.conv_block3(x)
@@ -63,7 +104,7 @@ class SolveigModel(nn.Module):
 
 
 if __name__ == "__main__":
-    x = torch.randn(1, 3, 16, 16)
+    x = torch.randn(1, 3, 28, 28)
 
     model = SolveigModel(x.shape[1:], 3)
 
