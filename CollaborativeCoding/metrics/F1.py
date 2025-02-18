@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -52,13 +53,14 @@ class F1Score(nn.Module):
 
         self.num_classes = num_classes
         self.macro_averaging = macro_averaging
-
+        self.y_true = []
+        self.y_pred = []
         # Initialize variables for True Positives (TP), False Positives (FP), and False Negatives (FN)
         self.tp = torch.zeros(num_classes)
         self.fp = torch.zeros(num_classes)
         self.fn = torch.zeros(num_classes)
 
-    def _micro_F1(self):
+    def _micro_F1(self, target, preds):
         """
         Compute the Micro F1 score by aggregating TP, FP, and FN across all classes.
 
@@ -69,6 +71,11 @@ class F1Score(nn.Module):
         torch.Tensor
             The micro-averaged F1 score.
         """
+        for i in range(self.num_classes):
+            self.tp[i] += torch.sum((preds == i) & (target == i)).float()
+            self.fp[i] += torch.sum((preds == i) & (target != i)).float()
+            self.fn[i] += torch.sum((preds != i) & (target == i)).float()
+
         tp = torch.sum(self.tp)
         fp = torch.sum(self.fp)
         fn = torch.sum(self.fn)
@@ -81,7 +88,7 @@ class F1Score(nn.Module):
         )  # Avoid division by zero
         return f1
 
-    def _macro_F1(self):
+    def _macro_F1(self, target, preds):
         """
         Compute the Macro F1 score by calculating the F1 score per class and averaging.
 
@@ -93,6 +100,12 @@ class F1Score(nn.Module):
         torch.Tensor
             The macro-averaged F1 score.
         """
+        # Calculate True Positives (TP), False Positives (FP), and False Negatives (FN) per class
+        for i in range(self.num_classes):
+            self.tp[i] += torch.sum((preds == i) & (target == i)).float()
+            self.fp[i] += torch.sum((preds == i) & (target != i)).float()
+            self.fn[i] += torch.sum((preds != i) & (target == i)).float()
+
         precision_per_class = self.tp / (
             self.tp + self.fp + 1e-8
         )  # Avoid division by zero
@@ -133,18 +146,24 @@ class F1Score(nn.Module):
             The computed F1 score (either micro or macro, based on `macro_averaging`).
         """
         preds = torch.argmax(preds, dim=-1)
+        self.y_true.append(target)
+        self.y_pred.append(preds)
 
-        # Calculate True Positives (TP), False Positives (FP), and False Negatives (FN) per class
-        for i in range(self.num_classes):
-            self.tp[i] += torch.sum((preds == i) & (target == i)).float()
-            self.fp[i] += torch.sum((preds == i) & (target != i)).float()
-            self.fn[i] += torch.sum((preds != i) & (target == i)).float()
+    def __returnmetric__(self):
+        if self.y_true == [] or self.y_pred == []:
+            return np.nan
+        if isinstance(self.y_true, list):
+            if len(self.y_true) == 1:
+                self.y_true = self.y_true[0]
+                self.y_pred = self.y_pred[0]
+            else:
+                self.y_true = torch.cat(self.y_true)
+                self.y_pred = torch.cat(self.y_pred)
+        return self._micro_F1(self.y_true, self.y_pred) if not self.macro_averaging else self._macro_F1(self.y_true, self.y_pred)
 
-        if self.macro_averaging:
-            # Calculate Macro F1 score
-            f1_score = self._macro_F1()
-        else:
-            # Calculate Micro F1 score
-            f1_score = self._micro_F1()
+    def __reset__(self):
+        self.y_true = []
+        self.y_pred = []
+        return None
 
-        return f1_score
+
