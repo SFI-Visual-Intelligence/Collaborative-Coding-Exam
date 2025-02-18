@@ -25,5 +25,5 @@ jobs:
 
     - name: Run tests
       run: |
-        PYTHONPATH=. pytest .
+        pytest
       shell: bash -el {0}
