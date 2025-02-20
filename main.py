@@ -139,6 +139,7 @@ def main():
 
     for epoch in range(args.epoch):
         # Training loop start
+        print(f"Epoch: {epoch+1}/{args.epoch}")
         trainingloss = []
         model.train()
         for x, y in tqdm(trainloader, desc="Training"):
