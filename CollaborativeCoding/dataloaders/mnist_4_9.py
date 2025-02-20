@@ -33,6 +33,8 @@ class MNISTDataset4_9(Dataset):
         self.mnist_path = self.data_path / "MNIST"
         self.samples = sample_ids
         self.train = train
+        self.transform = transform
+        self.num_classes = 6
 
         self.images_path = self.mnist_path / (
             MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1]
@@ -46,7 +48,7 @@ class MNISTDataset4_9(Dataset):
 
     def __getitem__(self, idx):
         with open(self.labels_path, "rb") as labelfile:
-            label_pos = 8 + self.sample[idx]
+            label_pos = 8 + self.samples[idx]
             labelfile.seek(label_pos)
             label = int.from_bytes(labelfile.read(1), byteorder="big")
 

@@ -145,7 +145,7 @@ def main():
         for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
             logits = model.forward(x)
-
+            from IPython import embed; embed()
             loss = criterion(logits, y)
             loss.backward()
 
