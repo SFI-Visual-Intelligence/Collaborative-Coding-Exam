@@ -187,8 +187,7 @@ def main():
             loss = criterion(logits, y)
             testloss.append(loss.item())
 
-            preds = th.argmax(logits, dim=1)
-            test_metrics(y, preds)
+            test_metrics(y, logits)
 
     wandb.log(
         {"Epoch": 1, "Test loss": np.mean(testloss)}
