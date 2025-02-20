@@ -65,9 +65,7 @@ def test_load_data(data_name, expected):
             assert len(dataset) > 0
             assert isinstance(dataset[0], tuple)
             assert isinstance(dataset[0][0], torch.Tensor)
-            assert isinstance(
-                dataset[0][1], int
-            )
+            assert isinstance(dataset[0][1], int)
 
 
 def test_load_metric():

@@ -4,24 +4,24 @@ import torch.nn as nn
 
 def find_fc_input_shape(image_shape, model):
     """
-      Find the shape of the input to the fully connected layer after passing through the convolutional layers.
+    Find the shape of the input to the fully connected layer after passing through the convolutional layers.
 
-      Code inspired by @Seilmast (https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/67#issuecomment-2651212254)
+    Code inspired by @Seilmast (https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/67#issuecomment-2651212254)
 
-      Args
-      ----
-      image_shape : tuple(int, int, int)
-          Shape of the input image (C, H, W), where C is the number of channels,
-          H is the height, and W is the width of the image.
-      model : nn.Module
-          The CNN model containing the convolutional layers, whose output size is used to
-          determine the number of input features for the fully connected layer.
+    Args
+    ----
+    image_shape : tuple(int, int, int)
+        Shape of the input image (C, H, W), where C is the number of channels,
+        H is the height, and W is the width of the image.
+    model : nn.Module
+        The CNN model containing the convolutional layers, whose output size is used to
+        determine the number of input features for the fully connected layer.
 
-      Returns
-      -------
-      int
-          The number of elements in the input to the fully connected layer.
-      """
+    Returns
+    -------
+    int
+        The number of elements in the input to the fully connected layer.
+    """
 
     dummy_img = torch.randn(1, *image_shape)
     with torch.no_grad():
