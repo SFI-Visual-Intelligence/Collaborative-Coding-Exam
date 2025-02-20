@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -57,26 +58,49 @@ class Recall(nn.Module):
         self.num_classes = num_classes
         self.macro_averaging = macro_averaging
 
+        self.__y_true = []
+        self.__y_pred = []
+
     def forward(self, true, logits):
         pred = logits.argmax(dim=-1)
         y_true = one_hot_encode(true, self.num_classes)
         y_pred = one_hot_encode(pred, self.num_classes)
 
+        self.__y_true.append(y_true)
+        self.__y_pred.append(y_pred)
+
+    def compute(self, y_true, y_pred):
         if self.macro_averaging:
-            recall = 0
-            for i in range(self.num_classes):
-                tp = (y_true[:, i] * y_pred[:, i]).sum()
-                fn = torch.sum(~y_pred[y_true[:, i].bool()].bool())
-                recall += tp / (tp + fn)
-            recall /= self.num_classes
-        else:
-            recall = self.__compute(y_true, y_pred)
+            return self.__compute_macro_averaging(y_true, y_pred)
+
+        return self.__compute_micro_averaging(y_true, y_pred)
+
+    def __compute_macro_averaging(self, y_true, y_pred):
+        recall = 0
+        for i in range(self.num_classes):
+            tp = (y_true[:, i] * y_pred[:, i]).sum()
+            fn = torch.sum(~y_pred[y_true[:, i].bool()].bool())
+            recall += tp / (tp + fn)
+        recall /= self.num_classes
 
         return recall
 
-    def __compute(self, y_true, y_pred):
+    def __compute_micro_averaging(self, y_true, y_pred):
         true_positives = (y_true * y_pred).sum()
         false_negatives = torch.sum(~y_pred[y_true.bool()].bool())
 
         recall = true_positives / (true_positives + false_negatives)
         return recall
+
+    def __returnmetric__(self):
+        if len(self.__y_true) == 0 and len(self.__y_pred) == 0:
+            return np.nan
+
+        y_true = torch.cat(self.__y_true, dim=0)
+        y_pred = torch.cat(self.__y_pred, dim=0)
+
+        return self.compute(y_true, y_pred)
+
+    def __reset__(self):
+        self.__y_true = []
+        self.__y_pred = []

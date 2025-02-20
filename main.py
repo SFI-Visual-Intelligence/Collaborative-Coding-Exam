@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
+import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-import wandb
 from CollaborativeCoding import (
     MetricWrapper,
     createfolders,
@@ -15,7 +15,6 @@ from CollaborativeCoding import (
 )
 
 # from wandb_api import WANDB_API
-
 
 
 def main():

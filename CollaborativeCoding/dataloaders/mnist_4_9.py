@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import numpy as np
+from PIL import Image
 from torch.utils.data import Dataset
 
 from .datasources import MNIST_SOURCE
@@ -59,7 +60,8 @@ class MNISTDataset4_9(Dataset):
                 28, 28
             )
 
-        image = np.expand_dims(image, axis=0)  # Channel
+        # image = np.expand_dims(image, axis=0)  # Channel
+        image = Image.fromarray(image.astype(np.uint8))
 
         if self.transform:
             image = self.transform(image)

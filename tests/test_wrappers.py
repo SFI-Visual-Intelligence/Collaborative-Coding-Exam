@@ -1,11 +1,12 @@
 from pathlib import Path
 
-from CollaborativeCoding import load_data, load_metric, load_model
+import pytest
+import torch as th
+
+from CollaborativeCoding import MetricWrapper, load_data, load_model
 
 
 def test_load_model():
-    import torch as th
-
     image_shape = (1, 16, 16)
     num_classes = 4
 
@@ -31,9 +32,6 @@ def test_load_model():
 
 
 def test_load_data():
-    from tempfile import TemporaryDirectory
-
-    import torch as th
     from torchvision import transforms
 
     dataset_names = [
@@ -41,7 +39,7 @@ def test_load_data():
         "mnist_0-3",
         "usps_7-9",
         "svhn",
-        # 'mnist_4-9' #Uncomment when implemented
+        "mnist_4-9",
     ]
 
     trans = transforms.Compose(
@@ -51,17 +49,33 @@ def test_load_data():
         ]
     )
 
-    with TemporaryDirectory() as tmppath:
-        for name in dataset_names:
-            dataset = load_data(
-                name, train=False, data_dir=Path(tmppath), transform=trans
-            )
+    for name in dataset_names:
+        dataset = load_data(name, train=False, data_dir=Path.cwd() / "Data", transform=trans)
 
-            im, _ = dataset.__getitem__(0)
+        im, _ = dataset.__getitem__(0)
 
-            assert dataset.__len__() != 0
-            assert type(im) == th.Tensor and len(im.size()) == 3
+        assert dataset.__len__() != 0
+        assert type(im) is th.Tensor and len(im.size()) == 3
 
 
 def test_load_metric():
-    pass
+    metrics = ("entropy", "f1", "recall", "precision", "accuracy")
+
+    class_sizes = [3, 6, 10]
+    for class_size in class_sizes:
+        y_true = th.rand((5, class_size)).argmax(dim=1)
+        y_pred = th.rand((5, class_size))
+
+        metricwrapper = MetricWrapper(
+            *metrics,
+            num_classes=class_size,
+            macro_averaging=True if class_size % 2 == 0 else False,
+        )
+
+        metricwrapper(y_true, y_pred)
+        metric = metricwrapper.getmetrics()
+        assert metric is not None
+
+        metricwrapper.resetmetric()
+        metric2 = metricwrapper.getmetrics()
+        assert metric != metric2

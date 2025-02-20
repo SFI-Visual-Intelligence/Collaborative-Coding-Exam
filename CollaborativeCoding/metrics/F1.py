@@ -159,11 +159,13 @@ class F1Score(nn.Module):
             else:
                 self.y_true = torch.cat(self.y_true)
                 self.y_pred = torch.cat(self.y_pred)
-        return self._micro_F1(self.y_true, self.y_pred) if not self.macro_averaging else self._macro_F1(self.y_true, self.y_pred)
+        return (
+            self._micro_F1(self.y_true, self.y_pred)
+            if not self.macro_averaging
+            else self._macro_F1(self.y_true, self.y_pred)
+        )
 
     def __reset__(self):
         self.y_true = []
         self.y_pred = []
         return None
-
-
