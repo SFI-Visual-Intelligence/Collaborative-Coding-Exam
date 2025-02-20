@@ -59,8 +59,11 @@ def test_recall():
     recall_micro = Recall(7)
     recall_macro = Recall(7, macro_averaging=True)
 
-    recall_micro_score = recall_micro(y_true, logits)
-    recall_macro_score = recall_macro(y_true, logits)
+    recall_micro(y_true, logits)
+    recall_macro(y_true, logits)
+
+    recall_micro_score = recall_micro.__returnmetric__()
+    recall_macro_score = recall_macro.__returnmetric__()
 
     assert isinstance(recall_micro_score, torch.Tensor), "Expected a tensor output."
     assert isinstance(recall_macro_score, torch.Tensor), "Expected a tensor output."
