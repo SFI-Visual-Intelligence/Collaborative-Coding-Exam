@@ -56,6 +56,7 @@ class Downloader:
                 return False
 
         def _download_data(path: Path) -> None:
+            path = path / "MNIST"
             urls = {key: MNIST_SOURCE[key][0] for key in MNIST_SOURCE.keys()}
 
             for name, url in urls.items():
