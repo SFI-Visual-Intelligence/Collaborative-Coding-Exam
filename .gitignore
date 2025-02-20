@@ -1,6 +1,7 @@
 __pycache__/
 .ipynb_checkpoints/
 Data/*
+data/*
 Results/*
 Experiments/*
 _build/
@@ -14,9 +15,7 @@ doc/autoapi
 
 #Magnus specific
 job*
-env2/*
-ruffian.sh 
-localtest.sh
+local*
 
 # Johanthings
 formatting.x 

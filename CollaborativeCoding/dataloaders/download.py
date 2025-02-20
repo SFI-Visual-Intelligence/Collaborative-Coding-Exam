@@ -87,7 +87,7 @@ class Downloader:
 
     def svhn(self, data_dir: Path) -> tuple[np.ndarray, np.ndarray]:
         def download_svhn(path, train: bool = True):
-            SVHN()
+            SVHN(path, split="train" if train else "test", download=True)
 
         parent_path = data_dir / "SVHN"
 

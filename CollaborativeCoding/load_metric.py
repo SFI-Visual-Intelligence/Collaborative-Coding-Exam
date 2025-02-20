@@ -94,3 +94,28 @@ class MetricWrapper(nn.Module):
     def resetmetric(self):
         for key in self.metrics:
             self.metrics[key].__reset__()
+
+
+if __name__ == "__main__":
+    import torch as th
+
+    metrics = ["entropy", "f1", "recall", "precision", "accuracy"]
+
+    class_sizes = [3, 6, 10]
+    for class_size in class_sizes:
+        y_true = th.rand((5, class_size)).argmax(dim=1)
+        y_pred = th.rand((5, class_size))
+
+        metricwrapper = MetricWrapper(
+            metric,
+            num_classes=class_size,
+            macro_averaging=True if class_size % 2 == 0 else False,
+        )
+
+        metricwrapper(y_true, y_pred)
+        metric = metricwrapper.getmetrics()
+        assert metric is not None
+
+        metricwrapper.resetmetric()
+        metric2 = metricwrapper.getmetrics()
+        assert metric != metric2

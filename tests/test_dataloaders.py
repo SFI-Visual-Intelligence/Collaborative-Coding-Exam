@@ -8,6 +8,7 @@ from torchvision import transforms
 
 from CollaborativeCoding.dataloaders import (
     MNISTDataset0_3,
+    SVHNDataset,
     USPSDataset0_6,
     USPSH5_Digit_7_9_Dataset,
 )
@@ -20,6 +21,7 @@ from CollaborativeCoding.load_data import load_data
         ("usps_0-6", USPSDataset0_6),
         ("usps_7-9", USPSH5_Digit_7_9_Dataset),
         ("mnist_0-3", MNISTDataset0_3),
+        ("svhn", SVHNDataset),
         # TODO: Add more datasets here
     ],
 )
