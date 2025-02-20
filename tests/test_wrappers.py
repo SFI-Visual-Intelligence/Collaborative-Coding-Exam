@@ -50,7 +50,7 @@ def test_load_data():
     )
 
     for name in dataset_names:
-        dataset = load_data(name, train=False, data_dir=Path.cwd(), transform=trans)
+        dataset = load_data(name, train=False, data_dir=Path.cwd() / "Data", transform=trans)
 
         im, _ = dataset.__getitem__(0)
 
