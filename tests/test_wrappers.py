@@ -1,6 +1,17 @@
 from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import pytest
+import torch
+from torchvision import transforms
 
 from CollaborativeCoding import load_data, load_metric, load_model
+from CollaborativeCoding.dataloaders import (
+    MNISTDataset0_3,
+    SVHNDataset,
+    USPSDataset0_6,
+    USPSH5_Digit_7_9_Dataset,
+)
 
 
 def test_load_model():
@@ -30,37 +41,33 @@ def test_load_model():
             )
 
 
-def test_load_data():
-    from tempfile import TemporaryDirectory
+@pytest.mark.parametrize(
+    "data_name, expected",
+    [
+        ("usps_0-6", USPSDataset0_6),
+        ("usps_7-9", USPSH5_Digit_7_9_Dataset),
+        ("mnist_0-3", MNISTDataset0_3),
+        ("svhn", SVHNDataset),
+    ],
+)
+def test_load_data(data_name, expected):
+    with TemporaryDirectory() as tempdir:
+        tempdir = Path(tempdir)
 
-    import torch as th
-    from torchvision import transforms
+        train, val, test = load_data(
+            data_name,
+            data_dir=tempdir,
+            transform=transforms.ToTensor(),
+        )
 
-    dataset_names = [
-        "usps_0-6",
-        "mnist_0-3",
-        "usps_7-9",
-        "svhn",
-        # 'mnist_4-9' #Uncomment when implemented
-    ]
-
-    trans = transforms.Compose(
-        [
-            transforms.Resize((16, 16)),
-            transforms.ToTensor(),
-        ]
-    )
-
-    with TemporaryDirectory() as tmppath:
-        for name in dataset_names:
-            dataset = load_data(
-                name, train=False, data_dir=Path(tmppath), transform=trans
+        for dataset in [train, val, test]:
+            assert isinstance(dataset, expected)
+            assert len(dataset) > 0
+            assert isinstance(dataset[0], tuple)
+            assert isinstance(dataset[0][0], torch.Tensor)
+            assert isinstance(
+                dataset[0][1], int
             )
-
-            im, _ = dataset.__getitem__(0)
-
-            assert dataset.__len__() != 0
-            assert type(im) == th.Tensor and len(im.size()) == 3
 
 
 def test_load_metric():
