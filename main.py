@@ -144,7 +144,6 @@ def main():
         for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
             logits = model.forward(x)
-            from IPython import embed; embed()
             loss = criterion(logits, y)
             loss.backward()
 
@@ -172,8 +171,8 @@ def main():
                 "Train loss": np.mean(trainingloss),
                 "Validation loss": np.mean(valloss),
             }
-            | train_metrics.getmetric(str_prefix="Train ")
-            | val_metrics.getmetric(str_prefix="Validation ")
+            | train_metrics.getmetrics(str_prefix="Train ")
+            | val_metrics.getmetrics(str_prefix="Validation ")
         )
         train_metrics.resetmetric()
         val_metrics.resetmetric()
@@ -192,7 +191,7 @@ def main():
 
     wandb.log(
         {"Epoch": 1, "Test loss": np.mean(testloss)}
-        | test_metrics.getmetric(str_prefix="Test ")
+        | test_metrics.getmetrics(str_prefix="Test ")
     )
     test_metrics.resetmetric()
 
