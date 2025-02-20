@@ -1,16 +1,12 @@
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
 import pytest
-import torch
-from torchvision import transforms
+import torch as th
 
 from CollaborativeCoding import MetricWrapper, load_data, load_model
 
 
 def test_load_model():
-    import torch as th
-
     image_shape = (1, 16, 16)
     num_classes = 4
 
@@ -36,9 +32,6 @@ def test_load_model():
 
 
 def test_load_data():
-    from tempfile import TemporaryDirectory
-
-    import torch as th
     from torchvision import transforms
 
     dataset_names = [
@@ -56,21 +49,16 @@ def test_load_data():
         ]
     )
 
-    with TemporaryDirectory() as tmppath:
-        for name in dataset_names:
-            dataset = load_data(
-                name, train=False, data_dir=Path(tmppath), transform=trans
-            )
+    for name in dataset_names:
+        dataset = load_data(name, train=False, data_dir=Path.cwd(), transform=trans)
 
-            im, _ = dataset.__getitem__(0)
+        im, _ = dataset.__getitem__(0)
 
-            assert dataset.__len__() != 0
-            assert type(im) == th.Tensor and len(im.size()) == 3
+        assert dataset.__len__() != 0
+        assert type(im) is th.Tensor and len(im.size()) == 3
 
 
 def test_load_metric():
-    import torch as th
-
     metrics = ("entropy", "f1", "recall", "precision", "accuracy")
 
     class_sizes = [3, 6, 10]
