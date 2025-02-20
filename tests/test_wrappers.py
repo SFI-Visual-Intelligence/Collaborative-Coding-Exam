@@ -1,4 +1,9 @@
 from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import pytest
+import torch
+from torchvision import transforms
 
 from CollaborativeCoding import MetricWrapper, load_data, load_model
 
@@ -36,7 +41,13 @@ def test_load_data():
     import torch as th
     from torchvision import transforms
 
-    dataset_names = ["usps_0-6", "mnist_0-3", "usps_7-9", "svhn", "mnist_4-9"]
+    dataset_names = [
+        "usps_0-6",
+        "mnist_0-3",
+        "usps_7-9",
+        "svhn",
+        # 'mnist_4-9' #Uncomment when implemented
+    ]
 
     trans = transforms.Compose(
         [

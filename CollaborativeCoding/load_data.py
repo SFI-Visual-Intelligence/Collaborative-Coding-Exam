@@ -93,7 +93,7 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
         sample_ids=train_samples,
         train=True,
         transform=transform,
-        nr_channels=kwargs.get("nr_channels"),
+        nr_channels=kwargs.get("nr_channels", 1),
     )
 
     val = dataset(
@@ -101,7 +101,7 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
         sample_ids=val_samples,
         train=True,
         transform=transform,
-        nr_channels=kwargs.get("nr_channels"),
+        nr_channels=kwargs.get("nr_channels", 1),
     )
 
     test = dataset(
@@ -109,7 +109,7 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
         sample_ids=test_samples,
         train=False,
         transform=transform,
-        nr_channels=kwargs.get("nr_channels"),
+        nr_channels=kwargs.get("nr_channels", 1),
     )
 
     return train, val, test
