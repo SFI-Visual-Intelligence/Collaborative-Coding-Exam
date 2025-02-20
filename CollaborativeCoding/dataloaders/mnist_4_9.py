@@ -28,7 +28,7 @@ class MNISTDataset4_9(Dataset):
         transform=None,
         nr_channels: int = 1,
     ):
-        super.__init__()
+        super().__init__()
         self.data_path = data_path
         self.mnist_path = self.data_path / "MNIST"
         self.samples = sample_ids
