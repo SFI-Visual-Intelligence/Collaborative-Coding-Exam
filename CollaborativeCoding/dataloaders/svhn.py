@@ -38,6 +38,11 @@ class SVHNDataset(Dataset):
         self.nr_channels = nr_channels
         self.transforms = transform
 
+        if not os.path.exists(
+            os.path.join(self.data_path, f"svhn_{self.split}data.h5")
+        ):
+            self._download_data(self.data_path)
+
         assert os.path.exists(
             os.path.join(self.data_path, f"svhn_{self.split}data.h5")
         ), f"File svhn_{self.split}data.h5 does not exists. Run download=True"
@@ -97,4 +102,4 @@ class SVHNDataset(Dataset):
         if self.transforms is not None:
             img = self.transforms(img)
 
-        return img, lab
+        return img, int(lab)
