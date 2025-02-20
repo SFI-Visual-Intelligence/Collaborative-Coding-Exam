@@ -107,7 +107,7 @@ if __name__ == "__main__":
         y_pred = th.rand((5, class_size))
 
         metricwrapper = MetricWrapper(
-            metric,
+            *metrics,
             num_classes=class_size,
             macro_averaging=True if class_size % 2 == 0 else False,
         )
