@@ -59,8 +59,11 @@ def test_recall():
     recall_micro = Recall(7)
     recall_macro = Recall(7, macro_averaging=True)
 
-    recall_micro_score = recall_micro(y_true, logits)
-    recall_macro_score = recall_macro(y_true, logits)
+    recall_micro(y_true, logits)
+    recall_macro(y_true, logits)
+
+    recall_micro_score = recall_micro.__returnmetric__()
+    recall_macro_score = recall_macro.__returnmetric__()
 
     assert isinstance(recall_micro_score, torch.Tensor), "Expected a tensor output."
     assert isinstance(recall_macro_score, torch.Tensor), "Expected a tensor output."
@@ -88,8 +91,12 @@ def test_f1score():
     macro_f1_score = f1_macro.__returnmetric__()
 
     # Check if outputs are tensors
-    assert isinstance(micro_f1_score, torch.Tensor), "Micro F1 score should be a tensor."
-    assert isinstance(macro_f1_score, torch.Tensor), "Macro F1 score should be a tensor."
+    assert isinstance(micro_f1_score, torch.Tensor), (
+        "Micro F1 score should be a tensor."
+    )
+    assert isinstance(macro_f1_score, torch.Tensor), (
+        "Macro F1 score should be a tensor."
+    )
 
     # Check that F1 scores are between 0 and 1
     assert 0 <= micro_f1_score.item() <= 1, "Micro F1 score should be between 0 and 1."

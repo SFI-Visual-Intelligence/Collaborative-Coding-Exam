@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import numpy as np
+from PIL import Image
 from torch.utils.data import Dataset
 
 from .datasources import MNIST_SOURCE
@@ -28,11 +29,13 @@ class MNISTDataset4_9(Dataset):
         transform=None,
         nr_channels: int = 1,
     ):
-        super.__init__()
+        super().__init__()
         self.data_path = data_path
         self.mnist_path = self.data_path / "MNIST"
         self.samples = sample_ids
         self.train = train
+        self.transform = transform
+        self.num_classes = 6
 
         self.images_path = self.mnist_path / (
             MNIST_SOURCE["train_images"][1] if train else MNIST_SOURCE["test_images"][1]
@@ -46,7 +49,7 @@ class MNISTDataset4_9(Dataset):
 
     def __getitem__(self, idx):
         with open(self.labels_path, "rb") as labelfile:
-            label_pos = 8 + self.sample[idx]
+            label_pos = 8 + self.samples[idx]
             labelfile.seek(label_pos)
             label = int.from_bytes(labelfile.read(1), byteorder="big")
 
@@ -57,7 +60,8 @@ class MNISTDataset4_9(Dataset):
                 28, 28
             )
 
-        image = np.expand_dims(image, axis=0)  # Channel
+        # image = np.expand_dims(image, axis=0)  # Channel
+        image = Image.fromarray(image.astype(np.uint8))
 
         if self.transform:
             image = self.transform(image)
