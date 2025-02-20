@@ -8,6 +8,7 @@ from pathlib import Path
 
 import h5py as h5
 import numpy as np
+import torch
 from PIL import Image
 from torch.utils.data import Dataset
 
@@ -83,6 +84,7 @@ class USPSDataset0_6(Dataset):
         sample_ids: list,
         train: bool = False,
         transform=None,
+        nr_channels=1,
     ):
         super().__init__()
 
@@ -91,6 +93,7 @@ class USPSDataset0_6(Dataset):
         self.transform = transform
         self.mode = "train" if train else "test"
         self.sample_ids = sample_ids
+        self.nr_channels = nr_channels
 
     def __len__(self):
         return len(self.sample_ids)
@@ -100,11 +103,18 @@ class USPSDataset0_6(Dataset):
 
         with h5.File(self.filepath, "r") as f:
             data = f[self.mode]["data"][index].astype(np.uint8)
-            label = f[self.mode]["target"][index]
+            label = int(f[self.mode]["target"][index])
 
-        data = Image.fromarray(data, mode="L")
+        if self.nr_channels == 1:
+            data = Image.fromarray(data, mode="L")
+        elif self.nr_channels == 3:
+            data = Image.fromarray(data, mode="RGB")
+        else:
+            raise ValueError("Invalid number of channels")
 
         if self.transform:
             data = self.transform(data)
+
+        # label = torch.tensor(label).long()
 
         return data, label
