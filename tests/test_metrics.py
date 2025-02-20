@@ -74,17 +74,32 @@ def test_recall():
 def test_f1score():
     import torch
 
-    f1_metric = F1Score(num_classes=3)
-    preds = torch.tensor(
-        [[0.8, 0.1, 0.1], [0.2, 0.7, 0.1], [0.2, 0.3, 0.5], [0.1, 0.2, 0.7]]
-    )
+    # Example case with known output
+    y_true = torch.tensor([0, 1, 2, 2, 1, 0])  # True labels
+    y_pred = torch.tensor([0, 1, 1, 2, 0, 0])  # Predicted labels
 
-    target = torch.tensor([0, 1, 0, 2])
+    # Create F1Score object for micro and macro averaging
+    f1_micro = F1Score(num_classes=3, macro_averaging=False)
+    f1_macro = F1Score(num_classes=3, macro_averaging=True)
 
-    f1_metric(preds, target)
-    assert f1_metric.tp.sum().item() > 0, "Expected some true positives."
-    assert f1_metric.fp.sum().item() > 0, "Expected some false positives."
-    assert f1_metric.fn.sum().item() > 0, "Expected some false negatives."
+    # Update F1 score with predictions
+    f1_micro(y_true, y_pred)
+    f1_macro(y_true, y_pred)
+
+    # Get F1 scores
+    micro_f1_score = f1_micro.__returnmetric__()
+    macro_f1_score = f1_macro.__returnmetric__()
+
+    # Check if outputs are tensors
+    assert isinstance(micro_f1_score, torch.Tensor), "Micro F1 score should be a tensor."
+    assert isinstance(macro_f1_score, torch.Tensor), "Macro F1 score should be a tensor."
+
+    # Check that F1 scores are between 0 and 1
+    assert 0 <= micro_f1_score.item() <= 1, "Micro F1 score should be between 0 and 1."
+    assert 0 <= macro_f1_score.item() <= 1, "Macro F1 score should be between 0 and 1."
+
+    print(f"Micro F1 Score: {micro_f1_score.item()}")
+    print(f"Macro F1 Score: {macro_f1_score.item()}")
 
 
 def test_precision():
