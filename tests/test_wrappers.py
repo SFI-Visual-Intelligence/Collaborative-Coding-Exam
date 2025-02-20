@@ -46,7 +46,7 @@ def test_load_data():
         "mnist_0-3",
         "usps_7-9",
         "svhn",
-        # 'mnist_4-9' #Uncomment when implemented
+        "mnist_4-9",
     ]
 
     trans = transforms.Compose(
