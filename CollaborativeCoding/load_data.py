@@ -78,10 +78,6 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
     train_indices = np.arange(len(train_labels))
     test_indices = np.arange(len(test_labels))
 
-    print(train_indices.shape)
-    print(np.asarray(train_labels).shape)
-    print(labels.shape)
-
     # Filter the labels to only get indices of the wanted labels
     train_samples = train_indices[np.isin(train_labels, labels)]
     test_samples = test_indices[np.isin(test_labels, labels)]

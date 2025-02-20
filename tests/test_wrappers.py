@@ -46,7 +46,7 @@ def test_load_data():
         "mnist_0-3",
         "usps_7-9",
         "svhn",
-        # 'mnist_4-9' #Uncomment when implemented
+        "mnist_4-9",  # Uncomment when implemented
     ]
 
     trans = transforms.Compose(
@@ -58,7 +58,7 @@ def test_load_data():
 
     with TemporaryDirectory() as tmppath:
         for name in dataset_names:
-            dataset = load_data(
+            dataset, _, _ = load_data(
                 name, train=False, data_dir=Path(tmppath), transform=trans
             )
 
