@@ -79,8 +79,8 @@ def load_data(dataset: str, *args, **kwargs) -> tuple:
     test_indices = np.arange(len(test_labels))
 
     # Filter the labels to only get indices of the wanted labels
-    train_samples = train_indices[np.isin(train_labels, labels)]
-    test_samples = test_indices[np.isin(test_labels, labels)]
+    train_samples = train_indices[np.isin(train_labels, labels).flatten()]
+    test_samples = test_indices[np.isin(test_labels, labels).flatten()]
 
     train_samples, val_samples = random_split(train_samples, [1 - val_size, val_size])
 
