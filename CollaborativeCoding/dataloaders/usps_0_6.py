@@ -8,7 +8,6 @@ from pathlib import Path
 
 import h5py as h5
 import numpy as np
-import torch
 from PIL import Image
 from torch.utils.data import Dataset
 
