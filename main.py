@@ -139,12 +139,12 @@ def main():
 
     for epoch in range(args.epoch):
         # Training loop start
+        print(f"Epoch: {epoch+1}/{args.epoch}")
         trainingloss = []
         model.train()
         for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
             logits = model.forward(x)
-
             loss = criterion(logits, y)
             loss.backward()
 
@@ -172,8 +172,8 @@ def main():
                 "Train loss": np.mean(trainingloss),
                 "Validation loss": np.mean(valloss),
             }
-            | train_metrics.getmetric(str_prefix="Train ")
-            | val_metrics.getmetric(str_prefix="Validation ")
+            | train_metrics.getmetrics(str_prefix="Train ")
+            | val_metrics.getmetrics(str_prefix="Validation ")
         )
         train_metrics.resetmetric()
         val_metrics.resetmetric()
@@ -187,12 +187,11 @@ def main():
             loss = criterion(logits, y)
             testloss.append(loss.item())
 
-            preds = th.argmax(logits, dim=1)
-            test_metrics(y, preds)
+            test_metrics(y, logits)
 
     wandb.log(
         {"Epoch": 1, "Test loss": np.mean(testloss)}
-        | test_metrics.getmetric(str_prefix="Test ")
+        | test_metrics.getmetrics(str_prefix="Test ")
     )
     test_metrics.resetmetric()
 
