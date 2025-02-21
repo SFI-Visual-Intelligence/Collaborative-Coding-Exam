@@ -1,0 +1,126 @@
+CollaborativeCoding.models.christian_model
+==========================================
+
+.. py:module:: CollaborativeCoding.models.christian_model
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.christian_model.x
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.christian_model.CNNBlock
+   CollaborativeCoding.models.christian_model.ChristianModel
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.christian_model.find_fc_input_shape
+
+
+Module Contents
+---------------
+
+.. py:class:: CNNBlock(in_channels, out_channels)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   CNN block with Conv2d, MaxPool2d, and ReLU.
+
+   Args
+   ----
+
+   in_channels : int
+       Number of input channels.
+   out_channels : int
+       Number of output channels.
+
+
+   .. py:attribute:: conv
+
+
+   .. py:attribute:: maxpool
+
+
+   .. py:attribute:: relu
+
+
+   .. py:method:: forward(x)
+
+
+.. py:function:: find_fc_input_shape(image_shape, *cnn_layers)
+
+   Find the shape of the input to the fully connected layer.
+
+   Code inspired by @Seilmast (https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/67#issuecomment-2651212254)
+
+   Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   cnn_layers : nn.Module
+       List of CNN layers.
+
+   Returns
+   -------
+   int
+       Number of elements in the input to the fully connected layer.
+
+
+.. py:class:: ChristianModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Simple CNN model for image classification.
+
+   Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Processing Images
+   -----------------
+   Input: (N, C, H, W)
+       N: Batch size
+       C: Number of input channels
+       H: Height of the input image
+       W: Width of the input image
+
+   Example:
+   For grayscale images, C = 1.
+
+   Input Image Shape: (5, 1, 16, 16)
+   CNN1 Output Shape: (5, 50, 8, 8)
+   CNN2 Output Shape: (5, 100, 4, 4)
+   FC Output Shape: (5, num_classes)
+
+
+   .. py:attribute:: cnn1
+
+
+   .. py:attribute:: cnn2
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:method:: forward(x)
+
+
+.. py:data:: x
+

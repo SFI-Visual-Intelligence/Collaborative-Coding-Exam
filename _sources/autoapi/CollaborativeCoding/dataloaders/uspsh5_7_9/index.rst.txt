@@ -1,0 +1,117 @@
+CollaborativeCoding.dataloaders.uspsh5_7_9
+==========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.uspsh5_7_9
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.uspsh5_7_9.USPSH5_Digit_7_9_Dataset
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.uspsh5_7_9.main
+
+
+Module Contents
+---------------
+
+.. py:class:: USPSH5_Digit_7_9_Dataset(data_path, sample_ids, train=False, transform=None, nr_channels=1)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   Custom USPS dataset class that loads images with digits 7-9 from an .h5 file.
+
+   Parameters
+   ----------
+   h5_path : str
+       Path to the USPS `.h5` file.
+
+   transform : callable, optional, default=None
+       A transform function to apply on images. If None, no transformation is applied.
+
+   Attributes
+   ----------
+   images : numpy.ndarray
+       The filtered images corresponding to digits 7-9.
+
+   labels : numpy.ndarray
+       The filtered labels corresponding to digits 7-9.
+
+   transform : callable, optional
+       A transform function to apply to the images.
+
+
+   .. py:attribute:: filename
+      :value: 'usps.h5'
+
+
+
+   .. py:attribute:: filepath
+
+
+   .. py:attribute:: transform
+      :value: None
+
+
+
+   .. py:attribute:: mode
+      :value: 'test'
+
+
+
+   .. py:attribute:: h5_path
+
+
+   .. py:attribute:: sample_ids
+
+
+   .. py:attribute:: nr_channels
+      :value: 1
+
+
+
+   .. py:attribute:: images
+
+
+   .. py:attribute:: labels
+
+
+   .. py:method:: __len__()
+
+      Returns the total number of samples in the dataset.
+
+      Returns
+      -------
+      int
+          The number of images in the dataset.
+
+
+
+   .. py:method:: __getitem__(id)
+
+      Returns a sample from the dataset given an index.
+
+      Parameters
+      ----------
+      idx : int
+          The index of the sample to retrieve.
+
+      Returns
+      -------
+      tuple
+          - image (PIL Image): The image at the specified index.
+          - label (int): The label corresponding to the image.
+
+
+
+.. py:function:: main()
+

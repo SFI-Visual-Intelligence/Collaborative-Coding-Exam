@@ -1,0 +1,132 @@
+CollaborativeCoding.metrics.accuracy
+====================================
+
+.. py:module:: CollaborativeCoding.metrics.accuracy
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.metrics.accuracy.Accuracy
+
+
+Module Contents
+---------------
+
+.. py:class:: Accuracy(num_classes, macro_averaging=False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: macro_averaging
+      :value: False
+
+
+
+   .. py:attribute:: y_true
+      :value: []
+
+
+
+   .. py:attribute:: y_pred
+      :value: []
+
+
+
+   .. py:method:: forward(y_true, y_pred)
+
+      Compute the accuracy of the model.
+
+      Parameters
+      ----------
+      y_true : torch.Tensor
+          True labels.
+      y_pred : torch.Tensor
+          Predicted labels.
+
+      Returns
+      -------
+      float
+          Accuracy score.
+
+
+
+   .. py:method:: _macro_acc()
+
+      Compute the macro-average accuracy.
+
+      Parameters
+      ----------
+      y_true : torch.Tensor
+          True labels.
+      y_pred : torch.Tensor
+          Predicted labels.
+
+      Returns
+      -------
+      float
+          Macro-average accuracy score.
+
+
+
+   .. py:method:: _micro_acc()
+
+      Compute the micro-average accuracy.
+
+      Parameters
+      ----------
+      y_true : torch.Tensor
+          True labels.
+      y_pred : torch.Tensor
+          Predicted labels.
+
+      Returns
+      -------
+      float
+          Micro-average accuracy score.
+
+
+
+   .. py:method:: __returnmetric__()
+
+
+   .. py:method:: __reset__()
+
+
