@@ -130,7 +130,7 @@ class Downloader:
         url_test, _, test_md5 = USPS_SOURCE["test"]
 
         # Using temporary directory ensures temporary files are deleted after use
-        with TemporaryDirectory() as tmp_dir:
+        with TemporaryDirectory(dir=data_dir) as tmp_dir:
             train_path = Path(tmp_dir) / "train"
             test_path = Path(tmp_dir) / "test"
 
