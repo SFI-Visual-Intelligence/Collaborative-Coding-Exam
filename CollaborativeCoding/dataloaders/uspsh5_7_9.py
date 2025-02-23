@@ -65,6 +65,9 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         mask = np.isin(labels, [7, 8, 9])
         self.images = images[mask]
         self.labels = labels[mask]
+        # map labels from (7,9) to (0,2) for CE loss
+        self.label_shift = lambda x: x - 7
+        self.label_restore = lambda x: x + 7
 
     def __len__(self):
         """
@@ -95,7 +98,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         # Convert to PIL Image (USPS images are typically grayscale 16x16)
         image = Image.fromarray(self.images[id].astype(np.uint8), mode="L")
         label = int(self.labels[id])  # Convert label to integer
-
+        label = self.label_shift(label)
         if self.transform:
             image = self.transform(image)
 
