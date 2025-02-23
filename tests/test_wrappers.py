@@ -50,9 +50,10 @@ def test_load_data():
     )
 
     for name in dataset_names:
-        dataset = load_data(name, train=False, data_dir=Path.cwd() / "Data", transform=trans)
-
-        im, _ = dataset.__getitem__(0)
+        dataset, _, _ = load_data(
+            name, train=False, data_dir=Path.cwd() / "Data", transform=trans
+        )
+        im, _ = dataset[0]
 
         assert dataset.__len__() != 0
         assert type(im) is th.Tensor and len(im.size()) == 3
