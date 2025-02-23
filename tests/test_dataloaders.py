@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import numpy as np
 import pytest
 import torch
 from torchvision import transforms
@@ -26,14 +25,19 @@ from CollaborativeCoding.load_data import load_data
     ],
 )
 def test_load_data(data_name, expected):
-    print(data_name)
     dataset, _, _ = load_data(
         data_name,
-        data_dir=Path("data"),
+        train=False,
+        data_dir=Path("Data"),
         transform=transforms.ToTensor(),
     )
-    assert isinstance(dataset, expected)
-    assert len(dataset) > 0
-    assert isinstance(dataset[0], tuple)
-    assert isinstance(dataset[0][0], torch.Tensor)
-    assert isinstance(dataset[0][1], int)
+
+    sample = dataset[0]
+    img, label = sample
+
+    assert isinstance(dataset, expected), f"{type(dataset)} != {expected}"
+    assert len(dataset) > 0, "Dataset is empty"
+    assert isinstance(sample, tuple), f"{type(sample)} != tuple"
+    assert isinstance(img, torch.Tensor), f"{type(img)} != torch.Tensor"
+    assert isinstance(label, int), f"{type(label)} != int"
+    assert len(img.size()) == 3, f"{len(img.size())} != 3"

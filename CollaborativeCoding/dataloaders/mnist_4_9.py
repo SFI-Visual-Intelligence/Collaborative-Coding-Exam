@@ -43,12 +43,11 @@ class MNISTDataset4_9(Dataset):
         self.labels_path = self.mnist_path / (
             MNIST_SOURCE["train_labels"][1] if train else MNIST_SOURCE["test_labels"][1]
         )
-        
-        # Functions to map the labels from (4,9) -> (0,5) for CrossEntropyLoss to work properly. 
-        self.label_shift = lambda x: x-4
-        self.label_restore = lambda x: x+4
-        
-        
+
+        # Functions to map the labels from (4,9) -> (0,5) for CrossEntropyLoss to work properly.
+        self.label_shift = lambda x: x - 4
+        self.label_restore = lambda x: x + 4
+
     def __len__(self):
         return len(self.samples)
 
