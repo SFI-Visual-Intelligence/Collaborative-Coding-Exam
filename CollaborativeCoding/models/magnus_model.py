@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class MagnusModel(nn.Module):
-    def __init__(self, image_shape, num_classes: int, nr_channels: int = 1):
+    def __init__(self, image_shape, num_classes: int):
         """
         Initializes the MagnusModel, a neural network designed for image classification tasks.
         The model consists of three linear layers, each with 133 neurons, and uses ReLU activation
@@ -14,11 +14,11 @@ class MagnusModel(nn.Module):
             nr_channels (int): The number of channels in the input image.
         """
         super().__init__()
-        *_, H, W = image_shape
+        C, H, W = image_shape[-3], image_shape[-2], image_shape[-1]
         self.layer1 = nn.Sequential(
             *(
                 [
-                    nn.Linear(nr_channels * H * W, 133),
+                    nn.Linear(C * H * W, 133),
                     nn.ReLU(),
                 ]
             )

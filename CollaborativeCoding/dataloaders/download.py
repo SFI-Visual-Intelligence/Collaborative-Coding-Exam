@@ -98,11 +98,11 @@ class Downloader:
         train_data = parent_path / "train_32x32.mat"
         test_data = parent_path / "test_32x32.mat"
 
-        if not train_data.exists():
+        if not train_data.is_file():
             download_svhn(parent_path, train=True)
-        if not test_data.exists():
+        if not test_data.is_file():
             download_svhn(parent_path, train=False)
-
+        print(test_data)
         train_labels = loadmat(train_data)["y"]
         test_labels = loadmat(test_data)["y"]
 
