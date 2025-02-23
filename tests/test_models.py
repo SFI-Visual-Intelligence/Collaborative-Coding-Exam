@@ -1,71 +1,28 @@
 import pytest
 import torch
 
-from CollaborativeCoding.models import (
-    ChristianModel,
-    JanModel,
-    JohanModel,
-    MagnusModel,
-    SolveigModel,
-)
+from CollaborativeCoding import load_model
 
 
 @pytest.mark.parametrize(
-    "image_shape, num_classes",
-    [((1, 16, 16), 6), ((3, 16, 16), 6)],
+    "model_name",
+    [
+        "magnusmodel",
+        "christianmodel",
+        "janmodel",
+        "johanmodel",
+        "solveigmodel",
+    ],
 )
-def test_christian_model(image_shape, num_classes):
+@pytest.mark.parametrize("image_shape", [(i, 28, 28) for i in [1, 3]])
+@pytest.mark.parametrize("num_classes", [3, 6, 10])
+def test_load_model(model_name, image_shape, num_classes):
+    model = load_model(model_name, image_shape, num_classes)
+
     n, c, h, w = 5, *image_shape
 
-    model = ChristianModel(image_shape, num_classes)
+    dummy_img = torch.randn(n, c, h, w)
+    with torch.no_grad():
+        y = model(dummy_img)
 
-    x = torch.randn(n, c, h, w)
-    y = model(x)
-
-    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-
-
-@pytest.mark.parametrize(
-    "image_shape, num_classes",
-    [((1, 28, 28), 4), ((3, 16, 16), 10)],
-)
-def test_jan_model(image_shape, num_classes):
-    n, c, h, w = 5, *image_shape
-
-    model = JanModel(image_shape, num_classes)
-
-    x = torch.randn(n, c, h, w)
-    y = model(x)
-
-    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-
-
-@pytest.mark.parametrize(
-    "image_shape, num_classes",
-    [((3, 16, 16), 3), ((3, 16, 16), 7)],
-)
-def test_solveig_model(image_shape, num_classes):
-    n, c, h, w = 5, *image_shape
-
-    model = SolveigModel(image_shape, num_classes)
-
-    x = torch.randn(n, c, h, w)
-    y = model(x)
-
-    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
-
-
-@pytest.mark.parametrize(
-    "image_shape, num_classes", [((3, 28, 28), 10), ((1, 16, 16), 10)]
-)
-def test_magnus_model(image_shape, num_classes):
-    import torch as th
-
-    n, c, h, w = 5, *image_shape
-    model = MagnusModel([h, w], num_classes, c)
-
-    x = th.rand((n, c, h, w))
-    with th.no_grad():
-        y = model(x)
-
-    assert y.shape == (n, num_classes), f"Shape: {y.shape}"
+    assert y.shape == (n, num_classes), f"Shape: {y.shape} != {(n, num_classes)}"
