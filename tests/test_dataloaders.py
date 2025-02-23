@@ -25,10 +25,13 @@ from CollaborativeCoding.load_data import load_data
     ],
 )
 def test_load_data(data_name, expected):
+    data_dir = Path("Data")
+    data_dir.mkdir(exist_ok=True)
+
     dataset, _, _ = load_data(
         data_name,
         train=False,
-        data_dir=Path("Data"),
+        data_dir=data_dir,
         transform=transforms.ToTensor(),
     )
 
