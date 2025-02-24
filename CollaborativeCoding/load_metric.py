@@ -79,6 +79,7 @@ class MetricWrapper(nn.Module):
                 raise ValueError(f"Metric {key} not supported")
 
     def __call__(self, y_true, y_pred):
+        y_true, y_pred = y_true.detach().cpu(), y_pred.detach().cpu()
         for key in self.metrics:
             self.metrics[key](y_true, y_pred)
 
