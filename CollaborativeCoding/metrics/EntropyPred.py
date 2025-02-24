@@ -37,14 +37,12 @@ class EntropyPrediction(nn.Module):
             f"y_logit class length: {y_logits.size(-1)}, expected: {self.num_classes}"
         )
         y_pred = nn.Softmax(dim=1)(y_logits)
-        print(f"y_pred: {y_pred}")
         entropy_values = entropy(y_pred, axis=1)
         entropy_values = th.from_numpy(entropy_values)
 
         # Fix numerical errors for perfect guesses
         entropy_values[entropy_values == th.inf] = 0
         entropy_values = th.nan_to_num(entropy_values)
-        print(f"Entropy Values: {entropy_values}")
         for sample in entropy_values:
             self.stored_entropy_values.append(sample.item())
 
