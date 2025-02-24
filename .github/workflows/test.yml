@@ -2,9 +2,13 @@ name: Test
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'CollaborativeCoding/**'
+      - 'tests/**'
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'CollaborativeCoding/**'
+      - 'tests/**'
 
 jobs:
   test:
