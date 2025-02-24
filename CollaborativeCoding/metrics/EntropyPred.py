@@ -36,7 +36,6 @@ class EntropyPrediction(nn.Module):
         assert y_logits.size(-1) == self.num_classes, (
             f"y_logit class length: {y_logits.size(-1)}, expected: {self.num_classes}"
         )
-
         y_pred = nn.Softmax(dim=1)(y_logits)
         print(f"y_pred: {y_pred}")
         entropy_values = entropy(y_pred, axis=1)
