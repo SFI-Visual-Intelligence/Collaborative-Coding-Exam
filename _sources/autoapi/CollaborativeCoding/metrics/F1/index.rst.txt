@@ -1,0 +1,137 @@
+CollaborativeCoding.metrics.F1
+==============================
+
+.. py:module:: CollaborativeCoding.metrics.F1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.metrics.F1.F1Score
+
+
+Module Contents
+---------------
+
+.. py:class:: F1Score(num_classes, macro_averaging=False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   F1 Score implementation with support for both macro and micro averaging.
+
+   This class computes the F1 score during training using either macro or micro averaging.
+   The F1 score is calculated based on the true positives (TP), false positives (FP),
+   and false negatives (FN) for each class.
+
+   Parameters
+   ----------
+   num_classes : int
+       The number of classes in the classification task.
+
+   macro_averaging : bool, optional, default=False
+       If True, computes the macro-averaged F1 score. If False, computes the micro-averaged F1 score.
+
+   Attributes
+   ----------
+   num_classes : int
+       The number of classes in the classification task.
+
+   tp : torch.Tensor
+       Tensor storing the count of True Positives (TP) for each class.
+
+   fp : torch.Tensor
+       Tensor storing the count of False Positives (FP) for each class.
+
+   fn : torch.Tensor
+       Tensor storing the count of False Negatives (FN) for each class.
+
+   macro_averaging : bool
+       A flag indicating whether to compute the macro-averaged F1 score or not.
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: macro_averaging
+      :value: False
+
+
+
+   .. py:attribute:: y_true
+      :value: []
+
+
+
+   .. py:attribute:: y_pred
+      :value: []
+
+
+
+   .. py:attribute:: tp
+
+
+   .. py:attribute:: fp
+
+
+   .. py:attribute:: fn
+
+
+   .. py:method:: _micro_F1(target, preds)
+
+      Compute the Micro F1 score by aggregating TP, FP, and FN across all classes.
+
+      Micro F1 score is calculated globally by considering all predictions together, regardless of class.
+
+      Returns
+      -------
+      torch.Tensor
+          The micro-averaged F1 score.
+
+
+
+   .. py:method:: _macro_F1(target, preds)
+
+      Compute the Macro F1 score by calculating the F1 score per class and averaging.
+
+      Macro F1 score is calculated as the average of per-class F1 scores. This approach treats all classes equally,
+      regardless of their frequency.
+
+      Returns
+      -------
+      torch.Tensor
+          The macro-averaged F1 score.
+
+
+
+   .. py:method:: forward(preds, target)
+
+      Update the True Positives, False Positives, and False Negatives, and compute the F1 score.
+
+      This method computes the F1 score based on the predictions and true labels. It can compute either the
+      macro-averaged or micro-averaged F1 score, depending on the `macro_averaging` flag.
+
+      Parameters
+      ----------
+      preds : torch.Tensor
+          Predicted logits or class indices (shape: [batch_size, num_classes]).
+          These logits are typically the output of a softmax or sigmoid activation.
+
+      target : torch.Tensor
+          True labels (shape: [batch_size]), where each element is an integer representing the true class.
+
+      Returns
+      -------
+      torch.Tensor
+          The computed F1 score (either micro or macro, based on `macro_averaging`).
+
+
+
+   .. py:method:: __returnmetric__()
+
+
+   .. py:method:: __reset__()
+
+

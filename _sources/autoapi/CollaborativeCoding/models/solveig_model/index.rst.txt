@@ -1,0 +1,105 @@
+CollaborativeCoding.models.solveig_model
+========================================
+
+.. py:module:: CollaborativeCoding.models.solveig_model
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.solveig_model.x
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.solveig_model.SolveigModel
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.solveig_model.find_fc_input_shape
+
+
+Module Contents
+---------------
+
+.. py:function:: find_fc_input_shape(image_shape, model)
+
+   Find the shape of the input to the fully connected layer after passing through the convolutional layers.
+
+   Code inspired by @Seilmast (https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/67#issuecomment-2651212254)
+
+   Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W), where C is the number of channels,
+       H is the height, and W is the width of the image.
+   model : nn.Module
+       The CNN model containing the convolutional layers, whose output size is used to
+       determine the number of input features for the fully connected layer.
+
+   Returns
+   -------
+   int
+       The number of elements in the input to the fully connected layer.
+
+
+.. py:class:: SolveigModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A Convolutional Neural Network model for classification.
+
+    Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Attributes:
+   -----------
+   conv_block1 : nn.Sequential
+       First convolutional block containing a convolutional layer, ReLU activation, and max-pooling.
+   conv_block2 : nn.Sequential
+       Second convolutional block containing a convolutional layer and ReLU activation.
+   conv_block3 : nn.Sequential
+       Third convolutional block containing a convolutional layer and ReLU activation.
+   fc1 : nn.Linear
+       Fully connected layer that outputs the final classification scores.
+
+
+   .. py:attribute:: conv_block1
+
+
+   .. py:attribute:: conv_block2
+
+
+   .. py:attribute:: conv_block3
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:method:: forward(x)
+
+      Defines the forward pass.
+      Args:
+          x (torch.Tensor): A four-dimensional tensor with shape
+                      (Batch Size, Channels, Image Height, Image Width).
+      Returns:
+      torch.Tensor: The output tensor containing class logits for each input sample.
+
+
+
+.. py:data:: x
+

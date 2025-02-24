@@ -1,0 +1,68 @@
+CollaborativeCoding.models.johan_model
+======================================
+
+.. py:module:: CollaborativeCoding.models.johan_model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.johan_model.JohanModel
+
+
+Module Contents
+---------------
+
+.. py:class:: JohanModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Small MLP model for image classification.
+
+   Parameters
+   ----------
+   in_features : int
+       Numer of input features.
+   num_classes : int
+       Number of classes in the dataset.
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: in_features
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:attribute:: fc3
+
+
+   .. py:attribute:: fc4
+
+
+   .. py:attribute:: relu
+
+
+   .. py:attribute:: flatten
+
+
+   .. py:method:: forward(x)
+
+

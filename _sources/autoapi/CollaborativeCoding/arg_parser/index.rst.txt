@@ -1,0 +1,19 @@
+CollaborativeCoding.arg_parser
+==============================
+
+.. py:module:: CollaborativeCoding.arg_parser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.arg_parser.get_args
+
+
+Module Contents
+---------------
+
+.. py:function:: get_args()
+

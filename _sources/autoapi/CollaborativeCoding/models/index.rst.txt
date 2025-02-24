@@ -1,0 +1,296 @@
+CollaborativeCoding.models
+==========================
+
+.. py:module:: CollaborativeCoding.models
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/CollaborativeCoding/models/christian_model/index
+   /autoapi/CollaborativeCoding/models/jan_model/index
+   /autoapi/CollaborativeCoding/models/johan_model/index
+   /autoapi/CollaborativeCoding/models/magnus_model/index
+   /autoapi/CollaborativeCoding/models/solveig_model/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.ChristianModel
+   CollaborativeCoding.models.JanModel
+   CollaborativeCoding.models.JohanModel
+   CollaborativeCoding.models.MagnusModel
+   CollaborativeCoding.models.SolveigModel
+
+
+Package Contents
+----------------
+
+.. py:class:: ChristianModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Simple CNN model for image classification.
+
+   Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Processing Images
+   -----------------
+   Input: (N, C, H, W)
+       N: Batch size
+       C: Number of input channels
+       H: Height of the input image
+       W: Width of the input image
+
+   Example:
+   For grayscale images, C = 1.
+
+   Input Image Shape: (5, 1, 16, 16)
+   CNN1 Output Shape: (5, 50, 8, 8)
+   CNN2 Output Shape: (5, 100, 4, 4)
+   FC Output Shape: (5, num_classes)
+
+
+   .. py:attribute:: cnn1
+
+
+   .. py:attribute:: cnn2
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: JanModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A simple MLP network model for image classification tasks.
+
+   Args
+   ----
+   in_channels : int
+       Number of input channels.
+   num_classes : int
+       Number of classes in the dataset.
+
+   Processing Images
+   -----------------
+   Input: (N, C, H, W)
+       N: Batch size
+       C: Number of input channels
+       H: Height of the input image
+       W: Width of the input image
+
+   Example:
+   For grayscale images, C = 1.
+
+   Input Image Shape: (5, 1, 28, 28)
+   flatten Output Shape: (5, 784)
+   fc1 Output Shape: (5, 100)
+   fc2 Output Shape: (5, 100)
+   out Output Shape: (5, num_classes)
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:attribute:: out
+
+
+   .. py:attribute:: leaky_relu
+
+
+   .. py:attribute:: flatten
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: JohanModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Small MLP model for image classification.
+
+   Parameters
+   ----------
+   in_features : int
+       Numer of input features.
+   num_classes : int
+       Number of classes in the dataset.
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: in_features
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:attribute:: fc3
+
+
+   .. py:attribute:: fc4
+
+
+   .. py:attribute:: relu
+
+
+   .. py:attribute:: flatten
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: MagnusModel(image_shape, num_classes: int)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: layer1
+
+
+   .. py:attribute:: layer2
+
+
+   .. py:attribute:: layer3
+
+
+   .. py:method:: forward(x)
+
+      Defines the forward pass of the MagnusModel.
+      Args:
+          x (torch.Tensor): A four-dimensional tensor with shape
+                            (Batch Size, Channels, Image Height, Image Width).
+      Returns:
+          torch.Tensor: The output tensor containing class logits for each input sample.
+
+
+
+.. py:class:: SolveigModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A Convolutional Neural Network model for classification.
+
+    Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Attributes:
+   -----------
+   conv_block1 : nn.Sequential
+       First convolutional block containing a convolutional layer, ReLU activation, and max-pooling.
+   conv_block2 : nn.Sequential
+       Second convolutional block containing a convolutional layer and ReLU activation.
+   conv_block3 : nn.Sequential
+       Third convolutional block containing a convolutional layer and ReLU activation.
+   fc1 : nn.Linear
+       Fully connected layer that outputs the final classification scores.
+
+
+   .. py:attribute:: conv_block1
+
+
+   .. py:attribute:: conv_block2
+
+
+   .. py:attribute:: conv_block3
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:method:: forward(x)
+
+      Defines the forward pass.
+      Args:
+          x (torch.Tensor): A four-dimensional tensor with shape
+                      (Batch Size, Channels, Image Height, Image Width).
+      Returns:
+      torch.Tensor: The output tensor containing class logits for each input sample.
+
+
+
