@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
-import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
+import wandb
 from CollaborativeCoding import (
     MetricWrapper,
     createfolders,
@@ -145,7 +145,7 @@ def main():
         for x, y in tqdm(trainloader, desc="Training"):
             x, y = x.to(device), y.to(device)
             logits = model.forward(x)
-            loss = criterion(logits, y)
+            loss = criterion(logits, y) 
             loss.backward()
 
             optimizer.step()

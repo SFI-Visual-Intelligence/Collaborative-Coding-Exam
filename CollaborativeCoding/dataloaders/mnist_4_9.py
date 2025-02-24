@@ -19,6 +19,10 @@ class MNISTDataset4_9(Dataset):
         Array of indices spcifying which samples to load. This determines the samples used by the dataloader.
     train : bool, optional
         Whether to train the model or not, by default False
+    transorm : callable, optional
+        Transform to apply to the images, by default None
+    nr_channels : int, optional
+        Number of channels in the images, by default 1
     """
 
     def __init__(
