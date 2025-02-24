@@ -10,8 +10,8 @@ class Precision(nn.Module):
     ----------
     num_classes : int
         Number of classes in the dataset.
-    micro_averaging : bool
-        Performs micro-averaging if True, otherwise macro-averaging.
+    macro_averaging : bool
+        Performs macro-averaging if True, otherwise micro-averaging.
     """
 
     def __init__(self, num_classes: int, macro_averaging: bool = False):
