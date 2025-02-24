@@ -14,7 +14,7 @@ class JohanModel(nn.Module):
         Shape of the input image (C, H, W).
     num_classes : int
         Number of classes in the dataset.
-        
+
     Processing Images
     -----------------
     Input: (N, C, H, W)
@@ -22,7 +22,7 @@ class JohanModel(nn.Module):
         C: Number of input channels
         H: Height of the input image
         W: Width of the input image
-        
+
     Example:
     Grayscale images (like MNIST) have C = 1.
     Input shape: (N, 1, 28, 28)
