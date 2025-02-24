@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - 'CollaborativeCoding/**'
+      - 'tests/**'
   pull_request:
     paths:
       - 'CollaborativeCoding/**'
+      - 'tests/**'
 
 jobs:
   format:
