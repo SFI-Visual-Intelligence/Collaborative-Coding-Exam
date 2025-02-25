@@ -45,7 +45,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
             Path to the USPS `.h5` file.
             
         transform : callable, optional, default=None
-            A transform function to apply on images.
+            A t2ransform function to apply on images.
         """
         self.filename = "usps.h5"
         path = data_path if isinstance(data_path, Path) else Path(data_path)
@@ -55,6 +55,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
         self.h5_path = data_path / self.filename
         self.sample_ids = sample_ids
         self.nr_channels = nr_channels
+        self.num_classes = 3
 
         # Load the dataset from the HDF5 file
         with h5py.File(self.filepath, "r") as hf:
@@ -104,33 +105,3 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
 
         return image, label
 
-
-def main():
-    # Example Usage:
-    transform = transforms.Compose(
-        [
-            transforms.Resize((16, 16)),  # Ensure images are 16x16
-            transforms.ToTensor(),
-            transforms.Normalize((0.5,), (0.5,)),  # Normalize to [-1, 1]
-        ]
-    )
-    indices = np.array([7, 8, 9])
-    # Load the dataset
-    dataset = USPSH5_Digit_7_9_Dataset(
-        data_path="C:/Users/Solveig/OneDrive/Dokumente/UiT PhD/Courses/Git",
-        sample_ids=indices,
-        train=False,
-        transform=transform,
-    )
-    data_loader = torch.utils.data.DataLoader(dataset, batch_size=2, shuffle=True)
-    batch = next(iter(data_loader))  # grab a batch from the dataloader
-    img, label = batch
-    print(img.shape)
-    print(label.shape)
-
-    # Check dataset size
-    print(f"Dataset size: {len(dataset)}")
-
-
-if __name__ == "__main__":
-    main()
