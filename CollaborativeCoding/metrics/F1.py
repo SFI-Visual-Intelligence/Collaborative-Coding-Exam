@@ -157,6 +157,7 @@ class F1Score(nn.Module):
                 self.y_true = self.y_true[0]
                 self.y_pred = self.y_pred[0]
             else:
+                print(self.y_pred[0], self.y_pred[1])
                 self.y_true = torch.cat(self.y_true)
                 self.y_pred = torch.cat(self.y_pred)
         return (
