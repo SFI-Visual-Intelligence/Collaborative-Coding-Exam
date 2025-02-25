@@ -4,14 +4,14 @@ import torch.nn as nn
 
 
 class Precision(nn.Module):
-    """Metric module for precision. Can calculate precision both as a mean of precisions or as brute function of true positives and false positives.
+    """Metric module for precision. Can calculate both the micro- and macro-averaged precision.
 
     Parameters
     ----------
     num_classes : int
         Number of classes in the dataset.
-    micro_averaging : bool
-        Wheter to compute the micro or macro precision (default False)
+    macro_averaging : bool
+        Performs macro-averaging if True, otherwise micro-averaging.
     """
 
     def __init__(self, num_classes: int, macro_averaging: bool = False):
@@ -23,19 +23,15 @@ class Precision(nn.Module):
         self.y_pred = []
 
     def forward(self, y_true: torch.tensor, logits: torch.tensor) -> torch.tensor:
-        """Compute precision of model
+        """Add true and predicted values to the class-global lists.
 
         Parameters
         ----------
         y_true : torch.tensor
             True labels
-        y_pred : torch.tensor
+        logits : torch.tensor
             Predicted labels
 
-        Returns
-        -------
-        torch.tensor
-            Precision score
         """
         y_pred = logits.argmax(dim=-1)
 
@@ -100,6 +96,13 @@ class Precision(nn.Module):
         return torch.nanmean(tp / (tp + fp))
 
     def __returnmetric__(self):
+        """Return the micro- or macro-averaged precision.
+
+        Returns
+        -------
+        torch.tensor
+            Micro- or macro-averaged precision
+        """
         if self.y_true == [] and self.y_pred == []:
             return np.nan
         elif self.y_true == [] or self.y_pred == []:
