@@ -4,28 +4,32 @@ import torch.nn as nn
 Multi-layer perceptron model for image classification.
 """
 
-# class NeuronLayer(nn.Module):
-#     def __init__(self, in_features, out_features):
-#         super().__init__()
-
-#         self.fc = nn.Linear(in_features, out_features)
-#         self.relu = nn.ReLU()
-
-#     def forward(self, x):
-#         x = self.fc(x)
-#         x = self.relu(x)
-#         return x
-
 
 class JohanModel(nn.Module):
     """Small MLP model for image classification.
 
     Parameters
     ----------
-    in_features : int
-        Numer of input features.
+    image_shape : tuple(int, int, int)
+        Shape of the input image (C, H, W).
     num_classes : int
         Number of classes in the dataset.
+
+    Processing Images
+    -----------------
+    Input: (N, C, H, W)
+        N: Batch size
+        C: Number of input channels
+        H: Height of the input image
+        W: Width of the input image
+
+    Example:
+    Grayscale images (like MNIST) have C = 1.
+    Input shape: (N, 1, 28, 28)
+    fc1 Output shape: (N, 77)
+    fc2 Output shape: (N, 77)
+    fc3 Output shape: (N, 77)
+    fc4 Output shape: (N, num_classes)
     """
 
     def __init__(self, image_shape, num_classes):
