@@ -2,10 +2,8 @@ from pathlib import Path
 
 import h5py
 import numpy as np
-import torch
 from PIL import Image
 from torch.utils.data import Dataset
-from torchvision import transforms
 
 
 class USPSH5_Digit_7_9_Dataset(Dataset):
