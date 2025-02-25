@@ -12,6 +12,9 @@ doc/autoapi
 
 *.DS_Store
 
+# Jan
+job.yaml
+sync.sh
 
 #Magnus specific
 job*
