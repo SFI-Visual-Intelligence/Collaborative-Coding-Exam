@@ -45,7 +45,7 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
             Path to the USPS `.h5` file.
             
         transform : callable, optional, default=None
-            A t2ransform function to apply on images.
+            A transform function to apply on images.
         """
         self.filename = "usps.h5"
         path = data_path if isinstance(data_path, Path) else Path(data_path)

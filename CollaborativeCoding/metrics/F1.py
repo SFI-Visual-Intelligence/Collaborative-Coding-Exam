@@ -5,8 +5,8 @@ import torch.nn as nn
 
 class F1Score(nn.Module):
     """
-    Computes Micro or Macro F1 Score efficiently.
-
+    F1 Score implementation with support for both macro and micro averaging.
+    This class computes the F1 score during training using either macro or micro averaging.
     Parameters
     ----------
     num_classes : int
