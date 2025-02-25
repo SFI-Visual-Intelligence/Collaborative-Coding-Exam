@@ -124,7 +124,8 @@ class Precision(nn.Module):
         None
             Returns None
         """
-        self.y_true = self.y_pred = []
+        self.y_true = []
+        self.y_pred = []
         return None
 
 
