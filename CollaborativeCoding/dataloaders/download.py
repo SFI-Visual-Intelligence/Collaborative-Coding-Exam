@@ -16,12 +16,12 @@ from .datasources import MNIST_SOURCE, USPS_SOURCE
 
 class Downloader:
     """
-    Class to download and load the USPS dataset.
+    Class used to verify availability and potentially download implemented datasets.
 
     Methods
     -------
     mnist(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
-        Download the MNIST dataset and save it as an HDF5 file to `data_dir`.
+        Checks the availability of mnist dataset. If not present downloads it into MNIST folder in `data_dir`.
     svhn(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
         Download the SVHN dataset and save it as an HDF5 file to `data_dir`.
     usps(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
@@ -42,6 +42,10 @@ class Downloader:
     """
 
     def mnist(self, data_dir: Path) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Check the availability of mnist dataset. If not present downloads it into MNIST folder in `data_dir`.
+        """
+
         def _chech_is_downloaded(path: Path) -> bool:
             path = path / "MNIST"
             if path.exists():

@@ -10,20 +10,20 @@ from .datasources import MNIST_SOURCE
 class MNISTDataset0_3(Dataset):
     """
     A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.
-    Parameters
+
+    Args
     ----------
     data_path : Path
-        The root directory where the MNIST data is stored.
+        The root directory where the MNIST folder with data is stored.
     sample_ids : list
         A list of indices specifying which samples to load.
     train : bool, optional
         If True, load training data, otherwise load test data. Default is False.
     transform : callable, optional
         A function/transform to apply to the images. Default is None.
+
     Attributes
     ----------
-    data_path : Path
-        The root directory where the MNIST data is stored.
     mnist_path : Path
         The directory where the MNIST dataset is located within the root directory.
     idx : list
@@ -40,6 +40,7 @@ class MNISTDataset0_3(Dataset):
         The path to the label file (train or test) based on the `train` flag.
     length : int
         The number of samples in the dataset.
+
     Methods
     -------
     __len__()
@@ -58,8 +59,7 @@ class MNISTDataset0_3(Dataset):
     ):
         super().__init__()
 
-        self.data_path = data_path
-        self.mnist_path = self.data_path / "MNIST"
+        self.mnist_path = data_path / "MNIST"
         self.idx = sample_ids
         self.train = train
         self.transform = transform

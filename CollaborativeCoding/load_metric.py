@@ -9,26 +9,32 @@ class MetricWrapper(nn.Module):
     This class allows you to compute several metrics simultaneously on given
     true and predicted labels. It supports a variety of common metrics and
     provides methods to accumulate results and reset the state.
+
     Args
     ----
         num_classes : int
             The number of classes in the classification task.
         metrics : list[str]
             A list of metric names to be evaluated.
+        macro_averaging : bool
+            Whether to compute macro-averaged metrics for multi-class classification.
+
     Attributes
     ----------
         metrics : dict
             A dictionary mapping metric names to their corresponding functions.
         num_classes : int
             The number of classes for the classification task.
+
     Methods
     -------
         __call__(y_true, y_pred)
-            Computes the specified metrics on the provided true and predicted labels.
+            Passes the true and predicted labels to the metric functions.
         getmetrics(str_prefix: str = None)
-            Retrieves the computed metrics, optionally prefixed with a string.
+            Retrieves the dictionary of computed metrics, optionally all keys can be prefixed with a string.
         resetmetric()
             Resets the state of all metric computations.
+
     Examples
     --------
     >>> from CollaborativeCoding import MetricWrapperProposed
