@@ -3,7 +3,7 @@ name = "collaborative-coding-exam"
 version = "0.1.0"
 description = "Exam project in the collaborative coding course."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11.5"
 dependencies = [
     "black>=25.1.0",
     "h5py>=3.12.1",
