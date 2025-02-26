@@ -11,6 +11,12 @@ Install from:
 pip install git+https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam.git
 ```
 
+or using [uv](https://docs.astral.sh/uv/):
+
+```sh
+uv add git+https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam.git
+```
+
 To verify:
 
 ```sh
