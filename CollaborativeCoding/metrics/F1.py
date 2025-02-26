@@ -6,166 +6,114 @@ import torch.nn as nn
 class F1Score(nn.Module):
     """
     F1 Score implementation with support for both macro and micro averaging.
-
     This class computes the F1 score during training using either macro or micro averaging.
-    The F1 score is calculated based on the true positives (TP), false positives (FP),
-    and false negatives (FN) for each class.
-
     Parameters
     ----------
     num_classes : int
         The number of classes in the classification task.
 
-    macro_averaging : bool, optional, default=False
+    macro_averaging : bool, default=False
         If True, computes the macro-averaged F1 score. If False, computes the micro-averaged F1 score.
-
-    Attributes
-    ----------
-    num_classes : int
-        The number of classes in the classification task.
-
-    tp : torch.Tensor
-        Tensor storing the count of True Positives (TP) for each class.
-
-    fp : torch.Tensor
-        Tensor storing the count of False Positives (FP) for each class.
-
-    fn : torch.Tensor
-        Tensor storing the count of False Negatives (FN) for each class.
-
-    macro_averaging : bool
-        A flag indicating whether to compute the macro-averaged F1 score or not.
     """
 
     def __init__(self, num_classes, macro_averaging=False):
-        """
-        Initializes the F1Score object, setting up the necessary state variables.
-
-        Parameters
-        ----------
-        num_classes : int
-            The number of classes in the classification task.
-
-        macro_averaging : bool, optional, default=False
-            If True, computes the macro-averaged F1 score. If False, computes the micro-averaged F1 score.
-        """
         super().__init__()
-
         self.num_classes = num_classes
         self.macro_averaging = macro_averaging
         self.y_true = []
         self.y_pred = []
-        # Initialize variables for True Positives (TP), False Positives (FP), and False Negatives (FN)
-        self.tp = torch.zeros(num_classes)
-        self.fp = torch.zeros(num_classes)
-        self.fn = torch.zeros(num_classes)
 
-    def _micro_F1(self, target, preds):
+
+    def forward(self, target, preds):
         """
-        Compute the Micro F1 score by aggregating TP, FP, and FN across all classes.
-
-        Micro F1 score is calculated globally by considering all predictions together, regardless of class.
-
-        Returns
-        -------
-        torch.Tensor
-            The micro-averaged F1 score.
-        """
-        for i in range(self.num_classes):
-            self.tp[i] += torch.sum((preds == i) & (target == i)).float()
-            self.fp[i] += torch.sum((preds == i) & (target != i)).float()
-            self.fn[i] += torch.sum((preds != i) & (target == i)).float()
-
-        tp = torch.sum(self.tp)
-        fp = torch.sum(self.fp)
-        fn = torch.sum(self.fn)
-
-        precision = tp / (tp + fp + 1e-8)  # Avoid division by zero
-        recall = tp / (tp + fn + 1e-8)  # Avoid division by zero
-
-        f1 = (
-            2 * precision * recall / (precision + recall + 1e-8)
-        )  # Avoid division by zero
-        return f1
-
-    def _macro_F1(self, target, preds):
-        """
-        Compute the Macro F1 score by calculating the F1 score per class and averaging.
-
-        Macro F1 score is calculated as the average of per-class F1 scores. This approach treats all classes equally,
-        regardless of their frequency.
-
-        Returns
-        -------
-        torch.Tensor
-            The macro-averaged F1 score.
-        """
-        # Calculate True Positives (TP), False Positives (FP), and False Negatives (FN) per class
-        for i in range(self.num_classes):
-            self.tp[i] += torch.sum((preds == i) & (target == i)).float()
-            self.fp[i] += torch.sum((preds == i) & (target != i)).float()
-            self.fn[i] += torch.sum((preds != i) & (target == i)).float()
-
-        precision_per_class = self.tp / (
-            self.tp + self.fp + 1e-8
-        )  # Avoid division by zero
-        recall_per_class = self.tp / (
-            self.tp + self.fn + 1e-8
-        )  # Avoid division by zero
-        f1_per_class = (
-            2
-            * precision_per_class
-            * recall_per_class
-            / (precision_per_class + recall_per_class + 1e-8)
-        )  # Avoid division by zero
-
-        # Take the average of F1 scores across all classes
-        f1_score = torch.mean(f1_per_class)
-        return f1_score
-
-    def forward(self, preds, target):
-        """
-
-        Update the True Positives, False Positives, and False Negatives, and compute the F1 score.
-
-        This method computes the F1 score based on the predictions and true labels. It can compute either the
-        macro-averaged or micro-averaged F1 score, depending on the `macro_averaging` flag.
+        Stores predictions and targets for computing the F1 score.
 
         Parameters
         ----------
         preds : torch.Tensor
-            Predicted logits or class indices (shape: [batch_size, num_classes]).
-            These logits are typically the output of a softmax or sigmoid activation.
-
+            Predicted logits (shape: [batch_size, num_classes]).
         target : torch.Tensor
-            True labels (shape: [batch_size]), where each element is an integer representing the true class.
+            True labels (shape: [batch_size]).
+        """
+        preds = torch.argmax(preds, dim=-1)  # Convert logits to class indices
+        self.y_true.append(target.detach())
+        if preds.dim() == 0:  # Scalar (e.g., single class prediction)
+            preds = preds.unsqueeze(0)  # Add batch dimension
+        self.y_pred.append(preds.detach())
+
+    def compute_f1(self):
+        """
+        Computes the F1 score (Micro or Macro).
 
         Returns
         -------
         torch.Tensor
-            The computed F1 score (either micro or macro, based on `macro_averaging`).
+            The computed F1 score.
         """
-        preds = torch.argmax(preds, dim=-1)
-        self.y_true.append(target)
-        self.y_pred.append(preds)
+        if not self.y_true or not self.y_pred:  # Check if empty
+            return torch.tensor(np.nan)
+
+        # Convert lists to tensors
+        y_true = torch.cat(self.y_true)
+        y_pred = torch.cat(self.y_pred)
+
+        return self._macro_F1(y_true, y_pred) if self.macro_averaging else self._micro_F1(y_true, y_pred)
+
+    def _micro_F1(self, target, preds):
+        """Computes Micro F1 Score (global TP, FP, FN)."""
+        tp = torch.sum(preds == target).float()
+        fp = torch.sum(preds != target).float()
+        fn = fp  # Since all errors are either FP or FN
+
+        precision = tp / (tp + fp + 1e-8)
+        recall = tp / (tp + fn + 1e-8)
+        f1 = 2 * (precision * recall) / (precision + recall + 1e-8)
+
+        return f1
+
+    def _macro_F1(self, target, preds):
+        """Computes Macro F1 Score in a vectorized way (no loops)."""
+        num_classes = self.num_classes
+        target = target.long()  # Ensure target is a LongTensor
+        preds = preds.long()
+        # Create one-hot encodings of the true and predicted labels
+        target_one_hot = torch.nn.functional.one_hot(target, num_classes=num_classes)
+        preds_one_hot = torch.nn.functional.one_hot(preds, num_classes=num_classes)
+
+        # Compute TP, FP, FN for each class
+        tp = torch.sum(target_one_hot * preds_one_hot, dim=0).float()
+        fp = torch.sum(preds_one_hot * (1 - target_one_hot), dim=0).float()
+        fn = torch.sum(target_one_hot * (1 - preds_one_hot), dim=0).float()
+
+        # Compute precision and recall per class
+        precision = tp / (tp + fp + 1e-8)
+        recall = tp / (tp + fn + 1e-8)
+
+        # Compute per-class F1 score
+        f1_per_class = 2 * (precision * recall) / (precision + recall + 1e-8)
+
+        # Compute Macro F1 (mean over all classes)
+        return torch.mean(f1_per_class)
 
     def __returnmetric__(self):
-        if self.y_true == [] or self.y_pred == []:
-            return np.nan
-        if isinstance(self.y_true, list):
-            if len(self.y_true) == 1:
-                self.y_true = self.y_true[0]
-                self.y_pred = self.y_pred[0]
-            else:
-                self.y_true = torch.cat(self.y_true)
-                self.y_pred = torch.cat(self.y_pred)
-        return (
-            self._micro_F1(self.y_true, self.y_pred)
-            if not self.macro_averaging
-            else self._macro_F1(self.y_true, self.y_pred)
-        )
+        """
+        Computes and returns the F1 score (Micro or Macro).
+
+        Returns
+        -------
+        torch.Tensor
+            The computed F1 score.
+        """
+        if not self.y_true or not self.y_pred:  # Check if empty
+            return torch.tensor(np.nan)
+
+        # Convert lists to tensors
+        y_true = torch.cat([t.unsqueeze(0) if t.dim() == 0 else t for t in self.y_true])
+        y_pred = torch.cat([t.unsqueeze(0) if t.dim() == 0 else t for t in self.y_pred])
+
+        return self._macro_F1(y_true, y_pred) if self.macro_averaging else self._micro_F1(y_true, y_pred)
 
     def __reset__(self):
+        """Resets stored predictions and targets."""
         self.y_true = []
         self.y_pred = []
-        return None
