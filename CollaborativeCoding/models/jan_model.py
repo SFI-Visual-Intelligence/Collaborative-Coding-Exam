@@ -7,7 +7,7 @@ class JanModel(nn.Module):
 
     Args
     ----
-    mage_shape : tuple(int, int, int)
+    image_shape : tuple(int, int, int)
         Shape of the input image (C, H, W).
     num_classes : int
         Number of classes in the dataset.
