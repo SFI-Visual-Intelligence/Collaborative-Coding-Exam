@@ -31,7 +31,7 @@ class SVHNDataset(Dataset):
         """
         super().__init__()
 
-        self.data_path = data_path
+        self.data_path = data_path / "SVHN"
         self.indexes = sample_ids
         self.split = "train" if train else "test"
 
@@ -41,7 +41,7 @@ class SVHNDataset(Dataset):
         if not os.path.exists(
             os.path.join(self.data_path, f"svhn_{self.split}data.h5")
         ):
-            self._download_data(self.data_path)
+            self._create_h5py(self.data_path)
 
         assert os.path.exists(
             os.path.join(self.data_path, f"svhn_{self.split}data.h5")
@@ -53,7 +53,7 @@ class SVHNDataset(Dataset):
 
         self.num_classes = len(np.unique(self.labels))
 
-    def _download_data(self, path: str):
+    def _create_h5py(self, path: str):
         """
         Downloads the SVHN dataset to the specified directory.
         Args:
@@ -61,7 +61,6 @@ class SVHNDataset(Dataset):
         """
         print(f"Downloading SVHN data into {path}")
 
-        SVHN(path, split=self.split, download=True)
         data = loadmat(os.path.join(path, f"{self.split}_32x32.mat"))
 
         images, labels = data["X"], data["y"]

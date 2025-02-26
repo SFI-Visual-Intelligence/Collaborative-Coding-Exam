@@ -102,4 +102,3 @@ class USPSH5_Digit_7_9_Dataset(Dataset):
             image = self.transform(image)
 
         return image, label
-
