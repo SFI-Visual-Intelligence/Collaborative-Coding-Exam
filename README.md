@@ -3,6 +3,16 @@
 # Collaborative-Coding-Exam
 Repository for final evaluation in the FYS-8805 Reproducible Research and Collaborative coding course
 
+## **Table of Contents**  
+1. [Project Description](#project-description)  
+2. [Installation](#installation)  
+3. [Usage](#usage)  
+4. [Results](#results)  
+5. [Citing](#citing)  
+
+## Project Description
+
+
 ## Installation
 
 Install from:
@@ -46,3 +56,17 @@ to pull the latest build, or check the [packages](https://github.com/SFI-Visual-
 
 > [!NOTE]
 > The container is build for a `linux/amd64` architecture to properly build Cuda 12. For other architectures please build the docker image locally.
+
+
+## Results
+
+| Model     | Accuracy | Entropy | F1 Score | Precision | Recall |
+|-----------|----------|---------|----------|-----------|--------|
+| Christian |          |         |          |           |        |
+| Jan       |          |         |          |           |        |
+| Johan     |          |         |          |           |        |
+| Magnus    |          |         |          |           |        |
+| Solveig   |          |         |          |           |        |
+
+
+## Citing
