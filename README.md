@@ -3,6 +3,26 @@
 # Collaborative-Coding-Exam
 Repository for final evaluation in the FYS-8805 Reproducible Research and Collaborative coding course
 
+## Installation
+
+Install from:
+
+```sh
+pip install git+https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam.git
+```
+
+or using [uv](https://docs.astral.sh/uv/):
+
+```sh
+uv add git+https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam.git
+```
+
+To verify:
+
+```sh
+python -c "import CollaborativeCoding"
+```
+
 ## Usage
 
 TODO: Fill in

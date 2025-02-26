@@ -23,7 +23,6 @@ class F1Score(nn.Module):
         self.y_true = []
         self.y_pred = []
 
-
     def forward(self, target, preds):
         """
         Stores predictions and targets for computing the F1 score.
@@ -57,7 +56,11 @@ class F1Score(nn.Module):
         y_true = torch.cat(self.y_true)
         y_pred = torch.cat(self.y_pred)
 
-        return self._macro_F1(y_true, y_pred) if self.macro_averaging else self._micro_F1(y_true, y_pred)
+        return (
+            self._macro_F1(y_true, y_pred)
+            if self.macro_averaging
+            else self._micro_F1(y_true, y_pred)
+        )
 
     def _micro_F1(self, target, preds):
         """Computes Micro F1 Score (global TP, FP, FN)."""
@@ -111,7 +114,11 @@ class F1Score(nn.Module):
         y_true = torch.cat([t.unsqueeze(0) if t.dim() == 0 else t for t in self.y_true])
         y_pred = torch.cat([t.unsqueeze(0) if t.dim() == 0 else t for t in self.y_pred])
 
-        return self._macro_F1(y_true, y_pred) if self.macro_averaging else self._micro_F1(y_true, y_pred)
+        return (
+            self._macro_F1(y_true, y_pred)
+            if self.macro_averaging
+            else self._micro_F1(y_true, y_pred)
+        )
 
     def __reset__(self):
         """Resets stored predictions and targets."""
