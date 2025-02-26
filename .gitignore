@@ -21,6 +21,8 @@ local*
 formatting.x 
 testrun.x
 storage/
+Makefile
+job.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
