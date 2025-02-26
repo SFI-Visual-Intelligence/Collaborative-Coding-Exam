@@ -6,7 +6,6 @@ import numpy as np
 from PIL import Image
 from scipy.io import loadmat
 from torch.utils.data import Dataset
-from torchvision.datasets import SVHN
 
 
 class SVHNDataset(Dataset):
