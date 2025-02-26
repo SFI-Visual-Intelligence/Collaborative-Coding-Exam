@@ -1,11 +1,11 @@
 import numpy as np
 import torch as th
 import torch.nn as nn
-import wandb
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
+import wandb
 from CollaborativeCoding import (
     MetricWrapper,
     createfolders,
@@ -132,6 +132,7 @@ def main():
     wandb.init(
         entity="ColabCode",
         project=args.run_name,
+        dir=args.resultfolder,
         tags=[args.modelname, args.dataset],
         config=args,
     )
@@ -177,6 +178,9 @@ def main():
         )
         train_metrics.resetmetric()
         val_metrics.resetmetric()
+
+    if args.savemodel:
+        th.save(model, args.modelfolder / f"{args.modelname}_run:{args.run_name}.pth")
 
     testloss = []
     model.eval()
