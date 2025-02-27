@@ -66,13 +66,13 @@ to pull the latest build, or check the [packages](https://github.com/SFI-Visual-
 
 ## Results
 
-| Model     | Accuracy | Entropy | F1 Score | Precision | Recall |
-|-----------|----------|---------|----------|-----------|--------|
-| Christian |          |         |          |           |        |
-| Jan       |          |         |          |           |        |
-| Johan     |          |         |          |           |        |
-| Magnus    |          |         |          |           |        |
-| Solveig   |          |         |          |           |        |
+| Model     | Dataset | Accuracy | Entropy | F1 Score | Precision | Recall |
+|-----------|---------|----------|---------|----------|-----------|--------|
+| Christian |         |          |         |          |           |        |
+| Jan       |         |          |         |          |           |        |
+| Johan     |         |          |         |          |           |        |
+| Magnus    |         |          |         |          |           |        |
+| Solveig   |         |          |         |          |           |        |
 
 
 ## Citing
