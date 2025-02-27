@@ -11,7 +11,13 @@ Repository for final evaluation in the FYS-8805 Reproducible Research and Collab
 5. [Citing](#citing)  
 
 ## Project Description
-
+This project involves collaborative work on a digit classification task, where each participant works on distinct but interconnected components within a shared codebase. <br>
+The main goal is to develop and train digit classification models collaboratively, with a focus on leveraging shared resources and learning efficient experimentation practices.
+### Key Aspects of the Project:
+- **Individual and Joint Tasks:** Each participant has separate tasks, such as implementing a digit classification dataset, a neural network model, and an evaluation metric. However, all models and datasets must be compatible, as we can only train and evaluate using partners' models and datasets.
+- **Shared Environment:** Alongside working on our individual tasks, we collaborate on joint tasks like the main file, and training and evaluation loops. Additionally, we utilize a shared Weights and Biases environment for experiment management.
+- **Documentation and Package Management:** To ensure proper documentation and ease of use, we set up Sphinx documentation and made the repository pip-installable
+- **High-Performance Computing:** A key learning objective of this project is to gain experience with running experiments on high-performance computing (HPC) resources. To this end, we trained all models on a cluster
 
 ## Installation
 
