@@ -9,6 +9,7 @@ dependencies = [
     "h5py>=3.12.1",
     "isort>=6.0.0",
     "jupyterlab>=4.3.5",
+    "myst-parser>=4.0.1",
     "numpy>=2.2.2",
     "pandas>=2.2.3",
     "pip>=25.0",
