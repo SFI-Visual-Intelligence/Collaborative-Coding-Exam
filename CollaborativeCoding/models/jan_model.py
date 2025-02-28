@@ -3,12 +3,12 @@ import torch.nn as nn
 
 
 class JanModel(nn.Module):
-    """A simple MLP network model for image classification tasks.
+    """A simple MLP network model for image classification tasks. Two hidden layers with 100 neurons.
 
     Args
     ----
-    in_channels : int
-        Number of input channels.
+    image_shape : tuple(int, int, int)
+        Shape of the input image (C, H, W).
     num_classes : int
         Number of classes in the dataset.
 

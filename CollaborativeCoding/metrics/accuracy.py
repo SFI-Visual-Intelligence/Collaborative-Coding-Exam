@@ -4,6 +4,45 @@ from torch import nn
 
 
 class Accuracy(nn.Module):
+    """
+    Computes the accuracy of a model's predictions.
+
+    Args
+    ----------
+    num_classes : int
+        The number of classes in the classification task.
+    macro_averaging : bool, optional
+        If True, computes macro-average accuracy. Otherwise, computes micro-average accuracy. Default is False.
+
+
+    Methods
+    -------
+    forward(y_true, y_pred)
+        Stores the true and predicted labels. Typically called for each batch during the forward pass of a model.
+    _macro_acc()
+        Computes the macro-average accuracy.
+    _micro_acc()
+        Computes the micro-average accuracy.
+    __returnmetric__()
+        Returns the computed accuracy based on the averaging method for all stored predictions.
+    __reset__()
+        Resets the stored true and predicted labels.
+
+    Examples
+    --------
+    >>> y_true = torch.tensor([0, 1, 2, 3, 3])
+    >>> y_pred = torch.tensor([0, 1, 2, 3, 0])
+    >>> accuracy = Accuracy(num_classes=4)
+    >>> accuracy(y_true, y_pred)
+    >>> accuracy.__returnmetric__()
+    0.8
+    >>> accuracy.__reset__()
+    >>> accuracy.macro_averaging = True
+    >>> accuracy(y_true, y_pred)
+    >>> accuracy.__returnmetric__()
+    0.875
+    """
+
     def __init__(self, num_classes, macro_averaging=False):
         super().__init__()
         self.num_classes = num_classes
@@ -13,19 +52,14 @@ class Accuracy(nn.Module):
 
     def forward(self, y_true, y_pred):
         """
-        Compute the accuracy of the model.
+        Store the true and predicted labels.
 
         Parameters
         ----------
         y_true : torch.Tensor
             True labels.
         y_pred : torch.Tensor
-            Predicted labels.
-
-        Returns
-        -------
-        float
-            Accuracy score.
+            Predicted labels. Either a 1D tensor of shape (batch_size,) or a 2D tensor of shape (batch_size, num_classes).
         """
         if y_pred.dim() > 1:
             y_pred = y_pred.argmax(dim=1)
@@ -34,14 +68,7 @@ class Accuracy(nn.Module):
 
     def _macro_acc(self):
         """
-        Compute the macro-average accuracy.
-
-        Parameters
-        ----------
-        y_true : torch.Tensor
-            True labels.
-        y_pred : torch.Tensor
-            Predicted labels.
+        Compute the macro-average accuracy on the stored predictions.
 
         Returns
         -------
@@ -63,14 +90,7 @@ class Accuracy(nn.Module):
 
     def _micro_acc(self):
         """
-        Compute the micro-average accuracy.
-
-        Parameters
-        ----------
-        y_true : torch.Tensor
-            True labels.
-        y_pred : torch.Tensor
-            Predicted labels.
+        Compute the micro-average accuracy on the stored predictions.
 
         Returns
         -------
@@ -80,6 +100,14 @@ class Accuracy(nn.Module):
         return (self.y_true == self.y_pred).float().mean().item()
 
     def __returnmetric__(self):
+        """
+        Return the computed accuracy based on the averaging method for all stored predictions.
+
+        Returns
+        -------
+        float
+            Computed accuracy score.
+        """
         if self.y_true == [] or self.y_pred == []:
             return np.nan
         if isinstance(self.y_true, list):
@@ -92,6 +120,9 @@ class Accuracy(nn.Module):
         return self._micro_acc() if not self.macro_averaging else self._macro_acc()
 
     def __reset__(self):
+        """
+        Reset the stored true and predicted labels.
+        """
         self.y_true = []
         self.y_pred = []
         return None

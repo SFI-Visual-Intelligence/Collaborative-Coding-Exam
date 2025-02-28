@@ -17,7 +17,7 @@ def filter_labels(samples: list, wanted_labels: list) -> list:
 
 def load_data(dataset: str, *args, **kwargs) -> tuple:
     """
-    load the dataset based on the dataset name.
+    Load the dataset based on the dataset name.
 
     Args
     ----
