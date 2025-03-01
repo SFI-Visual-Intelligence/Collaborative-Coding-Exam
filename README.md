@@ -50,7 +50,7 @@ Before running the training script, ensure the results directory exists:
 
 ### 2) Run the following command for training, evaluation and testing
 
- `python3 main.py --modelname "<MODEL_NAME>" --dataset "<DATASET_NAME>" --metric "<METRIC_1>" "<METRIC_2>" ... "<METRIC_N>" --resultfolder "<RESULTS_DIRECTORY>" --run_name "<RUN_NAME>" --device "<DEVICE>" -`
+ `python3 main.py --modelname "<MODEL_NAME>" --dataset "<DATASET_NAME>" --metric "<METRIC_1>" "<METRIC_2>" ... "<METRIC_N>" --resultfolder "<RESULTS_DIRECTORY>" --run_name "<RUN_NAME>" --device "<DEVICE>"`
 Replace placeholders with your desired values:
 
 `<MODEL_NAME>`: You can choose from different models ( `"MagnusModel", "ChristianModel", "SolveigModel", "JanModel", "JohanModel"`).
