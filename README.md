@@ -41,7 +41,30 @@ python -c "import CollaborativeCoding"
 
 ## Usage
 
-TODO: Fill in
+To train a classification model using this code, follow these steps:
+
+### 1) Create a Directory for the reuslts
+Before running the training script, ensure the results directory exists:
+
+ `mkdir -p "<RESULTS_DIRECTORY>"`
+
+### 2) Run the following command for training, evaluation and testing
+
+ `python3 main.py --modelname "<MODEL_NAME>" --dataset "<DATASET_NAME>" --metric "<METRIC_1>" "<METRIC_2>" ... "<METRIC_N>" --resultfolder "<RESULTS_DIRECTORY>" --run_name "<RUN_NAME>" --device "<DEVICE>" -`
+Replace placeholders with your desired values:
+
+`<MODEL_NAME>`: You can choose from different models ( `"MagnusModel", "ChristianModel", "SolveigModel", "JanModel", "JohanModel"`).
+
+`<DATASET_NAME>`: The following datasets are supported (`"svhn", "usps_0-6", "usps_7-9", "mnist_0-3", "mnist_4-9"`)
+
+`<METRIC_1> ... <METRIC_N>`: Specify one or more evaluation metrics (`"entropy", "f1", "recall", "precision", "accuracy"`)
+
+`<RESULTS_DIRECTORY>`: Folder where all model outputs, logs, and checkpoints are saved 
+
+`<RUN_NAME>`: Name for WANDB project
+
+`<DEVICE>`: `"cuda", "cpu", "mps"`
+
 
 ### Running on a k8s cluster
 
