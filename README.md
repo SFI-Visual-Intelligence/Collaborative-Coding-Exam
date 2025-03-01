@@ -99,3 +99,16 @@ to pull the latest build, or check the [packages](https://github.com/SFI-Visual-
 
 
 ## Citing
+If you use this project in your research or work, please cite it as follows:
+
+### **BibTeX Citation**  
+
+```bibtex
+@software{Collaborative_Coding_Exam_2025,
+author = {Thrun, Solveig and Salomonsen, Christian and Størdal, Magnus and Zavadil, Jan and Mylius-Kroken, Johan},
+month = feb,
+title = {{Collaborative Coding Exam}},
+url = {https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam},
+version = {1.1.0},
+year = {2025}
+}
