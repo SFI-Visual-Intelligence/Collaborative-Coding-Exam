@@ -66,7 +66,7 @@ Replace placeholders with your desired values:
 `<DEVICE>`: `"cuda", "cpu", "mps"`
 
 
-### Running on a k8s cluster
+## Running on a k8s cluster
 
 In your job manifest, include:
 
