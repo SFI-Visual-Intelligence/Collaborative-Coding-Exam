@@ -1,0 +1,89 @@
+CollaborativeCoding.models.jan_model
+====================================
+
+.. py:module:: CollaborativeCoding.models.jan_model
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.jan_model.model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.jan_model.JanModel
+
+
+Module Contents
+---------------
+
+.. py:class:: JanModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A simple MLP network model for image classification tasks. Two hidden layers with 100 neurons.
+
+   Args
+   ----
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Processing Images
+   -----------------
+   Input: (N, C, H, W)
+       N: Batch size
+       C: Number of input channels
+       H: Height of the input image
+       W: Width of the input image
+
+   Example:
+   For grayscale images, C = 1.
+
+   Input Image Shape: (5, 1, 28, 28)
+   flatten Output Shape: (5, 784)
+   fc1 Output Shape: (5, 100)
+   fc2 Output Shape: (5, 100)
+   out Output Shape: (5, num_classes)
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:attribute:: out
+
+
+   .. py:attribute:: leaky_relu
+
+
+   .. py:attribute:: flatten
+
+
+   .. py:method:: forward(x)
+
+
+.. py:data:: model
+
