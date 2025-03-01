@@ -54,3 +54,8 @@ This section reports the results from using the model "JanModel" and the dataset
 For this experiment we use all five available metrics, and train for a total of a 100 epochs, but observe convergence around XXX epochs. We'll report the results from this epoch.
 
 We achieve a great fit on the data. Below are the results for the described run:
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 0.000 | 0.000   | 1.000    | 1.000     | 1.000  | 1.000 |
+| Validation    | 0.035 | 0.006   | 0.991    | 0.991     | 0.991  | 0.991 |
+| Test          | 0.024 | 0.004   | 0.994    | 0.994     | 0.994  | 0.994 |
