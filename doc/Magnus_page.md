@@ -67,8 +67,8 @@ It should be noted that a lot of our decisions came from a top-down perspective.
 All in all, we've made sure you don't really need to interact with the code outside setting up the correct arguments for the run, which is great for consistency. 
 
 
-# Challenges 
-## Running someone elses code
+## Challenges 
+### Running someone elses code
 This section answers the question on what I found easy / difficult running another persons code. 
 
 I found it quite easy to run others code. We had quite good tests, and once every test passed, I only had one error with the F1 score not handeling an unexpected edgecase. To fix this I raised an issue, and it was fixed shortly after. 
@@ -77,13 +77,13 @@ One thing I did find a bit difficult was when people would change integral parts
 
 The issues mentioned above also lead to a week or so where there was always a test failing, and the person whos' code was failing did not have time to work on it for a few days. 
 
-## Someone running my code
+### Someone running my code
 This section answers the question on what I found easy / difficult having someone run my code. 
 
 I did not experience that anyone had issues with my code. After I fixed all issues and tests related to my code, it seems to have run fine, and no issues have been raised to my awareness about this. 
 
 
-# Tools
+## Tools
 This section answers the question of which tools from the course I used during the home-exam. 
 
 For this exam I used quite a few tools from the course. 
