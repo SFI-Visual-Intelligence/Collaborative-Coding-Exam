@@ -54,8 +54,25 @@ This section reports the results from using the model "JanModel" and the dataset
 For this experiment we use all five available metrics, and train for a total of 20 epochs.
 
 We achieve a great fit on the data. Below are the results for the described run:
+
 | Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
 |---------------|-------|---------|----------|-----------|--------|-------|
 | Train         | 0.000 | 0.000   | 1.000    | 1.000     | 1.000  | 1.000 |
 | Validation    | 0.035 | 0.006   | 0.991    | 0.991     | 0.991  | 0.991 |
 | Test          | 0.024 | 0.004   | 0.994    | 0.994     | 0.994  | 0.994 |
+
+
+## MagnusModel & SVHN 
+The MagnusModel was trained on the SVHN dataset, utilizing all five metrics.   
+Employing micro-averaging for the calculation of F1 score, accuracy, recall, and precision, the model was fine-tuned over 20 epochs.   
+A learning rate of 0.001 and a batch size of 64 were selected to optimize the training process. 
+
+The table below presents the detailed results, showcasing the model's performance across these metrics.
+
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 1.007 | 0.998   | 0.686    | 0.686     | 0.686  | 0.686 |
+| Validation    | 1.019 | 0.995   | 0.680    | 0.680     | 0.680  | 0.680 |
+| Test          | 1.196 | 0.985   | 0.634    | 0.634     | 0.634  | 0.634 |
+
