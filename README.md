@@ -120,3 +120,22 @@ The table below presents the detailed results, showcasing the model's performanc
 | Validation    | 1.019 | 0.995   | 0.680    | 0.680     | 0.680  | 0.680 |
 | Test          | 1.196 | 0.985   | 0.634    | 0.634     | 0.634  | 0.634 |
 
+## Citing
+Please consider citing this repository if you end up using it for your work. 
+Several citation methods can be found under the "About" section. 
+For BibTeX citation please use
+```
+@software{Thrun_Collaborative_Coding_Exam_2025,
+author = {Thrun, Solveig and Salomonsen, Christian and Størdal, Magnus and Zavadil, Jan and Mylius-Kroken, Johan},
+month = feb,
+title = {{Collaborative Coding Exam}},
+url = {https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam},
+version = {1.1.0},
+year = {2025}
+}
+```
+
+For APA please use
+```
+Thrun, S., Salomonsen, C., Størdal, M., Zavadil, J., & Mylius-Kroken, J. (2025). Collaborative Coding Exam (Version 1.1.0) [Computer software]. https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam
+```
