@@ -3,6 +3,20 @@
 # Collaborative-Coding-Exam
 Repository for final evaluation in the FYS-8805 Reproducible Research and Collaborative coding course
 
+## Citation
+Several citations can be found under "cite this repository" under the about section. 
+You can also include this in your BibTex file
+```
+@software{Thrun_Collaborative_Coding_Exam_2025,
+author = {Thrun, Solveig and Salomonsen, Christian and Størdal, Magnus and Zavadil, Jan and Mylius-Kroken, Johan},
+month = feb,
+title = {{Collaborative Coding Exam}},
+url = {https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam},
+version = {1.1.0},
+year = {2025}
+}
+```
+
 ## Installation
 
 Install from:
