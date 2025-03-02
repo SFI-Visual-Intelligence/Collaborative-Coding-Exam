@@ -2,10 +2,10 @@ Magnus Individual Task
 ======================
 
 ## Task overview
-In addition to the overall task, I was tasked to implement a three layer linear network, a dataset loader for the SVHN dataset, and a entropy metric.
+In addition to the overall task, I was tasked to implement a three layer linear network, a dataset loader for the SVHN dataset, and a entropy metric. This document details that work.
 
 ## Network Implementation In-Depth
-For the network part I was tasked with making a three-layer linear network where each layer conists of 133 neurons. This is a fairly straightforward implementation where we make a custom class which inherits from the PyTorch Module class. This allows for our class to have two methods. The __init__ method and a forward method. When we make an instance of the class we'll be able to call the instance like we would call a function, and have it run the forward method. 
+For the network part I was tasked with making a three-layer linear network where each layer conists of 133 neurons. This is a fairly straightforward implementation where we make a custom class which inherits from the PyTorch Module class. This allows the class to be as simple as two methods; The __init__ method and a __forward__ method. Inheriting from the module class allows us to call an instance of the class like a function, and the __forward__ method will be called.
 
 The network is initialized with the following metrics: 
 * image_shape
@@ -21,9 +21,9 @@ Each input is flattened over the channel, height and width channels. Then they a
 
 
 ## SVHN Dataset In-Depth
-The dataloader I was tasked with making is to load the well-known SVHN dataset. This is a RGB dataset with real-life digits taken from house numbers. The class inherits from the torch Dataset class, and has four methods:
+The dataloader I was tasked with making is to load the well-known SVHN dataset. This is a RGB dataset with real-life digits taken from house numbers. The class tasked with loading the data inherits from the torch Dataset class, and has four methods:
 * __init__ : initialized the instance of the class
-* _create_h5py: Creates the h5 object containing data from the downloaded .mat files for ease of use
+* __create_h5py__: Creates the h5 object containing data from the downloaded .mat files for ease of use
 * __len__ : Method needed in use of the DataLoader class. Returns length of the dataset
 * __getitem__ : Method needed in use of the DataLoader class. Loads a image - label pair, applies any defined image transformations, and returns both image and label. 
 
@@ -37,7 +37,7 @@ The __init__ method takes in a few arguments.
 
 In the init we check for the existence of the SVHN dataset. If it does not exist, then we run the _create_h5py method which will be explained later. Then the labels are loaded into memory as they are needed for the __len__ method among other things. 
 
-The _create_h5py method downloads a given SVHN set (train or test). We also change the label 10 to 0, as the SVHN dataset starts at index 1, with 10 representing images with the digit zero. After the download, we create two .h5 files. One with the labels and one with the images. 
+The __create_h5py__ method downloads a given SVHN set (train or test). We also change the label 10 to 0, as the SVHN dataset starts at index 1, with 10 representing images with the digit zero. After the download, we create two .h5 files. One with the labels and one with the images. 
 
 Lastly, in __getitem__ we take index (number between 0 and length of label array). We retrive load the image h5 file, and retrive the row corresponding to the index. 
 We then convert the image to an Pillow Image object, then apply the defined transforms before returning the image and label. 
@@ -46,6 +46,7 @@ We then convert the image to an Pillow Image object, then apply the defined tran
 
 ## Entropy Metric In-Depth
 The EntropyPrediction class' main job is to take some inputs from the MetricWrapper class and store the batchwise Shannon Entropy metric of those inputs. The class has four methods with the following jobs: 
+
 * __init__ : Initialize the class.
 * __call__ : Main method which is used to calculate and store the batchwise shannon entropy.
 * __returnmetric__ : Returns the collected metric. 
@@ -54,7 +55,7 @@ The EntropyPrediction class' main job is to take some inputs from the MetricWrap
 The __init__ method has two arguments, both present for compatability issues. However, the num_classes argument is used as a check in the __call__ method to assert the input is of correctly assumed size. 
 
 In __call__ we get both true labels and model logit scores for each sample in the batch as input. We're calculating Shannon Entropy, not KL-divergence, so the true labels aren't actually needed. 
-With permission I've used the scipy implementation to calculate entropy here. We apply a softmax over the logit values, then calculate the Shannon Entropy, and make sure to remove any Inf values which might arise from a perfect guess/distribution.
+With permission from Kristoffer I've used the scipy implementation to calculate entropy here. We apply a softmax over the logit values, then calculate the Shannon Entropy, and make sure to remove any Inf values which might arise from a perfect guess/distribution.
 
 
 
