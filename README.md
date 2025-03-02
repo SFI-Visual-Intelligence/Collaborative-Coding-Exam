@@ -92,28 +92,31 @@ to pull the latest build, or check the [packages](https://github.com/SFI-Visual-
 > The container is build for a `linux/amd64` architecture to properly build Cuda 12. For other architectures please build the docker image locally.
 
 
-## Results
+## Results 
+### JanModel & MNIST_0-3
+This section reports the results from using the model "JanModel" and the dataset MNIST_0-3 which contains MNIST digits from 0 to 3 (Four classes total). 
+For this experiment we use all five available metrics, and train for a total of 20 epochs.
 
-| Model     | Dataset   | Accuracy | Entropy | F1 Score | Precision | Recall |
-|-----------|-----------|----------|---------|----------|-----------|--------|
-| Christian |USPS (0-6) |          |         |          |           |        |
-| Jan       |MNIST(0-3) |          |         |          |           |        |
-| Johan     |MNITS (4-9)|          |         |          |           |        |
-| Magnus    |SVHN       |          |         |          |           |        |
-| Solveig   |USPS (7-9) |          |         |          |           |        |
+We achieve a great fit on the data. Below are the results for the described run:
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 0.000 | 0.000   | 1.000    | 1.000     | 1.000  | 1.000 |
+| Validation    | 0.035 | 0.006   | 0.991    | 0.991     | 0.991  | 0.991 |
+| Test          | 0.024 | 0.004   | 0.994    | 0.994     | 0.994  | 0.994 |
 
 
-## Citing
-If you use this project in your research or work, please cite it as follows:
+### MagnusModel & SVHN 
+The MagnusModel was trained on the SVHN dataset, utilizing all five metrics.   
+Employing micro-averaging for the calculation of F1 score, accuracy, recall, and precision, the model was fine-tuned over 20 epochs.   
+A learning rate of 0.001 and a batch size of 64 were selected to optimize the training process. 
 
-### **BibTeX Citation**  
+The table below presents the detailed results, showcasing the model's performance across these metrics.
 
-```bibtex
-@software{Collaborative_Coding_Exam_2025,
-author = {Thrun, Solveig and Salomonsen, Christian and Størdal, Magnus and Zavadil, Jan and Mylius-Kroken, Johan},
-month = feb,
-title = {{Collaborative Coding Exam}},
-url = {https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam},
-version = {1.1.0},
-year = {2025}
-}
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 1.007 | 0.998   | 0.686    | 0.686     | 0.686  | 0.686 |
+| Validation    | 1.019 | 0.995   | 0.680    | 0.680     | 0.680  | 0.680 |
+| Test          | 1.196 | 0.985   | 0.634    | 0.634     | 0.634  | 0.634 |
+
