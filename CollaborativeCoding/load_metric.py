@@ -29,7 +29,7 @@ class MetricWrapper(nn.Module):
     Methods
     -------
         __call__(y_true, y_pred)
-            Passes the true and predicted labels to the metric functions.
+            Passes the true and predicted logits to the metric functions.
         getmetrics(str_prefix: str = None)
             Retrieves the dictionary of computed metrics, optionally all keys can be prefixed with a string.
         resetmetric()
@@ -40,10 +40,13 @@ class MetricWrapper(nn.Module):
     >>> from CollaborativeCoding import MetricWrapperProposed
     >>> metrics = MetricWrapperProposed(2, "entropy", "f1", "precision")
     >>> y_true = [0, 1, 0, 1]
-    >>> y_pred = [0, 1, 1, 0]
+    >>> y_pred = [[0.8, -1.9],
+                 [0.1,   9.0],
+                 [-1.9, -0.1],
+                 [1.9,   1.8]]
     >>> metrics(y_true, y_pred)
     >>> metrics.getmetrics()
-    {'entropy': 0.6931471805599453, 'f1': 0.5, 'precision': 0.5}
+    {'entropy': 0.3292665, 'f1': 0.5, 'precision': 0.5}
     >>> metrics.resetmetric()
     >>> metrics.getmetrics()
     {'entropy': [], 'f1': [], 'precision': []}
