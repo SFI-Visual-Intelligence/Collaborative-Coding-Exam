@@ -26,6 +26,7 @@ testrun.x
 storage/
 Makefile
 job.yaml
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
