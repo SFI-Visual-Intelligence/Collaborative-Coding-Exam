@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please consider citing it as below."
+authors:
+- family-names: "Thrun"
+  given-names: "Solveig"
+  orcid: "https://orcid.org/0009-0006-7349-9449"
+- family-names: "Salomonsen"
+  given-names: "Christian"
+  orcid: "https://orcid.org/0009-0007-4958-4544"
+- family-names: "Størdal"
+  given-names: "Magnus"
+  orcid: "https://orcid.org/0009-0008-5226-8128"
+- family-names: "Zavadil"
+  given-names: "Jan"
+  orcid: "https://orcid.org/0000-0001-8502-0059"
+- family-names: "Mylius-Kroken"
+  given-names: "Johan"
+  orcid: "https://orcid.org/0009-0005-8580-372X"
+title: "Collaborative Coding Exam"
+version: 1.1.0
+date-released: 2025-02-26
+url: "https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam"

@@ -8,12 +8,12 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
 
 :::{toctree}
-:maxdepth: 2
-:caption: Some caption
+:maxdepth: 1
+:caption: Table of contents
 
 about.md
 Magnus_page.md
+Jan_page.md
 :::
 
-Individual Sections
-===================
+
