@@ -120,6 +120,15 @@ The table below presents the detailed results, showcasing the model's performanc
 | Validation    | 1.019 | 0.995   | 0.680    | 0.680     | 0.680  | 0.680 |
 | Test          | 1.196 | 0.985   | 0.634    | 0.634     | 0.634  | 0.634 |
 
+### ChristianModel & USPS_0-6
+ChristianModel was trained on the USPS_0-6 dataset. The model was trained for a total of 20 epochs, utilizing all five metrics macro-averaged. Please find the results in the following table:
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 0.040 | 0.070   | 0.980    | 0.981     | 0.140  | 0.981 |
+| Validation    | 0.071 | 0.074   | 0.973    | 0.975     | 0.140  | 0.974 |
+| Test          | 0.247 | 0.096   | 0.931    | 0.934     | 0.134  | 0.932 |
+
 ## Citing
 Please consider citing this repository if you end up using it for your work. 
 Several citation methods can be found under the "About" section. 
