@@ -9,6 +9,7 @@ This documentation lays out the code documentation of use for the FYS-8805 Colla
 about.md
 Magnus_page.md
 Jan_page.md
+christian.md
 Johan_page.md
 :::
 
