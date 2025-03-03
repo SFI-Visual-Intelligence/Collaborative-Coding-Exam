@@ -52,3 +52,21 @@ The class has the following methods:
 * `__reset__`: Resets the stored true and predicted labels.
 
 The `forward` method takes the true labels and predicted labels as input and stores them. The `_macro_acc` method computes the macro-average accuracy by averaging the accuracy for each class. The `_micro_acc` method computes the micro-average accuracy by calculating the overall accuracy. The `__returnmetric__` method returns the computed accuracy based on the averaging method. The `__reset__` method resets the stored true and predicted labels to prepare for the next epoch.
+
+## Challenges
+### Running someone elses code
+
+At the very beginning of the project we agreed upon a project structure that included wrappers for models, datasets and metrics which made it very easy to run other peoples code. Problems only arised in the development stage, when it was necessary to collect adjusments from all five participants in case of a change in the wrapper structure. 
+
+### Someone else running my code
+
+Thanks to the project structure mentioned above it was also not difficult to have someone else handle the code I produced. It was sometimes necessary to make design adjustments on the go (for example having the metric wrapper pass the raw logits instead of predictions to the metric classes) and it was not always easy for me to catch up with all the important changes and adjust my code right away - sometimes an opened issue got closed before all the dependent code was adjusted. These problems were more and more sparse throughout the process as the whole group got more used to the workflow in a shared github repository.
+
+### Tools
+
+The course presented a lot of tools that were previously unknown to me. The whole concept of testing functions was never appreciated by me, until I saw its importance when working on a shared project, especially when combined with github actions automatic workflows. The sphinx documentation generation tool also prooved to be extremely useful, if only to keep track of all implemented classes. 
+
+I have migrated with all my work to the uv package manager after the course - it keeps the project environment local and it is much easier to use. 
+
+This was also my first serious experience with work on a shared project using github, so far I only used it as a personal repository or to share specific code. 
+
