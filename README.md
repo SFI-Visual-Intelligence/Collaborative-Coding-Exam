@@ -129,6 +129,7 @@ ChristianModel was trained on the USPS_0-6 dataset. The model was trained for a 
 | Validation    | 0.071 | 0.074   | 0.973    | 0.975     | 0.140  | 0.974 |
 | Test          | 0.247 | 0.096   | 0.931    | 0.934     | 0.134  | 0.932 |
 
+
 ### SolveigModel & USPS_7-9
 SolveigModel was trained on the `USPS_7-9` dataset. The model was trained over 40 epochs, evaluating on all metrics with macro-averaging enabled, as shown in the table below.
 
@@ -137,6 +138,19 @@ SolveigModel was trained on the `USPS_7-9` dataset. The model was trained over 4
 | Train         | 0.013 | 0.017   | 1        | 1         | 0.333  | 1     |
 | Validation    | 0.004 | 0.010   | 0.996    | 0.996     | 0.332  | 0.996 |
 | Test          | 0.222 | 0.023   | 0.962    | 0.964     | 0.324  | 0.963 |
+
+### JohanModel & MNIST_4-9
+This section reports the results from using the model "JohanModel" and the dataset MNIST_4-9 which contains MNIST digits from 4 to 9 (six classes in total). 
+All five available metrics were calculated for this experiment, model was trained for 12 epochs with learning rate of 0.001 and batch size 64.
+
+The performance of the model is somewhat limited, at least compared with the results of JanModel on the other portion of MNIST dataset. Resulting metrics computed with macro-averaging below:
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 0.617 | 0.618   | 0.825    | 0.889     | 0.825  | 0.769 |
+| Validation    | 0.677 | 0.619   | 0.809    | 0.872     | 0.809  | 0.755 |
+| Test          | 0.679 | 0.618   | 0.810    | 0.870     | 0.810  | 0.755 |
+
 
 
 ## Citing
