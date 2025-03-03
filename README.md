@@ -129,6 +129,16 @@ ChristianModel was trained on the USPS_0-6 dataset. The model was trained for a 
 | Validation    | 0.071 | 0.074   | 0.973    | 0.975     | 0.140  | 0.974 |
 | Test          | 0.247 | 0.096   | 0.931    | 0.934     | 0.134  | 0.932 |
 
+### SolveigModel & USPS_7-9
+SolveigModel was trained on the `USPS_7-9` dataset. The model was trained over 40 epochs, evaluating on all metrics with macro-averaging enabled, as shown in the table below.
+
+| Dataset Split | Loss  | Entropy | Accuracy | Precision | Recall | F1    |
+|---------------|-------|---------|----------|-----------|--------|-------|
+| Train         | 0.013 | 0.017   | 1        | 1         | 0.333  | 1     |
+| Validation    | 0.004 | 0.010   | 0.996    | 0.996     | 0.332  | 0.996 |
+| Test          | 0.222 | 0.023   | 0.962    | 0.964     | 0.324  | 0.963 |
+
+
 ## Citing
 Please consider citing this repository if you end up using it for your work. 
 Several citation methods can be found under the "About" section. 
