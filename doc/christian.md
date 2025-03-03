@@ -105,7 +105,7 @@ dataset = USPSDataset0_6(
 
 Recall, also known as sensitivity, is the subset of relevant instances retrieved, i.e., the true positives, where the predictive network made a correct prediction divided by the total number of relevant elements. In the case of multi-class prediction, that means the number of predictions the network got right, divided by the number of occurrences of the class. The keen reader will have noticed there are two possible ways of computing recall in a multi-class setting; first, the recall might be computed individually per class, then averaged over all classes, known as _macro-averaging_, which gives equal weight to each class; on the other hand, micro averaging aggregates the true positives and false negatives across all the classes, before calculating the metric based on the total counts, giving each instance the same weight. In this implementation of the metric, the user is able to specify which of the two types they want using the argument `macro_averaging` (boolean).
 
-This project's implementation of metrics is also the first place where Pytorch customs are broken. Where `torch.nn.Module`, which our metrics are inheriting from, generally advises users to rely on two interfaces. First, the class should be initialized using `metric = Recall(...)`, then to compute the recall, one would generally expect to run `recall_score = metric(y, logits)`, however, the group decided to store each metric, before aggregating and computing the score on an epoch-level, for more accurate computations of our metrics. While this might cause confusion for inexperienced users, we restate the age-old saying of [__read the docs__ (!)](https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/index.html).
+This project's implementation of metrics is also the first place where Pytorch customs are broken. Where `torch.nn.Module`, which our metrics are inheriting from, generally advises users to rely on two interfaces. First, the class should be initialized using `metric = Recall(...)`, then to compute the recall, one would generally expect to run `recall_score = metric(y, logits)`, however, [the group decided to store each metric](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/84), before aggregating and computing the score on an epoch-level, for more accurate computations of our metrics. While this might cause confusion for inexperienced users, we restate the age-old saying of [__read the docs__ (!)](https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/index.html).
 And as such, the correct usage would instead be:
 
 ```python
@@ -126,7 +126,7 @@ Where the use of a [_dunder method_](https://www.geeksforgeeks.org/dunder-magic-
 
 This course focuses and requires the collaboration between multiple people, where a foundational aspect is the collaboration and interoperability of our code. This meant that a common baseline, and an agreement of the quality, and design choices of our implementation stood at the centre as a glaring challenge. However, throughout the use of inherently collaborative tools such as [Git](https://git-scm.com/) and [GitHub](https://github.com/) we managed to find a common style:
 
-1. When bugs are noticed, raise an issue.
+1. When bugs are noticed, [raise an issue](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues?q=is%3Aissue%20state%3Aclosed).
 2. The `main`-branch of the GitHub repository is protected, therefore all changes must;
     1. Start out as a pull-request, preferably addressing an issue.
     2. Pass all [GitHub Actions](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/actions), which meant:
@@ -152,3 +152,9 @@ As with the above conclusion, having a common ground to work from made the chall
 ## Tooling
 
 While Git and GitHub were familiar to me from before, GitHub Actions, documentation using Sphinx, GitHub Packages, and the [UV](https://astral.sh/blog/uv) package manager were new to me. GitHub Actions proved to be paramount for automated testing, ensuring quality in the `main` branch of the project, as well as keeping code readable using formatters. Having a documentation with Sphinx, proved to be beneficial when using another persons code, and not knowing the exact internals of their implementational choices. While most collaborators started the project using [miniconda](https://www.anaconda.com/docs/main), we decided to use UV as our _official_ package manager. While I have good experience with Docker, I had not used the [GitHub Container Registry (ghcr.io)](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) before, which had the benefit of tying the container image up to the repository, and organization, instead of a single collaborator.
+
+## Contribution
+
+- [Issues raised](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues?q=author%3Asalomaestro)
+- [PR's opened](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/pulls?q=author%3Asalomaestro)
+- [Commits](https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/commits/main/?author=salomaestro)
