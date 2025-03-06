@@ -1,7 +1,6 @@
- Solveig Individual Task
-======================
+#  Solveig Individual Task
 
-#   Task overview
+##   Task overview
 In addition to the overall task, I was assigned the implementation of the following tasks:
 * A [CNN-model](../CollaborativeCoding/models/solveig_model.py)
 * A dataset class for the [USPS dataset](../CollaborativeCoding/dataloaders/uspsh5_7_9.py) for the digits from 7-9 
@@ -97,7 +96,7 @@ The class is initalized with two parameters:
 
 
 
-# Experiences running another person's code
+## Experiences running another person's code
 At the beginning of our project, we adopted a common code structure that would accommodate various wrappers managing the initialization and data flow of metrics, dataloaders, and models. 
 To ensure smooth collaboration, we leveraged GitHub Actions for automated testing, which helped us validate the functionality of our dataloaders, metrics, and models. 
 Once the various classes passed their tests, running code from other team members was no problem.
@@ -109,7 +108,7 @@ This approach made it much easier to understand the changes.
 
 
 
-# Experiences another person running my code
+## Experiences another person running my code
 During the process of another person running my code, I got informed about an issue with my F1 metric, where it failed to handle an unexpected edge case at runtime—something that the initial tests did not catch. 
 Once the issue was raised, I was promptly informed, and I addressed the error. 
 However, as mentioned earlier, there were times when large pull requests included multiple important changes, making it challenging to adjust my code accordingly. 
@@ -118,7 +117,7 @@ Despite this, the collaborative nature of the process allowed us to identify and
 
 
 
-# Tools 
+## Tools 
 During the collaborative coding course, I had the opportunity to learn and work with several valuable tools that were new to me:
 * **Docker**
 * **Ruff and Isort**
