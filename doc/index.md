@@ -11,6 +11,7 @@ Magnus_page.md
 Jan_page.md
 christian.md
 Johan_page.md
+Solveig.md
 :::
 
 
