@@ -90,28 +90,6 @@ class F1Score(nn.Module):
             preds = preds.unsqueeze(0)  # Add batch dimension
         self.y_pred.append(preds.detach())
 
-    def compute_f1(self):
-        """
-        Computes the F1 score (Micro or Macro).
-
-        Returns
-        -------
-        torch.Tensor
-            The computed F1 score. Returns NaN if no predictions or targets are available.
-        """
-        if not self.y_true or not self.y_pred:  # Check if empty
-            return torch.tensor(np.nan)
-
-        # Convert lists to tensors
-        y_true = torch.cat(self.y_true)
-        y_pred = torch.cat(self.y_pred)
-
-        return (
-            self._macro_F1(y_true, y_pred)
-            if self.macro_averaging
-            else self._micro_F1(y_true, y_pred)
-        )
-
     def _micro_F1(self, target, preds):
         """Computes the Micro-averaged F1 score (global TP, FP, FN)."""
         tp = torch.sum(preds == target).float()
