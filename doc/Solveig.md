@@ -1,6 +1,6 @@
-#  Solveig Individual Task
+# Solveig Individual Task
 
-##   Task overview
+## Task overview
 In addition to the overall task, I was assigned the implementation of the following tasks:
 * A [CNN-model](../CollaborativeCoding/models/solveig_model.py)
 * A dataset class for the [USPS dataset](../CollaborativeCoding/dataloaders/uspsh5_7_9.py) for the digits from 7-9 
