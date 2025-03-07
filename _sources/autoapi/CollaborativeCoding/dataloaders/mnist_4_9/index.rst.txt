@@ -1,0 +1,80 @@
+CollaborativeCoding.dataloaders.mnist_4_9
+=========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.mnist_4_9
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.mnist_4_9.MNISTDataset4_9
+
+
+Module Contents
+---------------
+
+.. py:class:: MNISTDataset4_9(data_path: pathlib.Path, sample_ids: numpy.ndarray, train: bool = False, transform=None, nr_channels: int = 1)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   MNIST dataset of numbers 4-9.
+
+   Parameters
+   ----------
+   data_path : Path
+       Root directory where MNIST dataset is stored
+   sample_ids : np.ndarray
+       Array of indices spcifying which samples to load. This determines the samples used by the dataloader.
+   train : bool, optional
+       Whether to train the model or not, by default False
+   transorm : callable, optional
+       Transform to apply to the images, by default None
+   nr_channels : int, optional
+       Number of channels in the images, by default 1
+
+
+   .. py:attribute:: data_path
+
+
+   .. py:attribute:: mnist_path
+
+
+   .. py:attribute:: samples
+
+
+   .. py:attribute:: train
+      :value: False
+
+
+
+   .. py:attribute:: transform
+      :value: None
+
+
+
+   .. py:attribute:: num_classes
+      :value: 6
+
+
+
+   .. py:attribute:: images_path
+
+
+   .. py:attribute:: labels_path
+
+
+   .. py:attribute:: label_shift
+
+
+   .. py:attribute:: label_restore
+
+
+   .. py:method:: __len__()
+
+
+   .. py:method:: __getitem__(idx)
+
+

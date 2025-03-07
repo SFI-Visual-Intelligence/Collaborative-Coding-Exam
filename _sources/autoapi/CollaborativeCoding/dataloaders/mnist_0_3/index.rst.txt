@@ -1,0 +1,98 @@
+CollaborativeCoding.dataloaders.mnist_0_3
+=========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.mnist_0_3
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.mnist_0_3.MNISTDataset0_3
+
+
+Module Contents
+---------------
+
+.. py:class:: MNISTDataset0_3(data_path: pathlib.Path, sample_ids: list, train: bool = False, transform=None, nr_channels: int = 1)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.
+
+   Args
+   ----------
+   data_path : Path
+       The root directory where the MNIST folder with data is stored.
+   sample_ids : list
+       A list of indices specifying which samples to load.
+   train : bool, optional
+       If True, load training data, otherwise load test data. Default is False.
+   transform : callable, optional
+       A function/transform to apply to the images. Default is None.
+
+   Attributes
+   ----------
+   mnist_path : Path
+       The directory where the MNIST dataset is located within the root directory.
+   idx : list
+       A list of indices specifying which samples to load.
+   train : bool
+       Indicates whether to load training data or test data.
+   transform : callable
+       A function/transform to apply to the images.
+   num_classes : int
+       The number of classes in the dataset (0 to 3).
+   images_path : Path
+       The path to the image file (train or test) based on the `train` flag.
+   labels_path : Path
+       The path to the label file (train or test) based on the `train` flag.
+   length : int
+       The number of samples in the dataset.
+
+   Methods
+   -------
+   __len__()
+       Returns the number of samples in the dataset.
+   __getitem__(index)
+       Retrieves the image and label at the specified index.
+
+
+   .. py:attribute:: mnist_path
+
+
+   .. py:attribute:: idx
+
+
+   .. py:attribute:: train
+      :value: False
+
+
+
+   .. py:attribute:: transform
+      :value: None
+
+
+
+   .. py:attribute:: num_classes
+      :value: 4
+
+
+
+   .. py:attribute:: images_path
+
+
+   .. py:attribute:: labels_path
+
+
+   .. py:attribute:: length
+
+
+   .. py:method:: __len__()
+
+
+   .. py:method:: __getitem__(index)
+
+

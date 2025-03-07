@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jan Individual Task &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Christian’s task" href="christian.html" />
+    <link rel="prev" title="Magnus Individual Task" href="Magnus_page.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Jan Individual Task</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#task-overview">Task Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-implementation-in-depth">Network Implementation In-Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mnist-dataset-in-depth">MNIST Dataset In-Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accuracy-metric-in-depth">Accuracy Metric In-Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#challenges">Challenges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-someone-elses-code">Running someone elses code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#someone-else-running-my-code">Someone else running my code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tools">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="christian.html">Christian’s task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Johan_page.html">Individual task for Johan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Solveig.html">Solveig Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Jan Individual Task</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Jan_page.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="jan-individual-task">
+<h1>Jan Individual Task<a class="headerlink" href="#jan-individual-task" title="Link to this heading"></a></h1>
+<p>======================</p>
+<section id="task-overview">
+<h2>Task Overview<a class="headerlink" href="#task-overview" title="Link to this heading"></a></h2>
+<p>In addition to the overall task, I was assigned the implementation of a multi-layer perceptron model, a dataset loader for a subset of the MNIST dataset, and an accuracy metric.</p>
+</section>
+<section id="network-implementation-in-depth">
+<h2>Network Implementation In-Depth<a class="headerlink" href="#network-implementation-in-depth" title="Link to this heading"></a></h2>
+<p>For the network part, I was tasked with making a simple MLP network model for image classification tasks. The model consists of two hidden layers with 100 neurons each followed by a leaky-relu activation. This implementation involves creating a custom class that inherits from the PyTorch <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> class. This allows our class to have two methods: the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method and a <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. When we create an instance of the class, we can call the instance like a function, which will run the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method.</p>
+<p>The network is initialized with the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image_shape</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">image_shape</span></code> argument provides the shape of the input image (channels, height, width) which is used to correctly initialize the input size of the first layer. The <code class="docutils literal notranslate"><span class="pre">num_classes</span></code> argument defines the number of output neurons, corresponding to the number of classes in the dataset.</p>
+<p>The forward method in this class processes the input as follows:</p>
+<ol class="arabic simple">
+<li><p>Flattens the input image.</p></li>
+<li><p>Passes the flattened input through the first fully connected layer (<code class="docutils literal notranslate"><span class="pre">fc1</span></code>).</p></li>
+<li><p>Applies a LeakyReLU activation function.</p></li>
+<li><p>Passes the result through the second fully connected layer (<code class="docutils literal notranslate"><span class="pre">fc2</span></code>).</p></li>
+<li><p>Applies another LeakyReLU activation function.</p></li>
+<li><p>Passes the result through the output layer (<code class="docutils literal notranslate"><span class="pre">out</span></code>).</p></li>
+</ol>
+</section>
+<section id="mnist-dataset-in-depth">
+<h2>MNIST Dataset In-Depth<a class="headerlink" href="#mnist-dataset-in-depth" title="Link to this heading"></a></h2>
+<p>For the dataset part, I was tasked with creating a custom dataset class for loading a subset of the MNIST dataset containing digits 0 to 3. This involved creating a class that inherits from the PyTorch <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> class.</p>
+<p>The class is initialized with the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data_path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_ids</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train</span></code> (optional, default is False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transform</span></code> (optional, default is None)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nr_channels</span></code> (optional, default is 1)</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">data_path</span></code> argument stores the path to the four binary files containing MNIST dataset. The verification of presence of these files and their download, if necessary, is facilitated by the <code class="docutils literal notranslate"><span class="pre">Downloader</span></code>class. The <code class="docutils literal notranslate"><span class="pre">sample_ids</span></code> parameter contains the indices of images and their respective labels that are to be loaded from MNIST dataset. Filtering and random splitting of these indices is performed within the <code class="docutils literal notranslate"><span class="pre">load_data</span></code>function. <code class="docutils literal notranslate"><span class="pre">train</span></code>is a boolean flag indicating whether to load data from training (for training and validation splits) or from testing (test split) part of the MNIST dataset. <code class="docutils literal notranslate"><span class="pre">transform</span></code> is a callable created with <code class="docutils literal notranslate"><span class="pre">torch.compose()</span></code> to be applied on the images. <code class="docutils literal notranslate"><span class="pre">nr_channels</span></code> is not used in this dataset, only included for compatibility with other functions.</p>
+<p>The class has two main methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code>: Returns the number of samples in the dataset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>: Retrieves the image and label at the specified index.</p></li>
+</ul>
+</section>
+<section id="accuracy-metric-in-depth">
+<h2>Accuracy Metric In-Depth<a class="headerlink" href="#accuracy-metric-in-depth" title="Link to this heading"></a></h2>
+<p>For the metric part, I was tasked with creating an accuracy metric class. The <code class="docutils literal notranslate"><span class="pre">Accuracy</span></code> class computes the accuracy of a model’s predictions. The class is initialized with the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code> (optional, default is False)</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">num_classes</span></code> argument specifies the number of classes in the classification task. The <code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code>argument is a boolean flag specifying whether to compute the accuracy using micro or macro averaging.</p>
+<p>The class has the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forward</span></code>: Stores the true and predicted labels computed on a batch level.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_macro_acc</span></code>: Computes the macro-averaged accuracy on stored values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_micro_acc</span></code>: Computes the micro-averaged accuracy on stored values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__returnmetric__</span></code>: Returns the computed accuracy based on the averaging method for all stored predictions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__reset__</span></code>: Resets the stored true and predicted labels.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">forward</span></code> method takes the true labels and predicted labels as input and stores them. The <code class="docutils literal notranslate"><span class="pre">_macro_acc</span></code> method computes the macro-average accuracy by averaging the accuracy for each class. The <code class="docutils literal notranslate"><span class="pre">_micro_acc</span></code> method computes the micro-average accuracy by calculating the overall accuracy. The <code class="docutils literal notranslate"><span class="pre">__returnmetric__</span></code> method returns the computed accuracy based on the averaging method. The <code class="docutils literal notranslate"><span class="pre">__reset__</span></code> method resets the stored true and predicted labels to prepare for the next epoch.</p>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Link to this heading"></a></h2>
+<section id="running-someone-elses-code">
+<h3>Running someone elses code<a class="headerlink" href="#running-someone-elses-code" title="Link to this heading"></a></h3>
+<p>At the very beginning of the project we agreed upon a project structure that included wrappers for models, datasets and metrics which made it very easy to run other peoples code. Problems only arised in the development stage, when it was necessary to collect adjusments from all five participants in case of a change in the wrapper structure.</p>
+</section>
+<section id="someone-else-running-my-code">
+<h3>Someone else running my code<a class="headerlink" href="#someone-else-running-my-code" title="Link to this heading"></a></h3>
+<p>Thanks to the project structure mentioned above it was also not difficult to have someone else handle the code I produced. It was sometimes necessary to make design adjustments on the go (for example having the metric wrapper pass the raw logits instead of predictions to the metric classes) and it was not always easy for me to catch up with all the important changes and adjust my code right away - sometimes an opened issue got closed before all the dependent code was adjusted. These problems were more and more sparse throughout the process as the whole group got more used to the workflow in a shared github repository.</p>
+</section>
+<section id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Link to this heading"></a></h3>
+<p>The course presented a lot of tools that were previously unknown to me. The whole concept of testing functions was never appreciated by me, until I saw its importance when working on a shared project, especially when combined with github actions automatic workflows. The sphinx documentation generation tool also prooved to be extremely useful, if only to keep track of all implemented classes.</p>
+<p>I have migrated with all my work to the uv package manager after the course - it keeps the project environment local and it is much easier to use.</p>
+<p>This was also my first serious experience with work on a shared project using github, so far I only used it as a personal repository or to share specific code.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Magnus_page.html" class="btn btn-neutral float-left" title="Magnus Individual Task" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="christian.html" class="btn btn-neutral float-right" title="Christian’s task" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

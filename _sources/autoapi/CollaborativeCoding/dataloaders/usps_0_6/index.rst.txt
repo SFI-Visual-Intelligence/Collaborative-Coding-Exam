@@ -1,0 +1,126 @@
+CollaborativeCoding.dataloaders.usps_0_6
+========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.usps_0_6
+
+.. autoapi-nested-parse::
+
+   Dataset class for USPS dataset with labels 0-6.
+
+   This module contains the Dataset class for the USPS dataset with labels 0-6.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.usps_0_6.USPSDataset0_6
+
+
+Module Contents
+---------------
+
+.. py:class:: USPSDataset0_6(data_path: pathlib.Path, sample_ids: list, train: bool = False, transform=None, nr_channels=1)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   Dataset class for USPS dataset with labels 0-6.
+
+   Args
+   ----
+   data_path : pathlib.Path
+       Path to the data directory.
+   train : bool, optional
+       Mode of the dataset.
+   transform : callable, optional
+       A function/transform that takes in a sample and returns a transformed version.
+   download : bool, optional
+       Whether to download the Dataset.
+
+   Attributes
+   ----------
+   filepath : pathlib.Path
+       Path to the USPS dataset file.
+   mode : str
+       Mode of the dataset, either train or test.
+   transform : callable
+       A function/transform that takes in a sample and returns a transformed version.
+   idx : numpy.ndarray
+       Indices of samples with labels 0-6.
+   num_classes : int
+       Number of classes in the dataset
+
+   Methods
+   -------
+   _index()
+       Get indices of samples with labels 0-6.
+   _load_data(idx)
+       Load data and target label from the dataset.
+   __len__()
+       Get the number of samples in the dataset.
+   __getitem__(idx)
+       Get a sample from the dataset.
+
+   Examples
+   --------
+   >>> from torchvision import transforms
+   >>> from src.datahandlers import USPSDataset0_6
+   >>> transform = transforms.Compose([
+   ...     transforms.Resize((16, 16)),
+   ...     transforms.ToTensor()
+   ... ])
+   >>> dataset = USPSDataset0_6(
+   ...     data_path="data",
+   ...     transform=transform
+   ...     download=True,
+   ...     train=True,
+   ... )
+   >>> len(dataset)
+   5460
+   >>> data, target = dataset[0]
+   >>> data.shape
+   (1, 16, 16)
+   >>> target
+   tensor([1., 0., 0., 0., 0., 0., 0.])
+
+
+   .. py:attribute:: filename
+      :value: 'usps.h5'
+
+
+
+   .. py:attribute:: num_classes
+      :value: 7
+
+
+
+   .. py:attribute:: filepath
+
+
+   .. py:attribute:: transform
+      :value: None
+
+
+
+   .. py:attribute:: mode
+      :value: 'test'
+
+
+
+   .. py:attribute:: sample_ids
+
+
+   .. py:attribute:: nr_channels
+      :value: 1
+
+
+
+   .. py:method:: __len__()
+
+
+   .. py:method:: __getitem__(id)
+
+

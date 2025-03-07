@@ -1,0 +1,84 @@
+CollaborativeCoding.models.johan_model
+======================================
+
+.. py:module:: CollaborativeCoding.models.johan_model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.models.johan_model.JohanModel
+
+
+Module Contents
+---------------
+
+.. py:class:: JohanModel(image_shape, num_classes)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Small MLP model for image classification.
+
+   Parameters
+   ----------
+   image_shape : tuple(int, int, int)
+       Shape of the input image (C, H, W).
+   num_classes : int
+       Number of classes in the dataset.
+
+   Processing Images
+   -----------------
+   Input: (N, C, H, W)
+       N: Batch size
+       C: Number of input channels
+       H: Height of the input image
+       W: Width of the input image
+
+   Example:
+   Grayscale images (like MNIST) have C = 1.
+   Input shape: (N, 1, 28, 28)
+   fc1 Output shape: (N, 77)
+   fc2 Output shape: (N, 77)
+   fc3 Output shape: (N, 77)
+   fc4 Output shape: (N, num_classes)
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: in_features
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:attribute:: fc3
+
+
+   .. py:attribute:: fc4
+
+
+   .. py:attribute:: relu
+
+
+   .. py:attribute:: flatten
+
+
+   .. py:method:: forward(x)
+
+

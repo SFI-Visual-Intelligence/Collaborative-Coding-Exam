@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christian’s task &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Individual task for Johan" href="Johan_page.html" />
+    <link rel="prev" title="Jan Individual Task" href="Jan_page.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Jan_page.html">Jan Individual Task</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Christian’s task</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convolutional-neural-network">Convolutional neural network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#united-states-postal-service-dataset">United States Postal Service Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#downloading">Downloading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-processing">Pre-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metric-recall">Metric: Recall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#challenges">Challenges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-others-code">Running others code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#having-others-run-my-code">Having others run my code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tooling">Tooling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribution">Contribution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Johan_page.html">Individual task for Johan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Solveig.html">Solveig Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Christian’s task</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/christian.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="christian-s-task">
+<h1>Christian’s task<a class="headerlink" href="#christian-s-task" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page describes the part of the implementation that was assigned to Christian. While the code implementation itself was simple, Christian contributed to many of the repositories design and strucute choices. Note for instance the advanced usage of GitHub actions for formatting, testing, building and pushing Docker images, and creating releases upon tags.</p>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<hr class="docutils" />
+<p>The task given was to implement a dataset that handled downloading, loading, and, preprocessing of the <a class="reference external" href="https://paperswithcode.com/dataset/usps">USPS</a> 0 to 6 digits. The data would then be processed by a predictive framework implementing a convolutional neural network (CNN) consisting of 2 convolutional layers with a max pooling layer, using 50, <span class="math notranslate nohighlight">\(3\times3\)</span> filters followed by <span class="math notranslate nohighlight">\(2\times2\)</span> max pooling, and a <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html">rectified linear unit (ReLU)</a> activation function. The prediction head uses a fully connected network, or multilayer perceptron (MLP) to map from the flattened feature maps to a fixed size output. To evaluate, the <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">Recall</a> metric was implemented.</p>
+</section>
+<section id="convolutional-neural-network">
+<h2>Convolutional neural network<a class="headerlink" href="#convolutional-neural-network" title="Link to this heading"></a></h2>
+<hr class="docutils" />
+<figure class="align-default" id="model-overview">
+<img alt="_images/christian-model-overview.png" src="_images/christian-model-overview.png" />
+<figcaption>
+<p><span class="caption-text">Figure 1. ChristianModel in context: The blue volumes denotes image and channel shapes, whereas red volumes denotes convolutional block filter. Each convolutional block is followed by a 2D max-pooling kernel with stride 2, and a Rectified Linear Unit (ReLU) activation function. After the second convolutional block, the data is flattened and sent through a fully connected layer which maps the flattened vector to the 7 (or <code class="docutils literal notranslate"><span class="pre">num_classes</span></code>) output shapes.</span><a class="headerlink" href="#model-overview" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>A standard CNN, duly named <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/autoapi/CollaborativeCoding/models/christian_model/index.html#CollaborativeCoding.models.christian_model.ChristianModel">ChristianModel</a> was implemented to process 2D image data for handwritten digit classification. Since the CNN used two convolutional layers <em>under the hood</em>, it was beneficial to implement a <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/autoapi/CollaborativeCoding/models/christian_model/index.html#CollaborativeCoding.models.christian_model.CNNBlock">convolutional block (CNNBlock)</a>, which made the network implementation simpler. At the intersection between the convolutional and the fully connected networks—or feature extractor, and predictive network—a function <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/autoapi/CollaborativeCoding/models/christian_model/index.html#CollaborativeCoding.models.christian_model.find_fc_input_shape"><code class="docutils literal notranslate"><span class="pre">find_fc_input_shape</span></code></a>, computed the input size to the MLP using a clever trick, where a dummy image of the same size of the input is sent through the feature extractor to derive the final shape, then flattening to know what size the predictive network would need as input. This means the CNN, before initialization, is agnostic to the input size, and can in principle learn, or be used for evaluation on any 2D images, given that the initialized model has been trained on the same image shape.</p>
+<section id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ChristianModel</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">cnn1</span><span class="p">):</span> <span class="n">CNNBlock</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">conv</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">maxpool</span><span class="p">):</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">relu</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">()</span>
+  <span class="p">)</span>
+  <span class="p">(</span><span class="n">cnn2</span><span class="p">):</span> <span class="n">CNNBlock</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">conv</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">maxpool</span><span class="p">):</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">relu</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">()</span>
+  <span class="p">)</span>
+  <span class="p">(</span><span class="n">fc1</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4900</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><em>Torch summary of the network when initializing for a <span class="math notranslate nohighlight">\(28\times28\)</span> image with 7 output classes. Notice how the <code class="docutils literal notranslate"><span class="pre">CNNBlock</span></code> only differs by the channel mappings, and thus simplifies the implementation through abstraction. This shows the same information as in <a class="reference internal" href="#convolutional-neural-network"><span class="xref myst">Figure 1</span></a></em></p>
+</div></blockquote>
+<p>As per the model description, a CNN consisting of two convolutional blocks that include 2D max-pooling, and a ReLU activation function was implemented. The first convolutional block learns a mapping from a 1-channel greyscale image to 50-channel feature maps, using a <span class="math notranslate nohighlight">\(3\times3\)</span> convolutional kernel. The convolutional kernel uses a padding of 1, thus preserving the size of the input along the latter dimensions (height and width), but applying a 2D max pooling operation with stride 2 reduces the image size by half the original size. The second convolutional block learns a similar mapping from 50 to 100 feature maps, further halving the spatial size of the image. The feature maps are then flattened, and processed by a fully connected layer, mapping to <code class="docutils literal notranslate"><span class="pre">num_classes</span></code>.</p>
+</section>
+</section>
+<section id="united-states-postal-service-dataset">
+<h2>United States Postal Service Dataset<a class="headerlink" href="#united-states-postal-service-dataset" title="Link to this heading"></a></h2>
+<hr class="docutils" />
+<figure class="align-default" id="dataset-samples">
+<img alt="https://www.researchgate.net/publication/342090211/figure/fig2/AS:901050672349184&#64;1591838629358/Example-images-of-USPS-dataset.ppm" src="https://www.researchgate.net/publication/342090211/figure/fig2/AS:901050672349184&#64;1591838629358/Example-images-of-USPS-dataset.ppm" />
+<figcaption>
+<p><span class="caption-text">Figure 2. Excerpt from USPS dataset.</span><a class="headerlink" href="#dataset-samples" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The dataset implements downloading, loading, and, preprocessing of images from a subset of the United States Postal Service (USPS) dataset, corresponding to digits 0 to 6. Check the <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/autoapi/CollaborativeCoding/dataloaders/usps_0_6/index.html#CollaborativeCoding.dataloaders.usps_0_6.USPSDataset0_6">api-reference for <code class="docutils literal notranslate"><span class="pre">USPSDataset0_6</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While many platforms such as <a class="reference external" href="https://www.kaggle.com/datasets/bistaumanga/usps-dataset">kaggle</a> provide versions of the USPS dataset, they generally do not allow api-based downloading, which is required for this project. Thus, we use the official sources for downloading the training and test partitions, that come as binary, compressed, bz2-files from:</p>
+<ul class="simple">
+<li><p>Train: <a class="reference external" href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.bz2">https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.bz2</a></p></li>
+<li><p>Test: <a class="reference external" href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2">https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2</a></p></li>
+</ul>
+</div>
+<p>The datasets are downloaded from the official sources, processed into usable images and labels, then stored in the map-style, hierarchical <a class="reference external" href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> file format for ease of use. When accessing a sample, the data loader makes sure to only load a single sample at a time into memory to conserve resources, which is stated as a requirement for the assignment.</p>
+<section id="downloading">
+<h3>Downloading<a class="headerlink" href="#downloading" title="Link to this heading"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While the requirements state that the whole dataset should not be loaded into memory at a time, for small datasets such as the USPS, a modern computer would have a easier time loading the entire dataset into memory, because of its modest image size and number of samples, totaling about 2.91 MB (train + test partitions).</p>
+</div>
+<p>Each of the partitions is accessed throughout reading the <code class="docutils literal notranslate"><span class="pre">usps.h5</span></code> file, then reading a sample from either <code class="docutils literal notranslate"><span class="pre">/train</span></code> or <code class="docutils literal notranslate"><span class="pre">/test</span></code> internally in the file. The implemented <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/autoapi/CollaborativeCoding/dataloaders/usps_0_6/index.html#CollaborativeCoding.dataloaders.usps_0_6.USPSDataset0_6"><code class="docutils literal notranslate"><span class="pre">USPSDataset0_6</span></code></a> decides which partition to load based on the argument <code class="docutils literal notranslate"><span class="pre">train</span></code> (boolean).</p>
+</section>
+<section id="pre-processing">
+<h3>Pre-processing<a class="headerlink" href="#pre-processing" title="Link to this heading"></a></h3>
+<p>Due to the collaborative nature of this project, datasets need to be capable of loading the same images but with different sizes. Thus, although the USPS dataset is constructed with <span class="math notranslate nohighlight">\(16\times16\)</span> image sizes in mind, other datasets such as the <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/Jan_page.html#mnist-dataset-in-depth">MNIST</a> dataset assumes <span class="math notranslate nohighlight">\(28\times28\)</span> image sizes. Therefore, the dataset accepts a <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument, which preferably should apply a sequence of <a class="reference external" href="https://pytorch.org/vision/0.9/transforms.html">Torchvision transforms</a>, for instance using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">CollaborativeCoding.dataloaders</span> <span class="kn">import</span> <span class="n">USPSDataset0_6</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
+<span class="p">])</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">USPSDataset0_6</span><span class="p">(</span>
+    <span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">train</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="metric-recall">
+<h2>Metric: Recall<a class="headerlink" href="#metric-recall" title="Link to this heading"></a></h2>
+<hr class="docutils" />
+<figure class="float-right">
+    <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/350px-Precisionrecall.svg.png alt="">
+    <figcaption>Figure 3. Visual explanation of precision vs. recall</figcaption>
+</figure>
+<p>Recall, also known as sensitivity, is the subset of relevant instances retrieved, i.e., the true positives, where the predictive network made a correct prediction divided by the total number of relevant elements. In the case of multi-class prediction, that means the number of predictions the network got right, divided by the number of occurrences of the class. The keen reader will have noticed there are two possible ways of computing recall in a multi-class setting; first, the recall might be computed individually per class, then averaged over all classes, known as <em>macro-averaging</em>, which gives equal weight to each class; on the other hand, micro averaging aggregates the true positives and false negatives across all the classes, before calculating the metric based on the total counts, giving each instance the same weight. In this implementation of the metric, the user is able to specify which of the two types they want using the argument <code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code> (boolean).</p>
+<p>This project’s implementation of metrics is also the first place where Pytorch customs are broken. Where <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>, which our metrics are inheriting from, generally advises users to rely on two interfaces. First, the class should be initialized using <code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">=</span> <span class="pre">Recall(...)</span></code>, then to compute the recall, one would generally expect to run <code class="docutils literal notranslate"><span class="pre">recall_score</span> <span class="pre">=</span> <span class="pre">metric(y,</span> <span class="pre">logits)</span></code>, however, <a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues/84">the group decided to store each metric</a>, before aggregating and computing the score on an epoch-level, for more accurate computations of our metrics. While this might cause confusion for inexperienced users, we restate the age-old saying of <a class="reference external" href="https://sfi-visual-intelligence.github.io/Collaborative-Coding-Exam/index.html"><strong>read the docs</strong> (!)</a>.
+And as such, the correct usage would instead be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CollaborativeCoding.metrics</span> <span class="kn">import</span> <span class="n">Recall</span>
+
+<span class="n">metric</span> <span class="o">=</span> <span class="n">Recall</span><span class="p">(</span><span class="n">macro_averaging</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">metric</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+
+<span class="n">score</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">__get_metrics__</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Where the use of a <a class="reference external" href="https://www.geeksforgeeks.org/dunder-magic-methods-python/"><em>dunder method</em></a> signals to the user that this should be treated as a private-class method, we provide a simpler interface through our <a class="reference external" href="https://www.geeksforgeeks.org/dunder-magic-methods-python/"><code class="docutils literal notranslate"><span class="pre">MetricWrapper</span></code> (link)</a>.</p>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Link to this heading"></a></h2>
+<hr class="docutils" />
+<p>This course focuses and requires the collaboration between multiple people, where a foundational aspect is the collaboration and interoperability of our code. This meant that a common baseline, and an agreement of the quality, and design choices of our implementation stood at the centre as a glaring challenge. However, throughout the use of inherently collaborative tools such as <a class="reference external" href="https://git-scm.com/">Git</a> and <a class="reference external" href="https://github.com/">GitHub</a> we managed to find a common style:</p>
+<ol class="arabic simple">
+<li><p>When bugs are noticed, <a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues?q=is%3Aissue%20state%3Aclosed">raise an issue</a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">main</span></code>-branch of the GitHub repository is protected, therefore all changes must;</p>
+<ol class="arabic simple">
+<li><p>Start out as a pull-request, preferably addressing an issue.</p></li>
+<li><p>Pass all <a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/actions">GitHub Actions</a>, which meant:</p>
+<ul class="simple">
+<li><p>Formatting with <a class="reference external" href="https://astral.sh/ruff">ruff</a> and <a class="reference external" href="https://pycqa.github.io/isort/">isort</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/tree/854cda6c4c9dc06067a862a54b992b411246b93c/tests">Tests</a> using <a class="reference external" href="https://docs.pytest.org/en/stable/">Pytest</a>.</p></li>
+<li><p>Build documentation with <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>.</p></li>
+<li><p>Build and push <a class="reference external" href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/">Docker image</a>.</p></li>
+</ul>
+</li>
+<li><p>Be accepted by at least one other member.</p></li>
+</ol>
+</li>
+<li><p>Ensure documentation using <a class="reference external" href="https://peps.python.org/pep-0257/">Pythons docstrings</a> are up-to-date, following the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpydoc</a> style.</p></li>
+</ol>
+<p>This structure ensured a thorough yet simple template for creating one’s implementation while adhering to the style.</p>
+<section id="running-others-code">
+<h3>Running others code<a class="headerlink" href="#running-others-code" title="Link to this heading"></a></h3>
+<p>Generally, once the aforementioned requirements were set in stone and tests were implemented, other collaborators code were at such a high quality that using it was not a problem. The difficult part here is deciding on the common design choices, which we managed to do early on.</p>
+</section>
+<section id="having-others-run-my-code">
+<h3>Having others run my code<a class="headerlink" href="#having-others-run-my-code" title="Link to this heading"></a></h3>
+<p>As with the above conclusion, having a common ground to work from made the challenge much easier. However, upon deciding the style, there were a few disagreements to how the code should be written. But with majority voting, we were able to decide on solutions that everyone was happy with.</p>
+</section>
+</section>
+<section id="tooling">
+<h2>Tooling<a class="headerlink" href="#tooling" title="Link to this heading"></a></h2>
+<p>While Git and GitHub were familiar to me from before, GitHub Actions, documentation using Sphinx, GitHub Packages, and the <a class="reference external" href="https://astral.sh/blog/uv">UV</a> package manager were new to me. GitHub Actions proved to be paramount for automated testing, ensuring quality in the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch of the project, as well as keeping code readable using formatters. Having a documentation with Sphinx, proved to be beneficial when using another persons code, and not knowing the exact internals of their implementational choices. While most collaborators started the project using <a class="reference external" href="https://www.anaconda.com/docs/main">miniconda</a>, we decided to use UV as our <em>official</em> package manager. While I have good experience with Docker, I had not used the <a class="reference external" href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">GitHub Container Registry (ghcr.io)</a> before, which had the benefit of tying the container image up to the repository, and organization, instead of a single collaborator.</p>
+</section>
+<section id="contribution">
+<h2>Contribution<a class="headerlink" href="#contribution" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/issues?q=author%3Asalomaestro">Issues raised</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/pulls?q=author%3Asalomaestro">PR’s opened</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SFI-Visual-Intelligence/Collaborative-Coding-Exam/commits/main/?author=salomaestro">Commits</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Jan_page.html" class="btn btn-neutral float-left" title="Jan Individual Task" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Johan_page.html" class="btn btn-neutral float-right" title="Individual task for Johan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

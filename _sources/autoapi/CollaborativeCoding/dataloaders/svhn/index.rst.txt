@@ -1,0 +1,90 @@
+CollaborativeCoding.dataloaders.svhn
+====================================
+
+.. py:module:: CollaborativeCoding.dataloaders.svhn
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.svhn.SVHNDataset
+
+
+Module Contents
+---------------
+
+.. py:class:: SVHNDataset(data_path: pathlib.Path, sample_ids: list, train: bool, transform=None, nr_channels=3)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   An abstract class representing a :class:`Dataset`.
+
+   All datasets that represent a map from keys to data samples should subclass
+   it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+   data sample for a given key. Subclasses could also optionally overwrite
+   :meth:`__len__`, which is expected to return the size of the dataset by many
+   :class:`~torch.utils.data.Sampler` implementations and the default options
+   of :class:`~torch.utils.data.DataLoader`. Subclasses could also
+   optionally implement :meth:`__getitems__`, for speedup batched samples
+   loading. This method accepts list of indices of samples of batch and returns
+   list of samples.
+
+   .. note::
+     :class:`~torch.utils.data.DataLoader` by default constructs an index
+     sampler that yields integral indices.  To make it work with a map-style
+     dataset with non-integral indices/keys, a custom sampler must be provided.
+
+
+   .. py:attribute:: data_path
+
+
+   .. py:attribute:: indexes
+
+
+   .. py:attribute:: split
+      :value: 'train'
+
+
+
+   .. py:attribute:: nr_channels
+      :value: 3
+
+
+
+   .. py:attribute:: transforms
+      :value: None
+
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:method:: _create_h5py(path: str)
+
+      Downloads the SVHN dataset to the specified directory.
+      Args:
+          path (str): The directory where the dataset will be downloaded.
+
+
+
+   .. py:method:: __len__()
+
+      Returns the number of samples in the dataset.
+      Returns:
+          int: The number of samples.
+
+
+
+   .. py:method:: __getitem__(index)
+
+      Retrieves the image and label at the specified index.
+      Args:
+          index (int): The index of the sample to retrieve.
+      Returns:
+          tuple: A tuple containing the image and its corresponding label.
+
+
+

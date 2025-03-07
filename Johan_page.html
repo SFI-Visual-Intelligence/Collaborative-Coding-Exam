@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Individual task for Johan &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Solveig Individual Task" href="Solveig.html" />
+    <link rel="prev" title="Christian’s task" href="christian.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Jan_page.html">Jan Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="christian.html">Christian’s task</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Individual task for Johan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#my-implementation-tasks">My implementation tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-choices">Implementation choices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dataset">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metric">Metric</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#experiences-with-running-someone-else-s-code">Experiences with running someone else’s code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiences-having-someone-else-to-run-my-code">Experiences having someone else to run my code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i-learned-how-to-use-these-tools-during-this-course">I learned how to use these tools during this course</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-stuff">Git-stuff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wandb">WandB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-kubernetes-and-springfield">Docker, Kubernetes and Springfield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proper-documentation">Proper documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nice-ways-of-testing-code">Nice ways of testing code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uv">UV</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Solveig.html">Solveig Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Individual task for Johan</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Johan_page.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="individual-task-for-johan">
+<h1>Individual task for Johan<a class="headerlink" href="#individual-task-for-johan" title="Link to this heading"></a></h1>
+<section id="my-implementation-tasks">
+<h2>My implementation tasks<a class="headerlink" href="#my-implementation-tasks" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Data: Implement <a class="reference download internal" download="" href="_downloads/ded8e2dcbed3b0f34609b484dc5e52dd/mnist_4_9.py"><span class="xref download myst">MNIST</span></a> dataset with digits between 4-9.</p></li>
+<li><p>Model: <a class="reference download internal" download="" href="_downloads/07ac85009699ad44e096c1d29afd31dd/johan_model.py"><span class="xref download myst">MLP-model</span></a> with 4 hidden layers, each with 77 neurons and ReLU activation.</p></li>
+<li><p>Evaluation metric: <a class="reference download internal" download="" href="_downloads/c431524f2130495468f797f6dacf1a41/precision.py"><span class="xref download myst">Precision</span></a>.</p></li>
+</ul>
+</section>
+<section id="implementation-choices">
+<h2>Implementation choices<a class="headerlink" href="#implementation-choices" title="Link to this heading"></a></h2>
+<section id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading"></a></h3>
+<p>The choices regarding the dataset were mostly done in conjunction with Jan (&#64;hzavadil98) as we were both using the MNIST dataset. Jan had the idea to download the binary files and construct the images from those. The group decided collaboratively to make the package download the data once and store it for all of us to use. Hence, the individual implementations are fairly similar, at least for the two MNIST dataloaders. Were it not for these individual tasks, there would have been one dataloader class, initialized with two separate ranges for labels 0-3 and 4-9. However, individual dataloaders had to be created to comply with the exam description. For my implementation, the labels had to be mapped to a range starting at 0: <span class="math notranslate nohighlight">\((4-9) \to (0,5)\)</span> since the cross-entropy loss function in PyTorch expect this range.</p>
+<p>Dataset based on the PyTorch module <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__</span></code> Initialize the dataset. Shifts the labels <span class="math notranslate nohighlight">\((4-9) \to (0,5)\)</span> to comply with the expectations of the cross-entropy loss function.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_path</span></code>: Path to where MNIST is/should be stored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_ids</span></code>: Array of indices specifying which samples to load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train</span></code>: Train or test the model (boolean), default is False.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transform</span></code>: Transforms if any, default is None.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nr_channels</span></code>: Number of channels, default is 1.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code>: Return the length of dataloader.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>: Return the item of the specified index. Read the binary file at the correct position in order to generate the sample. Parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">idx</span></code>: Index of the desired sample.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="model">
+<h3>Model<a class="headerlink" href="#model" title="Link to this heading"></a></h3>
+<p>The model is a straightforward MLP that consists of 4 hidden layers, 77 neurons in each layer. The activation function is ReLU. The final output is logits.</p>
+<p>The model inherits the basic class from PyTorch: <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> so that the only necessary methods are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__</span></code>: Initialize the network with the following parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ìmage_shape</span></code>: Shape of the image (channels, height, width).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code>: Number of classes to predict. This controls the output dimension.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forward</span></code>: One forward pass of the model. Parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> One batch of data.</p></li>
+</ul>
+</li>
+</ul>
+<p>For any batch size <code class="docutils literal notranslate"><span class="pre">N</span></code> an example would be:</p>
+<ul class="simple">
+<li><p>Grayscale MNIST picture have shape (1,28,28).</p></li>
+<li><p>Input shape: (<code class="docutils literal notranslate"><span class="pre">N</span></code>,1,28,28)</p></li>
+<li><p>First layer output shape: (<code class="docutils literal notranslate"><span class="pre">N</span></code>,77)</p></li>
+<li><p>Second layer output shape: (<code class="docutils literal notranslate"><span class="pre">N</span></code>,77)</p></li>
+<li><p>Third layer output shape: (<code class="docutils literal notranslate"><span class="pre">N</span></code>,77)</p></li>
+<li><p>Fourth (final) layer output shape: (<code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">num_classes</span></code>)</p></li>
+</ul>
+</section>
+<section id="metric">
+<h3>Metric<a class="headerlink" href="#metric" title="Link to this heading"></a></h3>
+<p>The precision metric is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+Precision = \frac{TP}{TP+FP},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(TP\)</span> and <span class="math notranslate nohighlight">\(FP\)</span> are the numbers of true and false positives respectively. Hence, precision is a measure of how often the model is correct whenever it predicts the target class.</p>
+<p>It can be calculated in two ways:</p>
+<ul class="simple">
+<li><p>Macro-averaging: The precision is calculated for each class separately and then averaged over (default).</p></li>
+<li><p>Micro-averaging: Find <span class="math notranslate nohighlight">\(TP\)</span> and <span class="math notranslate nohighlight">\(FP\)</span> for all the classes and calculate precision once with these values.</p></li>
+</ul>
+<p>The precision metric is also subclass of the PyTorch <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> class. It has the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__</span></code>: Class initialization. Creates the class variables <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> which are used to calculate the metrics. Parameters are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code>: The number of classes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code>: Boolean flag that control how to average the precision. Default is false.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forward</span></code>: Appends the true and predicted values to the class variables. Parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_true</span></code>: Tensor with true values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_pred</span></code>: Tensor with predicted values.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_micro_avg_precision</span></code>: Computes the micro-averaged precision. Parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_true</span></code>: Tensor with true values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_pred</span></code>: Tensor with predicted values.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_macro_avg_precision</span></code>: Computes the macro-averaged precision. Parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_true</span></code>: Tensor with true values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_pred</span></code>: Tensor with predicted values.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__returnmetric__</span></code>: Return the micro/macro-averaged precision of the samples stored in the class variables <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__reset__</span></code>: Resets the list of samples stored in the class variables <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> so that it is empty.</p></li>
+</ul>
+</section>
+</section>
+<section id="experiences-with-running-someone-else-s-code">
+<h2>Experiences with running someone else’s code<a class="headerlink" href="#experiences-with-running-someone-else-s-code" title="Link to this heading"></a></h2>
+<p>This was an interesting experience as things did not go exactly as expected. I was initially unable to run with my assigned dataset (USPS 0-6). I have never encountered this error before, but with the help of Erik (IT guy) and Christian, a conflict with the <code class="docutils literal notranslate"><span class="pre">urllib</span></code> package and the newest python version was identifies. Christian recognized a solution, and suggested a fix which solved my problem. Hence, communicating well with the author of the code I was trying to run proved essential when I encountered errors.</p>
+</section>
+<section id="experiences-having-someone-else-to-run-my-code">
+<h2>Experiences having someone else to run my code<a class="headerlink" href="#experiences-having-someone-else-to-run-my-code" title="Link to this heading"></a></h2>
+<p>I have not heard anything from whoever ran my code, so I assume everything went well.</p>
+</section>
+<section id="i-learned-how-to-use-these-tools-during-this-course">
+<h2>I learned how to use these tools during this course<a class="headerlink" href="#i-learned-how-to-use-these-tools-during-this-course" title="Link to this heading"></a></h2>
+<p>Coming from a non-machine-learning background where the coding routines are slightly different in the sense of code organization and the use of tools like “docker” and “WandB”, the learning curve has been steep. I am grateful to have been given the chance to collaborate with skilled peers, from whom I have learned a lot.</p>
+<section id="git-stuff">
+<h3>Git-stuff<a class="headerlink" href="#git-stuff" title="Link to this heading"></a></h3>
+<p>My novel experience with git prior to this project consisted of mainly having a local repository where I pulled/pushed to a GitHub repo, using one branch only; version control for myself only. Here I learned to utilize the features of git when collaborating with others, which include:</p>
+<ul class="simple">
+<li><p>Operating with Issues and assignments of work division.</p></li>
+<li><p>Work on separate branches and have merge-protection on the main branch.</p></li>
+<li><p>Using pull requests where we had to review each other’s code before merging into main.</p></li>
+<li><p>Use GitHub actions to automate workflows like unit testing and documentation building.</p></li>
+<li><p>Using tags and creating releases.</p></li>
+<li><p>Making the repository function like a package and make it installable.</p></li>
+<li><p>Writing clear and documented code and building documentations.</p></li>
+</ul>
+</section>
+<section id="wandb">
+<h3>WandB<a class="headerlink" href="#wandb" title="Link to this heading"></a></h3>
+<p>It was insightful to learn the basics of using Weights and Biases to track the progress when training and evaluating models. I have used Tensorboard (slightly) prior to this, but WandB seems like a better option.</p>
+</section>
+<section id="docker-kubernetes-and-springfield">
+<h3>Docker, Kubernetes and Springfield<a class="headerlink" href="#docker-kubernetes-and-springfield" title="Link to this heading"></a></h3>
+<p>Completely new to all of this. Spend quite some time trying to understand what docker and kubernetes is since we were supposed to run the experiment on the local cluster Springfield. There was a whole process setting everything up, making the ssh secrets and get everything to work. I have some prior experience with SSH protocols, but never used any container software, nor schedulers like kubernetes.</p>
+</section>
+<section id="proper-documentation">
+<h3>Proper documentation<a class="headerlink" href="#proper-documentation" title="Link to this heading"></a></h3>
+<p>Writing good documentation is always necessary and having training in this was fruitful. Combining this with GitHub action and Sphinx made it far easier to have an updated version of the documentation readily available.</p>
+</section>
+<section id="nice-ways-of-testing-code">
+<h3>Nice ways of testing code<a class="headerlink" href="#nice-ways-of-testing-code" title="Link to this heading"></a></h3>
+<p>The combination of having testing part of the GitHub action workflow and using the more advanced features of <code class="docutils literal notranslate"><span class="pre">pytest</span></code> (like parametrized testing) was new to be, a very nice thing to learn. It automated testing and made it significantly more easy to make sure that any code we pushed to the main branch was performing well, and did not lose any unintended functionality.</p>
+</section>
+<section id="uv">
+<h3>UV<a class="headerlink" href="#uv" title="Link to this heading"></a></h3>
+<p>I switched to UV as my package manager for this project, and it is VERY good. Really fast and versatile.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="christian.html" class="btn btn-neutral float-left" title="Christian’s task" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Solveig.html" class="btn btn-neutral float-right" title="Solveig Individual Task" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

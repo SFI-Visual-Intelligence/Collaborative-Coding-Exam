@@ -1,0 +1,50 @@
+CollaborativeCoding.load_model
+==============================
+
+.. py:module:: CollaborativeCoding.load_model
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.load_model.load_model
+
+
+Module Contents
+---------------
+
+.. py:function:: load_model(modelname: str, *args, **kwargs) -> torch.nn.Module
+
+   Load the model based on the model name.
+
+   Args
+   ----
+   modelname : str
+       Name of the model to load.
+   *args : list
+       Additional arguments for the model class.
+   **kwargs : dict
+       Additional keyword arguments for the model class.
+
+   Returns
+   -------
+   model : torch.nn.Module
+       Model object.
+
+   Raises
+   ------
+   NotImplementedError
+       If the model is not implemented.
+
+   Examples
+   --------
+   >>> from CollaborativeCoding import load_model
+   >>> model = load_model("magnusmodel", num_classes=10)
+   >>> model
+   MagnusModel(
+     (fc1): Linear(in_features=784, out_features=100, bias=True)
+     (fc2): Linear(in_features=100, out_features=10, bias=True
+
+

@@ -1,0 +1,110 @@
+CollaborativeCoding.metrics.recall
+==================================
+
+.. py:module:: CollaborativeCoding.metrics.recall
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.metrics.recall.Recall
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.metrics.recall.one_hot_encode
+
+
+Module Contents
+---------------
+
+.. py:function:: one_hot_encode(vec, num_classes)
+
+   One-hot encode the target tensor.
+
+   Args
+   ----
+   vec : torch.Tensor
+       Target tensor.
+   num_classes : int
+       Number of classes in the dataset.
+
+   Returns
+   -------
+   torch.Tensor
+       One-hot encoded tensor.
+
+
+.. py:class:: Recall(num_classes, macro_averaging=False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Recall metric.
+
+   Args
+   ----
+   num_classes : int
+       Number of classes in the dataset.
+   macro_averaging : bool
+       If True, calculate the recall for each class and return the average.
+       If False, calculate the recall for the entire dataset.
+
+   Methods
+   -------
+   forward(y_true, y_pred)
+       Compute the recall metric.
+
+   Examples
+   --------
+   >>> y_true = torch.tensor([0, 1, 2, 3, 4])
+   >>> y_pred = torch.randn(5, 5).argmax(dim=-1)
+   >>> recall = Recall(num_classes=5)
+   >>> recall(y_true, y_pred)
+   0.2
+   >>> recall = Recall(num_classes=5, macro_averaging=True)
+   >>> recall(y_true, y_pred)
+   0.2
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: macro_averaging
+      :value: False
+
+
+
+   .. py:attribute:: __y_true
+      :value: []
+
+
+
+   .. py:attribute:: __y_pred
+      :value: []
+
+
+
+   .. py:method:: forward(true, logits)
+
+
+   .. py:method:: compute(y_true, y_pred)
+
+
+   .. py:method:: __compute_macro_averaging(y_true, y_pred)
+
+
+   .. py:method:: __compute_micro_averaging(y_true, y_pred)
+
+
+   .. py:method:: __returnmetric__()
+
+
+   .. py:method:: __reset__()
+
+

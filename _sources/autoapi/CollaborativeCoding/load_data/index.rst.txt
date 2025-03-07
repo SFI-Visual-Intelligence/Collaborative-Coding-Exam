@@ -1,0 +1,51 @@
+CollaborativeCoding.load_data
+=============================
+
+.. py:module:: CollaborativeCoding.load_data
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.load_data.filter_labels
+   CollaborativeCoding.load_data.load_data
+
+
+Module Contents
+---------------
+
+.. py:function:: filter_labels(samples: list, wanted_labels: list) -> list
+
+.. py:function:: load_data(dataset: str, *args, **kwargs) -> tuple
+
+   Load the dataset based on the dataset name.
+
+   Args
+   ----
+   dataset : str
+       Name of the dataset to load.
+   *args : list
+       Additional arguments for the dataset class.
+   **kwargs : dict
+       Additional keyword arguments for the dataset class.
+
+   Returns
+   -------
+   tuple
+       Tuple of train, validation and test datasets.
+
+   Raises
+   ------
+   NotImplementedError
+       If the dataset is not implemented.
+
+   Examples
+   --------
+   >>> from CollaborativeCoding import setup_data
+   >>> train, val, test = setup_data("usps_0-6", data_path="data", train=True, download=True)
+   >>> len(train), len(val), len(test)
+   (4914, 546, 1782)
+
+

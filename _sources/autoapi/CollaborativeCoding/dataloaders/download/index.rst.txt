@@ -1,0 +1,91 @@
+CollaborativeCoding.dataloaders.download
+========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.download
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.download.Downloader
+
+
+Module Contents
+---------------
+
+.. py:class:: Downloader
+
+   Class used to verify availability and potentially download implemented datasets.
+
+   Methods
+   -------
+   mnist(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
+       Checks the availability of mnist dataset. If not present downloads it into MNIST folder in `data_dir`.
+   svhn(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
+       Download the SVHN dataset and save it as an HDF5 file to `data_dir`.
+   usps(data_dir: Path) -> tuple[np.ndarray, np.ndarray]
+       Download the USPS dataset and save it as an HDF5 file to `data_dir`.
+
+   Raises
+   ------
+   NotImplementedError
+       If the download method is not implemented for the dataset.
+
+   Examples
+   --------
+   >>> from pathlib import Path
+   >>> from CollaborativeCoding import Downloader
+   >>> dir = Path('tmp')
+   >>> dir.mkdir(exist_ok=True)
+   >>> train, test = Downloader().usps(dir)
+
+
+   .. py:method:: mnist(data_dir: pathlib.Path) -> tuple[numpy.ndarray, numpy.ndarray]
+
+      Check the availability of mnist dataset. If not present downloads it into MNIST folder in `data_dir`.
+
+
+
+   .. py:method:: svhn(data_dir: pathlib.Path) -> tuple[numpy.ndarray, numpy.ndarray]
+
+
+   .. py:method:: usps(data_dir: pathlib.Path) -> tuple[numpy.ndarray, numpy.ndarray]
+
+      Download the USPS dataset and save it as an HDF5 file to `data_dir/usps.h5`.
+
+
+
+   .. py:method:: __extract_usps(src: pathlib.Path, dest: pathlib.Path, mode: str)
+
+
+   .. py:method:: __reporthook(blocknum, blocksize, totalsize)
+      :staticmethod:
+
+
+      Use this function to report download progress
+      for the urllib.request.urlretrieve function.
+
+
+
+   .. py:method:: __check_integrity(filepath, checksum)
+      :staticmethod:
+
+
+      Check the integrity of the USPS dataset file.
+
+      Args
+      ----
+      filepath : pathlib.Path
+          Path to the USPS dataset file.
+      checksum : str
+          MD5 checksum of the dataset file.
+
+      Returns
+      -------
+      bool
+          True if the checksum of the file matches the expected checksum, False otherwise
+
+
+

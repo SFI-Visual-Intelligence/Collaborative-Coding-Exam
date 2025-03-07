@@ -1,0 +1,28 @@
+CollaborativeCoding.createfolders
+=================================
+
+.. py:module:: CollaborativeCoding.createfolders
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   CollaborativeCoding.createfolders.createfolders
+
+
+Module Contents
+---------------
+
+.. py:function:: createfolders(*dirs: pathlib.Path) -> None
+
+   Creates folders for storing data, results, model weights.
+
+   Parameters
+   ----------
+   args
+       ArgParse object containing string paths to be created
+
+
+

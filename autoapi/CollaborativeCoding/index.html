@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CollaborativeCoding &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CollaborativeCoding.arg_parser" href="arg_parser/index.html" />
+    <link rel="prev" title="API Reference" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Jan_page.html">Jan Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../christian.html">Christian’s task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Johan_page.html">Individual task for Johan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Solveig.html">Solveig Individual Task</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CollaborativeCoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arg_parser/index.html">CollaborativeCoding.arg_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createfolders/index.html">CollaborativeCoding.createfolders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dataloaders/index.html">CollaborativeCoding.dataloaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_data/index.html">CollaborativeCoding.load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_metric/index.html">CollaborativeCoding.load_metric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_model/index.html">CollaborativeCoding.load_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="metrics/index.html">CollaborativeCoding.metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models/index.html">CollaborativeCoding.models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CollaborativeCoding.get_args"><code class="docutils literal notranslate"><span class="pre">get_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CollaborativeCoding.createfolders"><code class="docutils literal notranslate"><span class="pre">createfolders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CollaborativeCoding.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CollaborativeCoding.MetricWrapper"><code class="docutils literal notranslate"><span class="pre">MetricWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CollaborativeCoding.load_model"><code class="docutils literal notranslate"><span class="pre">load_model()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">CollaborativeCoding</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/CollaborativeCoding/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-CollaborativeCoding">
+<span id="collaborativecoding"></span><h1>CollaborativeCoding<a class="headerlink" href="#module-CollaborativeCoding" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="arg_parser/index.html">CollaborativeCoding.arg_parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="createfolders/index.html">CollaborativeCoding.createfolders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataloaders/index.html">CollaborativeCoding.dataloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_data/index.html">CollaborativeCoding.load_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_metric/index.html">CollaborativeCoding.load_metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_model/index.html">CollaborativeCoding.load_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics/index.html">CollaborativeCoding.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/index.html">CollaborativeCoding.models</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#CollaborativeCoding.MetricWrapper" title="CollaborativeCoding.MetricWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetricWrapper</span></code></a></p></td>
+<td><p>A wrapper class for evaluating multiple metrics on the same dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#CollaborativeCoding.get_args" title="CollaborativeCoding.get_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_args</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#CollaborativeCoding.createfolders" title="CollaborativeCoding.createfolders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">createfolders</span></code></a>(→ None)</p></td>
+<td><p>Creates folders for storing data, results, model weights.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="load_data/index.html#module-CollaborativeCoding.load_data" title="CollaborativeCoding.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a>(→ tuple)</p></td>
+<td><p>Load the dataset based on the dataset name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="load_model/index.html#module-CollaborativeCoding.load_model" title="CollaborativeCoding.load_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_model</span></code></a>(→ torch.nn.Module)</p></td>
+<td><p>Load the model based on the model name.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="CollaborativeCoding.get_args">
+<span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.</span></span><span class="sig-name descname"><span class="pre">get_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.get_args" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CollaborativeCoding.createfolders">
+<span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.</span></span><span class="sig-name descname"><span class="pre">createfolders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dirs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CollaborativeCoding.createfolders" title="Link to this definition"></a></dt>
+<dd><p>Creates folders for storing data, results, model weights.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>args</dt><dd><p>ArgParse object containing string paths to be created</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CollaborativeCoding.load_data">
+<span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#CollaborativeCoding.load_data" title="Link to this definition"></a></dt>
+<dd><p>Load the dataset based on the dataset name.</p>
+<section id="args">
+<h3>Args<a class="headerlink" href="#args" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>dataset<span class="classifier">str</span></dt><dd><p>Name of the dataset to load.</p>
+</dd>
+<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args<span class="classifier">list</span></dt><dd><p>Additional arguments for the dataset class.</p>
+</dd>
+<dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Additional keyword arguments for the dataset class.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>tuple</dt><dd><p>Tuple of train, validation and test datasets.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>NotImplementedError</dt><dd><p>If the dataset is not implemented.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">CollaborativeCoding</span> <span class="kn">import</span> <span class="n">setup_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">setup_data</span><span class="p">(</span><span class="s2">&quot;usps_0-6&quot;</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="go">(4914, 546, 1782)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.</span></span><span class="sig-name descname"><span class="pre">MetricWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macro_averaging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+<p>A wrapper class for evaluating multiple metrics on the same dataset.
+This class allows you to compute several metrics simultaneously on given
+true and predicted labels. It supports a variety of common metrics and
+provides methods to accumulate results and reset the state.</p>
+<section id="id5">
+<h3>Args<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>num_classes<span class="classifier">int</span></dt><dd><p>The number of classes in the classification task.</p>
+</dd>
+<dt>metrics<span class="classifier">list[str]</span></dt><dd><p>A list of metric names to be evaluated.</p>
+</dd>
+<dt>macro_averaging<span class="classifier">bool</span></dt><dd><p>Whether to compute macro-averaged metrics for multi-class classification.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>metrics<span class="classifier">dict</span></dt><dd><p>A dictionary mapping metric names to their corresponding functions.</p>
+</dd>
+<dt>num_classes<span class="classifier">int</span></dt><dd><p>The number of classes for the classification task.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>__call__(y_true, y_pred)</dt><dd><p>Passes the true and predicted logits to the metric functions.</p>
+</dd>
+<dt>getmetrics(str_prefix: str = None)</dt><dd><p>Retrieves the dictionary of computed metrics, optionally all keys can be prefixed with a string.</p>
+</dd>
+<dt>resetmetric()</dt><dd><p>Resets the state of all metric computations.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">CollaborativeCoding</span> <span class="kn">import</span> <span class="n">MetricWrapperProposed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="n">MetricWrapperProposed</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">,</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;precision&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">],</span>
+<span class="go">             [0.1,   9.0],</span>
+<span class="go">             [-1.9, -0.1],</span>
+<span class="go">             [1.9,   1.8]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">getmetrics</span><span class="p">()</span>
+<span class="go">{&#39;entropy&#39;: 0.3292665, &#39;f1&#39;: 0.5, &#39;precision&#39;: 0.5}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">resetmetric</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">getmetrics</span><span class="p">()</span>
+<span class="go">{&#39;entropy&#39;: [], &#39;f1&#39;: [], &#39;precision&#39;: []}</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper.metrics">
+<span class="sig-name descname"><span class="pre">metrics</span></span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper.metrics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper.params">
+<span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper.params" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper._get_metric">
+<span class="sig-name descname"><span class="pre">_get_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper._get_metric" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the metric function based on the provided key.
+Args
+—-</p>
+<blockquote>
+<div><p>key (str): The name of the metric.</p>
+</div></blockquote>
+<section id="id7">
+<h4>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p>metric (callable): The function that computes the metric.</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper.__call__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper.getmetrics">
+<span class="sig-name descname"><span class="pre">getmetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper.getmetrics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.MetricWrapper.resetmetric">
+<span class="sig-name descname"><span class="pre">resetmetric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.MetricWrapper.resetmetric" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CollaborativeCoding.load_model">
+<span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.nn.Module</span></span></span><a class="headerlink" href="#CollaborativeCoding.load_model" title="Link to this definition"></a></dt>
+<dd><p>Load the model based on the model name.</p>
+<section id="id8">
+<h3>Args<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>modelname<span class="classifier">str</span></dt><dd><p>Name of the model to load.</p>
+</dd>
+<dt><a href="#id9"><span class="problematic" id="id10">*</span></a>args<span class="classifier">list</span></dt><dd><p>Additional arguments for the model class.</p>
+</dd>
+<dt><a href="#id11"><span class="problematic" id="id12">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Additional keyword arguments for the model class.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Returns<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>model<span class="classifier">torch.nn.Module</span></dt><dd><p>Model object.</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h3>Raises<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>NotImplementedError</dt><dd><p>If the model is not implemented.</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h3>Examples<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">CollaborativeCoding</span> <span class="kn">import</span> <span class="n">load_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;magnusmodel&quot;</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span>
+<span class="go">MagnusModel(</span>
+<span class="go">  (fc1): Linear(in_features=784, out_features=100, bias=True)</span>
+<span class="go">  (fc2): Linear(in_features=100, out_features=10, bias=True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arg_parser/index.html" class="btn btn-neutral float-right" title="CollaborativeCoding.arg_parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

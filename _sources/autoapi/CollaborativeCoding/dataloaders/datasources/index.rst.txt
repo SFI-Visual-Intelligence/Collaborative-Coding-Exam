@@ -1,0 +1,31 @@
+CollaborativeCoding.dataloaders.datasources
+===========================================
+
+.. py:module:: CollaborativeCoding.dataloaders.datasources
+
+.. autoapi-nested-parse::
+
+   This module contains the data sources for the datasets used in the experiments.
+
+   The data sources are defined as dictionaries with the following keys
+   - train: A list containing the URL, filename, and MD5 hash of the training data.
+   - test: A list containing the URL, filename, and MD5 hash of the test data.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   CollaborativeCoding.dataloaders.datasources.USPS_SOURCE
+   CollaborativeCoding.dataloaders.datasources.MNIST_SOURCE
+
+
+Module Contents
+---------------
+
+.. py:data:: USPS_SOURCE
+
+.. py:data:: MNIST_SOURCE
+

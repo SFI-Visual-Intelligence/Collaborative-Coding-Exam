@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solveig Individual Task &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="autoapi/index.html" />
+    <link rel="prev" title="Individual task for Johan" href="Johan_page.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Jan_page.html">Jan Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="christian.html">Christian’s task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Johan_page.html">Individual task for Johan</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Solveig Individual Task</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#task-overview">Task overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dataset-usps">Dataset: USPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-cnn">Model: CNN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network-structure">Network structure:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forward-pass-of-an-image-through-the-network">Forward pass of an image through the network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metric-f1">Metric: F1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#experiences-running-another-person-s-code">Experiences running another person’s code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiences-another-person-running-my-code">Experiences another person running my code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Solveig Individual Task</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Solveig.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="solveig-individual-task">
+<h1>Solveig Individual Task<a class="headerlink" href="#solveig-individual-task" title="Link to this heading"></a></h1>
+<section id="task-overview">
+<h2>Task overview<a class="headerlink" href="#task-overview" title="Link to this heading"></a></h2>
+<p>In addition to the overall task, I was assigned the implementation of the following tasks:</p>
+<ul class="simple">
+<li><p>A <a class="reference download internal" download="" href="_downloads/71d0c382237f8ee3f52fba3839fb8c29/solveig_model.py"><span class="xref download myst">CNN-model</span></a></p></li>
+<li><p>A dataset class for the <a class="reference download internal" download="" href="_downloads/7a3a4aca3183e34bbbb432bf84f865d3/uspsh5_7_9.py"><span class="xref download myst">USPS dataset</span></a> for the digits from 7-9</p></li>
+<li><p>The <a class="reference download internal" download="" href="_downloads/d2d5645ce75b1864e5e666c3abff1de6/F1.py"><span class="xref download myst">F1</span></a> evaluation metric</p></li>
+</ul>
+</section>
+<section id="dataset-usps">
+<h2>Dataset: USPS<a class="headerlink" href="#dataset-usps" title="Link to this heading"></a></h2>
+<p>This class is a custom PyTorch Dataset that loads a subset of the USPS dataset, specifically images of the digits 7, 8, and 9, from an HDF5 file.
+It supports image transformations and provides methods to retrieve both images and their corresponding labels.
+The original USPS dataset labels digits as 7, 8, 9, but PyTorch’s cross-entropy loss function (which is used for classification tasks) expects class labels starting from 0.
+To address this, a label mapping function (<code class="docutils literal notranslate"><span class="pre">label_shift</span></code>)  is used to remap the labels to the range [0, 2], where 7 → 0, 8 → 1, and 9 → 2.
+Additionally, a reverse mapping function (<code class="docutils literal notranslate"><span class="pre">label_restore</span></code>) is defined to restore the original labels if needed.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">USPSH5_Digit_7_9_Dataset</span></code> Inherits from: <code class="docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>This means the class follows the PyTorch Dataset interface, which requires implementation of the <code class="docutils literal notranslate"><span class="pre">__len__</span></code> and <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> methods. This allows the dataset to be used with PyTorch’s DataLoader for batch processing and iteration.</p>
+</li>
+</ul>
+<p>The class has three methods:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__(self,</span> <span class="pre">data_path,</span> <span class="pre">sample_ids,</span> <span class="pre">train=False,</span> <span class="pre">transform=None,</span> <span class="pre">nr_channels=1)</span></code>: This method initializes the USPS dataset by loading images and labels from the given .h5 file. The dataset is filtered to include only images of the digits 7, 8, and 9, and the labels are remapped to the range [0, 2]. It takes the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data_path</span></code>: The path to the directory containing the USPS .h5 file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_ids</span></code>:  A list of indices specifying which samples to load from the dataset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train</span></code>: If <code class="docutils literal notranslate"><span class="pre">True</span></code> the dataset will load the images from the training set, otherwise, it loads images from the test set. (optional, default is <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transform</span></code>: A transformation function applied to each image for data augmentation. (optional, default is <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nr_channels</span></code>:  The number of channels in the images. The USPS dataset consists of grayscale images, so the default is 1.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__len__(self)</span></code>: This method returns the number of images in the dataset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__getitem__(self,</span> <span class="pre">id)</span></code>:  This method retrieves an image and its corresponding label from the dataset given an index <code class="docutils literal notranslate"><span class="pre">id</span></code>. If <code class="docutils literal notranslate"><span class="pre">transform</span></code>== <code class="docutils literal notranslate"><span class="pre">True</span></code>, the specified transformations are applied to the image.</p></li>
+</ol>
+</section>
+<section id="model-cnn">
+<h2>Model: CNN<a class="headerlink" href="#model-cnn" title="Link to this heading"></a></h2>
+<p>For the model, I was tasked to implement a simple Convolutional Neural Network (CNN) which is named <code class="docutils literal notranslate"><span class="pre">SolveigModel</span></code>.<br />
+The <code class="docutils literal notranslate"><span class="pre">SolveigModel</span></code> class inherits from <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> and is designed for image classification tasks.
+The model is flexible and can handle input images of different shapes. It dynamically determines the input size to the fully connected layer based on the input image dimensions.
+Additionally, the number of output classes is customizable.</p>
+<p>In PyTorch, any model that inherits from <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> must implement the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and <code class="docutils literal notranslate"><span class="pre">forward</span></code> methods.
+The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method is used to define the layers of the model, while the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method defines the flow of data through these layers.</p>
+<p>Besides these, the <code class="docutils literal notranslate"><span class="pre">SolveigModel</span></code> also includes the method <code class="docutils literal notranslate"><span class="pre">find_fc_input_shape</span></code>.
+Instead of manually calculating the number of input features for the FC layer, this helper function automatically computes the number of features passed to it after the image has been processed by the convolutional blocks.
+This dynamic approach ensures that the model can handle input images of varying sizes without requiring manual adjustments.</p>
+<p>The network is initialized with the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image_shape</span></code>: represents the input image shape (cannels, height, width)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code>: number of classes for the classification, which corresponds to the number of neurons in the final fully connected layer</p></li>
+</ul>
+<section id="network-structure">
+<h3>Network structure:<a class="headerlink" href="#network-structure" title="Link to this heading"></a></h3>
+<p>The assignment required a simple three-layer CNN, and I structured it with progressively increasing filters (25 → 50 → 100).
+This helps the network learn low-level (edges, textures) in early layers and high-level (shapes, objects) features in deeper layers.</p>
+<p>The architecture consists of three sequential blocks (<code class="docutils literal notranslate"><span class="pre">conv_block1</span></code>, <code class="docutils literal notranslate"><span class="pre">conv_block2</span></code>, <code class="docutils literal notranslate"><span class="pre">conv_block</span></code>) followed by a fully connected layer (<code class="docutils literal notranslate"><span class="pre">fc1</span></code>).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conv_block1</span></code>: 2D convolutional layer with a kernel size of 3x3 followed by a ReLu activation and max-pooling with a kernel size 2x2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conv_block2</span></code>: 2D convolutional layer with a kernel size of 3x3 followed by a ReLu activation, no max-pooling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conv_block3</span></code>: 2D convolutional layer with a kernel size of 3x3 followed by a ReLu activation, no max-pooling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fc1</span></code>: takes the flattened features from the convolutional blocks and predict the class logits</p></li>
+</ul>
+</section>
+<section id="forward-pass-of-an-image-through-the-network">
+<h3>Forward pass of an image through the network<a class="headerlink" href="#forward-pass-of-an-image-through-the-network" title="Link to this heading"></a></h3>
+<p>The forward function accepts a tensor of shape <code class="docutils literal notranslate"><span class="pre">(batch_Size,</span> <span class="pre">channels,</span> <span class="pre">height,</span> <span class="pre">width)</span></code>, representing a batch of input images.
+First, the input passes through  <code class="docutils literal notranslate"><span class="pre">conv_block1</span></code>, <code class="docutils literal notranslate"><span class="pre">conv_block2</span></code>, and <code class="docutils literal notranslate"><span class="pre">conv_block3</span></code> for feature extraction.
+The output from these convolutional blocks is then flattened into a 2D tensor of shape  <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">num_features)</span></code>, ensuring it can be passed to the fully connected layer  <code class="docutils literal notranslate"><span class="pre">fc1</span></code>.<br />
+Finally, the fully connected layer outputs a tensor of shape  <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">num_classes</span></code>), which contains the class logits.</p>
+</section>
+</section>
+<section id="metric-f1">
+<h2>Metric: F1<a class="headerlink" href="#metric-f1" title="Link to this heading"></a></h2>
+<p>The F1 score is a metric used to evaluate the performance of a classification model and is defined as
+$<span class="math notranslate nohighlight">\(
+F1 = 2 \frac{Precision * Recall}{Precision+Recall} = 2 \frac{TP}{2TP + FP + FN}.
+\)</span>$
+The class <code class="docutils literal notranslate"><span class="pre">F1Score</span></code> inherits from torch.nn.Module, which is the base class for all neural network modules in PyTorch.
+This allows it to seamlessly integrate into the PyTorch framework for model evaluation during training and inference.
+By inheriting from <code class="docutils literal notranslate"><span class="pre">torch.nn.module</span></code>, you can use this metric in the same way you would use other PyTorch metrics or layers.
+Since  <code class="docutils literal notranslate"><span class="pre">F1Score</span></code> inherits from <code class="docutils literal notranslate"><span class="pre">torch.nn.module</span></code>, it must implement the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and <code class="docutils literal notranslate"><span class="pre">forward</span></code> methods.
+These methods define the initialization and the computation process for the F1 score, respectively.</p>
+<p>It supports both micro-averaged and macro-averaged F1 scores, making it suitable for different types of classification problems.</p>
+<ul class="simple">
+<li><p><strong>Micro-averaged F1 Score:</strong> This method computes the F1 score globally by treating all predictions as equally important. It calculates the total true positives (TP), false positives (FP), and false negatives (FN) across all classes and then computes the F1 score. Micro averaging is often used when you have an imbalanced dataset and want to emphasize the performance across all instances equally, regardless of class.</p></li>
+<li><p><strong>Macro-averaged F1 Score:</strong> This method calculates the F1 score for each class independently and then averages the F1 scores across all classes. This is useful when you want to evaluate the model’s performance per class, which helps to understand how well the model performs across different classes, even if they are imbalanced.</p></li>
+</ul>
+<p>The class is initalized with two parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code>: The number of classes in the classification task</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code>:  If <code class="docutils literal notranslate"><span class="pre">True</span></code> the macro-averaged F1 score is computed else the micro-averaged F1 score (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forward(target,</span> <span class="pre">preds)</span></code>: This method first converts the logits (<code class="docutils literal notranslate"><span class="pre">preds</span></code>) to class indices and then stores the true labels (<code class="docutils literal notranslate"><span class="pre">target</span></code>) and predicted class indices in a list for the F1 computation. Storing the true labels and predictions allows for computing the F1 score over all the predictions after the entire dataset has been processed, instead of computing it batch-wise.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_micro_F1(target,</span> <span class="pre">preds)</span></code>: This method computes and returns the micro-averaged F1 score</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_macro_F1(target,</span> <span class="pre">preds)</span></code>: This method computes and returns the macro-averaged F1 score</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__returnmetric__</span></code>: This method computes and returns the F1 score based on the stored predictions and targets. If <code class="docutils literal notranslate"><span class="pre">macro_averaging</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> it computes the macro_averaged F1 score using the method <code class="docutils literal notranslate"><span class="pre">_macro_F1</span></code> else it uses the method <code class="docutils literal notranslate"><span class="pre">_micro_F1</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__reset__</span></code>: This method is essential to clear the stored predictions and true labels after each epoch. It resets the lists with the stored values, ensuring that they do not accumulate values across multiple epochs.</p></li>
+</ul>
+</section>
+</section>
+<section id="experiences-running-another-person-s-code">
+<h2>Experiences running another person’s code<a class="headerlink" href="#experiences-running-another-person-s-code" title="Link to this heading"></a></h2>
+<p>At the beginning of our project, we adopted a common code structure that would accommodate various wrappers managing the initialization and data flow of metrics, dataloaders, and models.
+To ensure smooth collaboration, we leveraged GitHub Actions for automated testing, which helped us validate the functionality of our dataloaders, metrics, and models.
+Once the various classes passed their tests, running code from other team members was no problem.</p>
+<p>However, in the beginning, I struggled to keep track of all the changes in the GitHub repository due to large pull requests containing multiple modifications, which made it hard to follow and understand the updates.
+To address this, we decided in our meetings to create a separate issue for each change.
+Subsequent pull requests would then address individual issues rather than combining multiple changes into a single pull request.
+This approach made it much easier to understand the changes.</p>
+</section>
+<section id="experiences-another-person-running-my-code">
+<h2>Experiences another person running my code<a class="headerlink" href="#experiences-another-person-running-my-code" title="Link to this heading"></a></h2>
+<p>During the process of another person running my code, I got informed about an issue with my F1 metric, where it failed to handle an unexpected edge case at runtime—something that the initial tests did not catch.
+Once the issue was raised, I was promptly informed, and I addressed the error.
+However, as mentioned earlier, there were times when large pull requests included multiple important changes, making it challenging to adjust my code accordingly.
+Despite this, the collaborative nature of the process allowed us to identify and resolve issues effectively, improving the overall stability and functionality of the code.</p>
+</section>
+<section id="tools">
+<h2>Tools<a class="headerlink" href="#tools" title="Link to this heading"></a></h2>
+<p>During the collaborative coding course, I had the opportunity to learn and work with several valuable tools that were new to me:</p>
+<ul class="simple">
+<li><p><strong>Docker</strong></p></li>
+<li><p><strong>Ruff and Isort</strong></p></li>
+<li><p><strong>Github Actions</strong></p></li>
+<li><p><strong>Sphinx documentation</strong></p></li>
+</ul>
+<p>During these course I realized how essential it is to have testing functions, especially in collaborative projects.
+Testing, along with GitHub Actions for automated workflows, helped keep the code robust and error-free.
+The Sphinx documentation tool also proved invaluable for generating project docs and tracking classes, making the codebase easier to understand.
+I also gained a lot of new knowledge about using Git, managing issues, assigning tasks, creating tags and releases, and making a repo pip-installable.
+Additionally, I learned how to add citations and licenses, which are crucial for proper project management.
+These tools significantly boosted my productivity and understanding of best practices in collaborative software development and code documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Johan_page.html" class="btn btn-neutral float-left" title="Individual task for Johan" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

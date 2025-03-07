@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CollaborativeCoding.dataloaders &mdash; Collaborative Coding Exam 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="CollaborativeCoding.dataloaders.datasources" href="datasources/index.html" />
+    <link rel="prev" title="CollaborativeCoding.createfolders" href="../createfolders/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Collaborative Coding Exam
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About this code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Magnus_page.html">Magnus Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Jan_page.html">Jan Individual Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../christian.html">Christian’s task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Johan_page.html">Individual task for Johan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Solveig.html">Solveig Individual Task</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">CollaborativeCoding</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../arg_parser/index.html">CollaborativeCoding.arg_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../createfolders/index.html">CollaborativeCoding.createfolders</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CollaborativeCoding.dataloaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../load_data/index.html">CollaborativeCoding.load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../load_metric/index.html">CollaborativeCoding.load_metric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../load_model/index.html">CollaborativeCoding.load_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../metrics/index.html">CollaborativeCoding.metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../models/index.html">CollaborativeCoding.models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Collaborative Coding Exam</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">CollaborativeCoding</a></li>
+      <li class="breadcrumb-item active">CollaborativeCoding.dataloaders</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/CollaborativeCoding/dataloaders/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-CollaborativeCoding.dataloaders">
+<span id="collaborativecoding-dataloaders"></span><h1>CollaborativeCoding.dataloaders<a class="headerlink" href="#module-CollaborativeCoding.dataloaders" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="datasources/index.html">CollaborativeCoding.dataloaders.datasources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download/index.html">CollaborativeCoding.dataloaders.download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mnist_0_3/index.html">CollaborativeCoding.dataloaders.mnist_0_3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mnist_4_9/index.html">CollaborativeCoding.dataloaders.mnist_4_9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svhn/index.html">CollaborativeCoding.dataloaders.svhn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usps_0_6/index.html">CollaborativeCoding.dataloaders.usps_0_6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uspsh5_7_9/index.html">CollaborativeCoding.dataloaders.uspsh5_7_9</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.Downloader" title="CollaborativeCoding.dataloaders.Downloader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Downloader</span></code></a></p></td>
+<td><p>Class used to verify availability and potentially download implemented datasets.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3" title="CollaborativeCoding.dataloaders.MNISTDataset0_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MNISTDataset0_3</span></code></a></p></td>
+<td><p>A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9" title="CollaborativeCoding.dataloaders.MNISTDataset4_9"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MNISTDataset4_9</span></code></a></p></td>
+<td><p>MNIST dataset of numbers 4-9.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.SVHNDataset" title="CollaborativeCoding.dataloaders.SVHNDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVHNDataset</span></code></a></p></td>
+<td><p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.USPSDataset0_6" title="CollaborativeCoding.dataloaders.USPSDataset0_6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">USPSDataset0_6</span></code></a></p></td>
+<td><p>Dataset class for USPS dataset with labels 0-6.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset" title="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">USPSH5_Digit_7_9_Dataset</span></code></a></p></td>
+<td><p>This class loads a subset of the USPS dataset, specifically images of digits 7, 8, and 9, from an HDF5 file.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">Downloader</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader" title="Link to this definition"></a></dt>
+<dd><p>Class used to verify availability and potentially download implemented datasets.</p>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>mnist(data_dir: Path) -&gt; tuple[np.ndarray, np.ndarray]</dt><dd><p>Checks the availability of mnist dataset. If not present downloads it into MNIST folder in <cite>data_dir</cite>.</p>
+</dd>
+<dt>svhn(data_dir: Path) -&gt; tuple[np.ndarray, np.ndarray]</dt><dd><p>Download the SVHN dataset and save it as an HDF5 file to <cite>data_dir</cite>.</p>
+</dd>
+<dt>usps(data_dir: Path) -&gt; tuple[np.ndarray, np.ndarray]</dt><dd><p>Download the USPS dataset and save it as an HDF5 file to <cite>data_dir</cite>.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>NotImplementedError</dt><dd><p>If the download method is not implemented for the dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">CollaborativeCoding</span> <span class="kn">import</span> <span class="n">Downloader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">Downloader</span><span class="p">()</span><span class="o">.</span><span class="n">usps</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.mnist">
+<span class="sig-name descname"><span class="pre">mnist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.mnist" title="Link to this definition"></a></dt>
+<dd><p>Check the availability of mnist dataset. If not present downloads it into MNIST folder in <cite>data_dir</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.svhn">
+<span class="sig-name descname"><span class="pre">svhn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.svhn" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.usps">
+<span class="sig-name descname"><span class="pre">usps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.usps" title="Link to this definition"></a></dt>
+<dd><p>Download the USPS dataset and save it as an HDF5 file to <cite>data_dir/usps.h5</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.__extract_usps">
+<span class="sig-name descname"><span class="pre">__extract_usps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.__extract_usps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.__reporthook">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__reporthook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocknum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocksize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">totalsize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.__reporthook" title="Link to this definition"></a></dt>
+<dd><p>Use this function to report download progress
+for the urllib.request.urlretrieve function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.Downloader.__check_integrity">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__check_integrity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.Downloader.__check_integrity" title="Link to this definition"></a></dt>
+<dd><p>Check the integrity of the USPS dataset file.</p>
+<section id="args">
+<h4>Args<a class="headerlink" href="#args" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>filepath<span class="classifier">pathlib.Path</span></dt><dd><p>Path to the USPS dataset file.</p>
+</dd>
+<dt>checksum<span class="classifier">str</span></dt><dd><p>MD5 checksum of the dataset file.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>bool</dt><dd><p>True if the checksum of the file matches the expected checksum, False otherwise</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">MNISTDataset0_3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>A custom Dataset class for loading a subset of the MNIST dataset containing digits 0 to 3.</p>
+<section id="id1">
+<h3>Args<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data_path<span class="classifier">Path</span></dt><dd><p>The root directory where the MNIST folder with data is stored.</p>
+</dd>
+<dt>sample_ids<span class="classifier">list</span></dt><dd><p>A list of indices specifying which samples to load.</p>
+</dd>
+<dt>train<span class="classifier">bool, optional</span></dt><dd><p>If True, load training data, otherwise load test data. Default is False.</p>
+</dd>
+<dt>transform<span class="classifier">callable, optional</span></dt><dd><p>A function/transform to apply to the images. Default is None.</p>
+</dd>
+</dl>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>mnist_path<span class="classifier">Path</span></dt><dd><p>The directory where the MNIST dataset is located within the root directory.</p>
+</dd>
+<dt>idx<span class="classifier">list</span></dt><dd><p>A list of indices specifying which samples to load.</p>
+</dd>
+<dt>train<span class="classifier">bool</span></dt><dd><p>Indicates whether to load training data or test data.</p>
+</dd>
+<dt>transform<span class="classifier">callable</span></dt><dd><p>A function/transform to apply to the images.</p>
+</dd>
+<dt>num_classes<span class="classifier">int</span></dt><dd><p>The number of classes in the dataset (0 to 3).</p>
+</dd>
+<dt>images_path<span class="classifier">Path</span></dt><dd><p>The path to the image file (train or test) based on the <cite>train</cite> flag.</p>
+</dd>
+<dt>labels_path<span class="classifier">Path</span></dt><dd><p>The path to the label file (train or test) based on the <cite>train</cite> flag.</p>
+</dd>
+<dt>length<span class="classifier">int</span></dt><dd><p>The number of samples in the dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h3>Methods<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>__len__()</dt><dd><p>Returns the number of samples in the dataset.</p>
+</dd>
+<dt>__getitem__(index)</dt><dd><p>Retrieves the image and label at the specified index.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.mnist_path">
+<span class="sig-name descname"><span class="pre">mnist_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.mnist_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.train">
+<span class="sig-name descname"><span class="pre">train</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.train" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.transform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.num_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.images_path">
+<span class="sig-name descname"><span class="pre">images_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.images_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.labels_path">
+<span class="sig-name descname"><span class="pre">labels_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.labels_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.length">
+<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.length" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.__len__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset0_3.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset0_3.__getitem__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">MNISTDataset4_9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>MNIST dataset of numbers 4-9.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data_path<span class="classifier">Path</span></dt><dd><p>Root directory where MNIST dataset is stored</p>
+</dd>
+<dt>sample_ids<span class="classifier">np.ndarray</span></dt><dd><p>Array of indices spcifying which samples to load. This determines the samples used by the dataloader.</p>
+</dd>
+<dt>train<span class="classifier">bool, optional</span></dt><dd><p>Whether to train the model or not, by default False</p>
+</dd>
+<dt>transorm<span class="classifier">callable, optional</span></dt><dd><p>Transform to apply to the images, by default None</p>
+</dd>
+<dt>nr_channels<span class="classifier">int, optional</span></dt><dd><p>Number of channels in the images, by default 1</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.data_path">
+<span class="sig-name descname"><span class="pre">data_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.data_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.mnist_path">
+<span class="sig-name descname"><span class="pre">mnist_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.mnist_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.samples">
+<span class="sig-name descname"><span class="pre">samples</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.samples" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.train">
+<span class="sig-name descname"><span class="pre">train</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.train" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.transform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.num_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.images_path">
+<span class="sig-name descname"><span class="pre">images_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.images_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.labels_path">
+<span class="sig-name descname"><span class="pre">labels_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.labels_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.label_shift">
+<span class="sig-name descname"><span class="pre">label_shift</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.label_shift" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.label_restore">
+<span class="sig-name descname"><span class="pre">label_restore</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.label_restore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.__len__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.MNISTDataset4_9.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.MNISTDataset4_9.__getitem__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">SVHNDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<p>All datasets that represent a map from keys to data samples should subclass
+it. All subclasses should overwrite <a class="reference internal" href="#CollaborativeCoding.dataloaders.SVHNDataset.__getitem__" title="CollaborativeCoding.dataloaders.SVHNDataset.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>, supporting fetching a
+data sample for a given key. Subclasses could also optionally overwrite
+<a class="reference internal" href="#CollaborativeCoding.dataloaders.SVHNDataset.__len__" title="CollaborativeCoding.dataloaders.SVHNDataset.__len__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code></a>, which is expected to return the size of the dataset by many
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code> implementations and the default options
+of <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. Subclasses could also
+optionally implement <code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitems__()</span></code>, for speedup batched samples
+loading. This method accepts list of indices of samples of batch and returns
+list of samples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code> by default constructs an index
+sampler that yields integral indices.  To make it work with a map-style
+dataset with non-integral indices/keys, a custom sampler must be provided.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.data_path">
+<span class="sig-name descname"><span class="pre">data_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.data_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.indexes">
+<span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.indexes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.split">
+<span class="sig-name descname"><span class="pre">split</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'train'</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.nr_channels">
+<span class="sig-name descname"><span class="pre">nr_channels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.nr_channels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.transforms">
+<span class="sig-name descname"><span class="pre">transforms</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.transforms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.num_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset._create_h5py">
+<span class="sig-name descname"><span class="pre">_create_h5py</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset._create_h5py" title="Link to this definition"></a></dt>
+<dd><p>Downloads the SVHN dataset to the specified directory.
+Args:</p>
+<blockquote>
+<div><p>path (str): The directory where the dataset will be downloaded.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of samples in the dataset.
+Returns:</p>
+<blockquote>
+<div><p>int: The number of samples.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.SVHNDataset.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.SVHNDataset.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the image and label at the specified index.
+Args:</p>
+<blockquote>
+<div><p>index (int): The index of the sample to retrieve.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>tuple: A tuple containing the image and its corresponding label.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">USPSDataset0_6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>Dataset class for USPS dataset with labels 0-6.</p>
+<section id="id3">
+<h3>Args<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data_path<span class="classifier">pathlib.Path</span></dt><dd><p>Path to the data directory.</p>
+</dd>
+<dt>train<span class="classifier">bool, optional</span></dt><dd><p>Mode of the dataset.</p>
+</dd>
+<dt>transform<span class="classifier">callable, optional</span></dt><dd><p>A function/transform that takes in a sample and returns a transformed version.</p>
+</dd>
+<dt>download<span class="classifier">bool, optional</span></dt><dd><p>Whether to download the Dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>Attributes<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>filepath<span class="classifier">pathlib.Path</span></dt><dd><p>Path to the USPS dataset file.</p>
+</dd>
+<dt>mode<span class="classifier">str</span></dt><dd><p>Mode of the dataset, either train or test.</p>
+</dd>
+<dt>transform<span class="classifier">callable</span></dt><dd><p>A function/transform that takes in a sample and returns a transformed version.</p>
+</dd>
+<dt>idx<span class="classifier">numpy.ndarray</span></dt><dd><p>Indices of samples with labels 0-6.</p>
+</dd>
+<dt>num_classes<span class="classifier">int</span></dt><dd><p>Number of classes in the dataset</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Methods<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>_index()</dt><dd><p>Get indices of samples with labels 0-6.</p>
+</dd>
+<dt>_load_data(idx)</dt><dd><p>Load data and target label from the dataset.</p>
+</dd>
+<dt>__len__()</dt><dd><p>Get the number of samples in the dataset.</p>
+</dd>
+<dt>__getitem__(idx)</dt><dd><p>Get a sample from the dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">src.datahandlers</span> <span class="kn">import</span> <span class="n">USPSDataset0_6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">)),</span>
+<span class="gp">... </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">USPSDataset0_6</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data_path</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">transform</span><span class="o">=</span><span class="n">transform</span>
+<span class="gp">... </span>    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="go">5460</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(1, 16, 16)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span>
+<span class="go">tensor([1., 0., 0., 0., 0., 0., 0.])</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'usps.h5'</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.filename" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.num_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.filepath" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.transform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'test'</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.sample_ids">
+<span class="sig-name descname"><span class="pre">sample_ids</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.sample_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.nr_channels">
+<span class="sig-name descname"><span class="pre">nr_channels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.nr_channels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.__len__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSDataset0_6.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSDataset0_6.__getitem__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CollaborativeCoding.dataloaders.</span></span><span class="sig-name descname"><span class="pre">USPSH5_Digit_7_9_Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
+<p>This class loads a subset of the USPS dataset, specifically images of digits 7, 8, and 9, from an HDF5 file.
+It allows for applying transformations to the images and provides methods to retrieve images and their corresponding labels.</p>
+<section id="id7">
+<h3>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data_path<span class="classifier">str or Path</span></dt><dd><p>Path to the directory containing the USPS <cite>.h5</cite> file. This file should contain the data in the “train” or “test” group.</p>
+</dd>
+<dt>sample_ids<span class="classifier">list of int</span></dt><dd><p>A list of sample indices to be used from the dataset. This allows for filtering or selecting a subset of the full dataset.</p>
+</dd>
+<dt>train<span class="classifier">bool, optional, default=False</span></dt><dd><p>If <cite>True</cite>, the dataset is loaded in training mode (using the “train” group). If <cite>False</cite>, the dataset is loaded in test mode (using the “test” group).</p>
+</dd>
+<dt>transform<span class="classifier">callable, optional, default=None</span></dt><dd><p>A transformation function to apply to each image. If <cite>None</cite>, no transformation is applied. Typically used for data augmentation or normalization.</p>
+</dd>
+<dt>nr_channels<span class="classifier">int, optional, default=1</span></dt><dd><p>The number of channels in the image. USPS images are typically grayscale, so this should generally be set to 1. This parameter allows for potential future flexibility.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3>Attributes<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>images<span class="classifier">numpy.ndarray</span></dt><dd><p>Array of images corresponding to digits 7, 8, and 9 from the USPS dataset. The images are loaded from the HDF5 file and filtered based on the labels.</p>
+</dd>
+<dt>labels<span class="classifier">numpy.ndarray</span></dt><dd><p>Array of labels corresponding to the images. Only labels of digits 7, 8, and 9 are retained, and they are mapped to 0, 1, and 2 for classification tasks.</p>
+</dd>
+<dt>transform<span class="classifier">callable, optional</span></dt><dd><p>A transformation function to apply to the images. This is passed as an argument during initialization.</p>
+</dd>
+<dt>label_shift<span class="classifier">function</span></dt><dd><p>A function to shift the labels for classification purposes. It maps the original labels (7, 8, 9) to (0, 1, 2).</p>
+</dd>
+<dt>label_restore<span class="classifier">function</span></dt><dd><p>A function to restore the original labels (7, 8, 9) from the shifted labels (0, 1, 2).</p>
+</dd>
+<dt>num_classes<span class="classifier">int</span></dt><dd><p>The number of unique labels in the dataset, which is 3 (for digits 7, 8, and 9).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'usps.h5'</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.filename" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.filepath" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.transform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'test'</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.h5_path">
+<span class="sig-name descname"><span class="pre">h5_path</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.h5_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.sample_ids">
+<span class="sig-name descname"><span class="pre">sample_ids</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.sample_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.nr_channels">
+<span class="sig-name descname"><span class="pre">nr_channels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.nr_channels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.num_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.images">
+<span class="sig-name descname"><span class="pre">images</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.images" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.labels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.label_shift">
+<span class="sig-name descname"><span class="pre">label_shift</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.label_shift" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.label_restore">
+<span class="sig-name descname"><span class="pre">label_restore</span></span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.label_restore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the total number of samples in the dataset.</p>
+<p>This method is required for PyTorch’s Dataset class, as it allows PyTorch to determine the size of the dataset.</p>
+<section id="id9">
+<h4>Returns<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>int</dt><dd><p>The number of images in the dataset (after filtering for digits 7, 8, and 9).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CollaborativeCoding.dataloaders.USPSH5_Digit_7_9_Dataset.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>Returns a sample from the dataset given an index.</p>
+<p>This method is required for PyTorch’s Dataset class, as it allows indexing into the dataset to retrieve specific samples.</p>
+<section id="id10">
+<h4>Parameters<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>idx<span class="classifier">int</span></dt><dd><p>The index of the sample to retrieve from the dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h4>Returns<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing:
+- image (PIL Image): The image at the specified index.
+- label (int): The label corresponding to the image, shifted to be in the range [0, 2] for classification.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../createfolders/index.html" class="btn btn-neutral float-left" title="CollaborativeCoding.createfolders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="datasources/index.html" class="btn btn-neutral float-right" title="CollaborativeCoding.dataloaders.datasources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SFI Visual Intelligence.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
